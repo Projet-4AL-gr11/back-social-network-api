@@ -24,9 +24,9 @@ export class AuthController {
 
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/signup')
+  @Post('signup')
   signUp(@Body() signUpDto: SignUpDto): Promise<User> {
-    this.logger.verbose('Registering!'); // logging status
+    this.logger.verbose('Registering!');
     return this.authService.register(signUpDto);
   }
 
