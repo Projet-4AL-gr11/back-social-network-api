@@ -17,17 +17,23 @@ import { LocalAuthenticationGuard } from './guards/auth.guard';
 import { RequestUser } from './interface/request-user.interface';
 import JwtAuthenticationGuard from './guards/jwt-auth.guard';
 import { Response } from 'express';
+import { CommandBus } from '@nestjs/cqrs';
+import { RegisterCommand } from './command/register.command';
 
 @Controller('auth')
 export class AuthController {
   private logger = new Logger('AuthController');
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('/signup')
   signUp(@Body() signUpDto: SignUpDto): Promise<User> {
-    this.logger.verbose('Registering!');
-    return this.authService.register(signUpDto);
+    return this.commandBus.execute(
+      new RegisterCommand(signUpDto.email, signUpDto.email, signUpDto.password),
+    );
   }
 
   @HttpCode(200)

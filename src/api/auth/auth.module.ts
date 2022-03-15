@@ -9,6 +9,9 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { UserRepository } from '../user/user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
+import { User } from "../user/entities/user.entity";
+import { RegisterHandler } from "./handler/register.handler";
+import { CqrsModule } from "@nestjs/cqrs";
 
 config();
 
@@ -21,10 +24,11 @@ config();
       },
     }),
     PassportModule,
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([User]),
     ConfigModule,
+    CqrsModule,
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RegisterHandler],
   controllers: [AuthController],
   exports: [AuthService],
 })

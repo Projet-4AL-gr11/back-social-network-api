@@ -1,43 +1,23 @@
-import { UserService } from '../user/user.service';
-import { SignUpDto } from './dto/sign-up.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { PostgresErrorCode } from './database/postgres-error-code.enum';
 import { User } from '../user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from './interface/token-payload.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '../user/user.repository';
+import { Repository } from 'typeorm';
 
 export class AuthService {
   constructor(
-    @InjectRepository(UserRepository)
-    private readonly userRepository: UserRepository,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(signUp: SignUpDto): Promise<User> {
-    try {
-      const createdUser = await this.userRepository.createUser({ ...signUp });
-      createdUser.password = undefined;
-      return createdUser;
-    } catch (error) {
-      if (error?.code === PostgresErrorCode.UniqueViolation) {
-        throw new HttpException(
-          'User with that email already exists',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-      throw new HttpException(
-        'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
-
   async login(username: string, plainTextPassword: string): Promise<User> {
     try {
-      const user = await this.userRepository.getByUsername(username);
+      const user = await this.userRepository.findOneOrFail({
+        username: username,
+      });
       await this.verifyPassword(plainTextPassword, user.password);
       user.password = undefined;
       return user;
