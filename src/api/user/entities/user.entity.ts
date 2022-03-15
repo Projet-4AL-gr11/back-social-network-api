@@ -9,11 +9,12 @@ import {
 import { hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @IsEmail()
   @Column({ unique: true, nullable: false })
@@ -37,6 +38,12 @@ export class User extends BaseEntity {
 
   @BeforeInsert()
   async setPassword(password: string) {
-    this.password = await hash(password || this.password, 10);
+    this.password = await bcrypt.hash(password || this.password, 10);
   }
+  //
+  // async validatePassword(password: string): Promise<boolean> {
+  //   const hash = await bcrypt.hash(password, 10);
+  //   return hash === this.password;
+  // }
+
 }

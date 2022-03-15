@@ -6,7 +6,6 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '../../user/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockedJwtService } from '../../../util/mocks/jwt.service';
-import { JwtStrategy } from '../strategy/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import { mockedConfigService } from '../../../util/mocks/config.service';
 
@@ -43,10 +42,4 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('when creating a cookie', () => {
-    it('should return a string', () => {
-      const userId = 1;
-      expect(typeof service.getCookieWithJwtToken(userId)).toEqual('string');
-    });
-  });
 });

@@ -6,16 +6,19 @@ import { User } from '../user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from './interface/token-payload.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserRepository } from '../user/user.repository';
 
 export class AuthService {
   constructor(
-    private readonly usersService: UserService,
+    @InjectRepository(UserRepository)
+    private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
   ) {}
 
   async register(signUp: SignUpDto): Promise<User> {
     try {
-      const createdUser = await this.usersService.create({ ...signUp });
+      const createdUser = await this.userRepository.createUser({ ...signUp });
       createdUser.password = undefined;
       return createdUser;
     } catch (error) {
@@ -34,7 +37,7 @@ export class AuthService {
 
   async login(username: string, plainTextPassword: string): Promise<User> {
     try {
-      const user = await this.usersService.getByUsername(username);
+      const user = await this.userRepository.getByUsername(username);
       await this.verifyPassword(plainTextPassword, user.password);
       user.password = undefined;
       return user;
@@ -62,7 +65,7 @@ export class AuthService {
     }
   }
 
-  public getCookieWithJwtToken(userId: number) {
+  public getCookieWithJwtToken(userId: string) {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_EXPIRATION_TIME}`;

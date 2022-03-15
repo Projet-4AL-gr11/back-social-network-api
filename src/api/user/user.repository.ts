@@ -13,7 +13,7 @@ export class UserRepository extends Repository<User> {
     try {
       const newUser = new User();
       newUser.email = createUserDto.email;
-      newUser.password = await this.hashPassword(createUserDto.password);
+      newUser.password = createUserDto.password;
       newUser.username = createUserDto.username;
       const err = await validate(newUser);
       if (err.length > 0) {
@@ -27,7 +27,13 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, 10);
+  async getByUsername(username: string): Promise<User> {
+    return await this.findOneOrFail({
+      username: username,
+    });
+  }
+
+  getById(userId: string): Promise<User> {
+    return this.findOneOrFail(userId);
   }
 }

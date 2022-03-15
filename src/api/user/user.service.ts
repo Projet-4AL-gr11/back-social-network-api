@@ -1,8 +1,8 @@
-import { UserRepository } from "./user.repository";
-import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import { UserDto } from "./dto/user.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { UserRepository } from './user.repository';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { UserDto } from './dto/user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -34,7 +34,7 @@ export class UserService {
 
   async getByUsername(username: string) {
     try {
-      return await this.userRepository.findOneOrFail(username);
+      return await this.userRepository.getByUsername(username);
     } catch (error) {
       throw new HttpException(
         'User with this username does not exist',
@@ -43,8 +43,8 @@ export class UserService {
     }
   }
 
-  async getById(id: number) {
-    const user = await this.userRepository.findOne({ id });
+  async getById(id: string) {
+    const user = await this.userRepository.getById(id);
     if (user) {
       return user;
     }
