@@ -4,12 +4,13 @@ import {
   Entity,
   BeforeInsert,
   OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn, DeleteDateColumn
+} from "typeorm";
 import { hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
 import * as bcrypt from 'bcrypt';
+import { Delete } from "@nestjs/common";
 
 @Entity()
 export class User extends BaseEntity {

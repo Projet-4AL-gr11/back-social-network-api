@@ -1,6 +1,5 @@
 import { ContextCreator } from '@nestjs/core/helpers/context-creator';
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,9 +7,8 @@ import {
   Logger,
   Param,
   Patch,
-  Post, Put,
-  UseGuards
-} from "@nestjs/common";
+  UseGuards,
+} from '@nestjs/common';
 import { UpdateUserDto } from './domain/dto/update-user.dto';
 import JwtAuthenticationGuard from '../auth/guards/jwt-auth.guard';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -35,11 +33,13 @@ export class UserController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthenticationGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.commandBus.execute(new UpdateUserCommand(id, updateUserDto));
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthenticationGuard)
   remove(@Param('id') id: string) {
     return this.commandBus.execute(new DeleteUserCommand(id));
   }
