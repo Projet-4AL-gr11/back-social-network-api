@@ -81,6 +81,36 @@ describe('AuthController', () => {
           })
           .expect(400);
       });
+      it('should throw an error Username less than 5 carac', () => {
+        return request(app.getHttpServer())
+          .post('/auth/signup')
+          .send({
+            email: mockedUser.email,
+            username: 'test',
+            password: 'strongPassword',
+          })
+          .expect(500);
+      });
+      it('should throw an error Username more than 20 carac', () => {
+        return request(app.getHttpServer())
+          .post('/auth/signup')
+          .send({
+            email: mockedUser.email,
+            username: 'billybillybillybillyT',
+            password: 'strongPassword',
+          })
+          .expect(500);
+      });
+      it('should throw an error invalid email', () => {
+        return request(app.getHttpServer())
+          .post('/auth/signup')
+          .send({
+            email: 'aquequoi@az',
+            username: mockedUser.username,
+            password: 'strongPassword',
+          })
+          .expect(400);
+      });
     });
   });
 });
