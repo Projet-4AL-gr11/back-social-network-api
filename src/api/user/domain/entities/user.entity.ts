@@ -40,10 +40,4 @@ export class User extends BaseEntity {
   async setPassword(password: string) {
     this.password = await bcrypt.hash(password || this.password, 10);
   }
-  //
-  // async validatePassword(password: string): Promise<boolean> {
-  //   const hash = await bcrypt.hash(password, 10);
-  //   return hash === this.password;
-  // }
-
 }

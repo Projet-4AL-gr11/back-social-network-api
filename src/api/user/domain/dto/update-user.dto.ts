@@ -3,5 +3,6 @@ import { PartialType } from '@nestjs/mapped-types';
 
 export class UpdateUserDto extends PartialType(UserDto) {
   email: string;
-  password: string;
+  username: string;
+  password?: string;
 }

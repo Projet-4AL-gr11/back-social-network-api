@@ -6,7 +6,7 @@ import { config } from 'dotenv';
 import { AuthModule } from './api/auth/auth.module';
 import { UserModule } from './api/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './api/user/entities/user.entity';
+import { User } from './api/user/domain/entities/user.entity';
 
 config();
 
