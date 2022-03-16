@@ -2,7 +2,9 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetUserQuery } from '../query/get-user.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { User } from '../../domain/entities/user.entity';
+import { UserResponse } from '../../domain/response/user.response';
+import { UserListResponse } from '../../domain/response/user-list.response';
 
 @QueryHandler(GetUserQuery)
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {
@@ -13,8 +15,19 @@ export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 
   async execute(query: GetUserQuery) {
     if (query.userId) {
-      return this.userRepository.findOneOrFail(query.userId);
+      const user: UserResponse = {
+        ...(await this.userRepository.findOneOrFail(query.userId)),
+      };
+      return user;
     }
-    return this.userRepository.find();
+    const userListResponse: UserListResponse = new UserListResponse();
+    await this.userRepository.find().then((userList) => {
+      userList.forEach((user) => {
+        userListResponse.userList.push(
+          new UserResponse(user.id, user.username, user.email, user.userType),
+        );
+      });
+    });
+    return userListResponse;
   }
 }

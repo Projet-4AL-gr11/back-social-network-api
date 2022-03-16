@@ -8,46 +8,39 @@ import {
   Logger,
   Param,
   Patch,
-  Post, UseGuards
+  Post, Put,
+  UseGuards
 } from "@nestjs/common";
-import { UserService } from './user.service';
-import { UserDto } from './dto/user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './domain/dto/update-user.dto';
 import JwtAuthenticationGuard from '../auth/guards/jwt-auth.guard';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { GetUserQuery } from './cqrs/query/get-user.query';
+import { UpdateUserCommand } from './cqrs/command/update-user.command';
+import { DeleteUserCommand } from './cqrs/command/delete-user.command';
 
 @Controller('user')
 export class UserController {
   private logger = new Logger('UserController');
 
-  constructor(private readonly userService: UserService) {}
-
-  @Post()
-  @UseGuards(JwtAuthenticationGuard)
-  create(@Body() createUserDto: UserDto) {
-    this.logger.verbose(
-      'New User have registered with username ' + createUserDto.username,
-    );
-    return this.userService.create(createUserDto);
-  }
+  constructor(private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   @Get()
   findAll() {
-    return this.userService.findAll();
+    return this.queryBus.execute(new GetUserQuery());
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.queryBus.execute(new GetUserQuery(id));
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthenticationGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.commandBus.execute(new UpdateUserCommand(id, updateUserDto));
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.commandBus.execute(new DeleteUserCommand(id));
   }
 }
