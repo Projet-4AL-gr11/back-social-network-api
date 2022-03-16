@@ -30,8 +30,9 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
       if (err.length > 0) {
         throw err;
       }
-      await newUser.save();
+      await this.userRepository.save(newUser);
       this.logger.verbose('New user have registered ' + newUser.username);
+      delete newUser.password;
       return newUser;
     } catch (error) {
       this.logger.error('Failed to register account');

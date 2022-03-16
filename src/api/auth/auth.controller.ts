@@ -32,7 +32,11 @@ export class AuthController {
   @Post('/signup')
   signUp(@Body() signUpDto: SignUpDto): Promise<User> {
     return this.commandBus.execute(
-      new RegisterCommand(signUpDto.email, signUpDto.email, signUpDto.password),
+      new RegisterCommand(
+        signUpDto.username,
+        signUpDto.email,
+        signUpDto.password,
+      ),
     );
   }
 
