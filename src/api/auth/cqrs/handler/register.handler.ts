@@ -1,7 +1,7 @@
 import { RegisterCommand } from '../command/register.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
 import {
   HttpException,
@@ -13,14 +13,14 @@ import { validate } from 'class-validator';
 
 @CommandHandler(RegisterCommand)
 export class RegisterHandler implements ICommandHandler<RegisterCommand> {
-  logger = new Logger('RegisterCommand');
+  logger = new Logger('RegisterHandler');
 
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
-  async execute(command: RegisterCommand): Promise<any> {
+  async execute(command: RegisterCommand): Promise<User> {
     try {
       const newUser = new User();
       newUser.email = command.email;

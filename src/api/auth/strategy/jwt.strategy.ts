@@ -5,7 +5,7 @@ import { Strategy } from 'passport-jwt';
 import { TokenPayload } from '../interface/token-payload.interface';
 import { Request } from 'express';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

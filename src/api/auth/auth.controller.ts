@@ -12,13 +12,13 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { User } from '../user/entities/user.entity';
+import { User } from '../user/domain/entities/user.entity';
 import { LocalAuthenticationGuard } from './guards/auth.guard';
 import { RequestUser } from './interface/request-user.interface';
 import JwtAuthenticationGuard from './guards/jwt-auth.guard';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
-import { RegisterCommand } from './command/register.command';
+import { RegisterCommand } from './cqrs/command/register.command';
 
 @Controller('auth')
 export class AuthController {

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { User } from '../user/entities/user.entity';
+import { User } from '../user/domain/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from './interface/token-payload.interface';

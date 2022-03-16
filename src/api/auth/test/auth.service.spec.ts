@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../auth.service';
-import { UserService } from '../../user/user.service';
-import { UserRepository } from '../../user/user.repository';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../user/domain/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockedJwtService } from '../../../util/mocks/jwt.service';
 import { ConfigService } from '@nestjs/config';
@@ -18,8 +16,6 @@ describe('AuthService', () => {
       imports: [],
       providers: [
         AuthService,
-        UserService,
-        UserRepository,
         {
           provide: ConfigService,
           useValue: mockedConfigService,
