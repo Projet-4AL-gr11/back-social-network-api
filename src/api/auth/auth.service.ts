@@ -18,7 +18,12 @@ export class AuthService {
       const user = await this.userRepository.findOneOrFail({
         username: username,
       });
-      await this.verifyPassword(plainTextPassword, user.password);
+      if (!(await this.verifyPassword(plainTextPassword, user.password))) {
+        throw new HttpException(
+          'Wrong credentials provided',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
       user.password = undefined;
       return user;
     } catch (error) {
@@ -29,20 +34,11 @@ export class AuthService {
     }
   }
 
-  private async verifyPassword(
+  public async verifyPassword(
     plainTextPassword: string,
     hashedPassword: string,
   ) {
-    const isPasswordMatching = await bcrypt.compare(
-      plainTextPassword,
-      hashedPassword,
-    );
-    if (!isPasswordMatching) {
-      throw new HttpException(
-        'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    return await bcrypt.compare(plainTextPassword, hashedPassword);
   }
 
   public getCookieWithJwtToken(userId: string) {
