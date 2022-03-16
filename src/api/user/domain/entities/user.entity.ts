@@ -11,7 +11,8 @@ import { hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
 import * as bcrypt from 'bcrypt';
-import { FriendRequest } from '../../../friend-request/domain/entities/friendship-request.entity';
+import { FriendshipRequest } from '../../../friendship/domain/entities/friendship-request.entity';
+import { Friendship } from '../../../friendship/domain/entities/friendship.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -38,16 +39,27 @@ export class User extends BaseEntity {
   })
   userType: UserType;
 
-  @OneToMany(() => FriendRequest, (friendRequest) => friendRequest.user, {
+  @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,
     onDelete: 'SET NULL',
   })
-  friendRequests: FriendRequest[];
-  @OneToMany(() => FriendRequest, (friendRequest) => friendRequest.sender, {
+  friendsOne: Friendship[];
+  @OneToMany(() => Friendship, (friendship) => friendship.friendTwo, {
     cascade: true,
     onDelete: 'SET NULL',
   })
-  requestedFriends: FriendRequest[];
+  friendsTwo: Friendship[];
+
+  @OneToMany(() => FriendshipRequest, (friendRequest) => friendRequest.user, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  friendRequests: FriendshipRequest[];
+  @OneToMany(() => FriendshipRequest, (friendRequest) => friendRequest.sender, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  requestedFriends: FriendshipRequest[];
 
   @BeforeInsert()
   async setPassword(password: string) {

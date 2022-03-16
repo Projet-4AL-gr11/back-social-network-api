@@ -2,7 +2,7 @@ import { CreateDateColumn, Entity, ManyToOne } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 
 @Entity()
-export class FriendRequest {
+export class FriendshipRequest {
   @ManyToOne(() => User, (user) => user, {
     primary: true,
     eager: true,

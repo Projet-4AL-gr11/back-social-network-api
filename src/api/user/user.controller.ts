@@ -18,8 +18,6 @@ import { DeleteUserCommand } from './cqrs/command/delete-user.command';
 
 @Controller('user')
 export class UserController {
-  private logger = new Logger('UserController');
-
   constructor(private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   @Get()
