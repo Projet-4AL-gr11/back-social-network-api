@@ -4,13 +4,14 @@ import {
   Entity,
   BeforeInsert,
   OneToMany,
-  PrimaryGeneratedColumn, DeleteDateColumn
-} from "typeorm";
+  PrimaryGeneratedColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 import { hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
 import * as bcrypt from 'bcrypt';
-import { Delete } from "@nestjs/common";
+import { FriendRequest } from '../../../friend-request/domain/entities/friendship-request.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -36,6 +37,17 @@ export class User extends BaseEntity {
     nullable: false,
   })
   userType: UserType;
+
+  @OneToMany(() => FriendRequest, (friendRequest) => friendRequest.user, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  friendRequests: FriendRequest[];
+  @OneToMany(() => FriendRequest, (friendRequest) => friendRequest.sender, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  requestedFriends: FriendRequest[];
 
   @BeforeInsert()
   async setPassword(password: string) {

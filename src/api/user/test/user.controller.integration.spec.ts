@@ -159,7 +159,7 @@ describe('UserControllerIntegration', () => {
           username: 'hohoho',
           email: 'hohoho@gmail.com',
           userType: UserType.USER,
-        }
+        };
         return request(app.getHttpServer())
           .patch('/user/1')
           .send({
