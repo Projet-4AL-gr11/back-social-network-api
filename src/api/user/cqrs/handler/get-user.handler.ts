@@ -28,6 +28,6 @@ export class GetUserHandler implements IQueryHandler<GetUserQuery> {
         );
       });
     });
-    return userListResponse;
+    return userListResponse.userList;
   }
 }

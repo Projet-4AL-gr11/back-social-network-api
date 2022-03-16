@@ -1,30 +1,28 @@
-import { AuthController } from '../auth.controller';
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../auth.service';
-import { User } from '../../user/domain/entities/user.entity';
+import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { UserDto } from '../../user/domain/dto/user.dto';
 import { ConfigService } from '@nestjs/config';
 import { mockedConfigService } from '../../../util/mocks/config.service.mock';
 import { JwtService } from '@nestjs/jwt';
 import { mockedJwtService } from '../../../util/mocks/jwt.service.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import mockedUser from '../../../util/mocks/dto/user.dto.mock';
 import * as request from 'supertest';
+import { AuthService } from '../auth.service';
+import { User } from '../../user/domain/entities/user.entity';
+import { UserDto } from '../../user/domain/dto/user.dto';
 import { CqrsModule } from '@nestjs/cqrs';
+import { mockUser } from '../../../util/mocks/dto/user.dto.mock';
+import { AuthController } from '../auth.controller';
 import { RegisterHandler } from '../cqrs/handler/register.handler';
 
-describe('AuthController', () => {
-  let authController: AuthController;
-  let module: TestingModule;
+describe('AuthControllerIntegration', () => {
   let app: INestApplication;
   let userData: UserDto;
 
   beforeEach(async () => {
     userData = {
-      ...mockedUser,
+      ...mockUser,
     };
-    const usersRepository = {
+    const userRepository = {
       create: jest.fn().mockResolvedValue(userData),
       save: jest.fn().mockReturnValue(Promise.resolve()),
     };
@@ -45,7 +43,7 @@ describe('AuthController', () => {
         },
         {
           provide: getRepositoryToken(User),
-          useValue: usersRepository,
+          useValue: userRepository,
         },
       ],
     }).compile();
@@ -64,8 +62,8 @@ describe('AuthController', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            email: mockedUser.email,
-            username: mockedUser.username,
+            email: mockUser.email,
+            username: mockUser.username,
             password: 'strongPassword',
           })
           .expect(201)
@@ -77,7 +75,7 @@ describe('AuthController', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            username: mockedUser.username,
+            username: mockUser.username,
           })
           .expect(400);
       });
@@ -85,7 +83,7 @@ describe('AuthController', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            email: mockedUser.email,
+            email: mockUser.email,
             username: 'test',
             password: 'strongPassword',
           })
@@ -95,7 +93,7 @@ describe('AuthController', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            email: mockedUser.email,
+            email: mockUser.email,
             username: 'billybillybillybillyT',
             password: 'strongPassword',
           })
@@ -106,7 +104,7 @@ describe('AuthController', () => {
           .post('/auth/signup')
           .send({
             email: 'aquequoi@az',
-            username: mockedUser.username,
+            username: mockUser.username,
             password: 'strongPassword',
           })
           .expect(400);
