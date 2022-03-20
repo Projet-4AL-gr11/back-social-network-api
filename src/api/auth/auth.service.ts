@@ -9,6 +9,7 @@ import { SetCurrentRefreshTokenCommand } from '../user/cqrs/command/set-current-
 import { CommandBus } from '@nestjs/cqrs';
 import { SignUpDto } from './dto/sign-up.dto';
 import { RegisterCommand } from './cqrs/command/register.command';
+import { GetUserLoginQuery } from '../user/cqrs/query/get-user-login.query';
 
 export class AuthService {
   constructor(
@@ -30,10 +31,10 @@ export class AuthService {
 
   async login(username: string, plainTextPassword: string): Promise<User> {
     try {
-      const user = await this.userRepository.findOneOrFail({
-        where: [{ username: username }],
-        select: ['id', 'username', 'password'],
-      });
+      const user = await this.commandBus.execute(
+        new GetUserLoginQuery(username),
+      );
+
       if (!(await this.verifyPassword(plainTextPassword, user.password))) {
         throw new HttpException(
           'Wrong credentials provided',

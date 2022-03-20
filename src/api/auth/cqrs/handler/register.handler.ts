@@ -1,5 +1,5 @@
 import { RegisterCommand } from '../command/register.command';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -10,7 +10,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { InvalidClassException } from "@nestjs/core/errors/exceptions/invalid-class.exception";
+import { InvalidClassException } from '@nestjs/core/errors/exceptions/invalid-class.exception';
+import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 
 @CommandHandler(RegisterCommand)
 export class RegisterHandler implements ICommandHandler<RegisterCommand> {
@@ -19,6 +20,7 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private eventBus: EventBus,
   ) {}
 
   async execute(command: RegisterCommand): Promise<User> {
@@ -29,7 +31,9 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
       newUser.username = command.username;
       const err = await validate(newUser);
       if (err.length > 0) {
-        this.logger.error('Invalid parameters');
+        this.eventBus.publish(
+          new ErrorsEvent('Register', 'Invalid parameters'),
+        );
         throw new InvalidClassException('Parameter not validate');
       }
       await this.userRepository.save(newUser);
@@ -37,7 +41,9 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
       delete newUser.password;
       return newUser;
     } catch (error) {
-      this.logger.error('Failed to register account');
+      this.eventBus.publish(
+        new ErrorsEvent('RegisterHandler', 'Failed to register account'),
+      );
       throw new InternalServerErrorException('Internal Server Error!');
     }
   }

@@ -1,4 +1,3 @@
-import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { AuthService } from './auth.service';
 import {
@@ -15,15 +14,12 @@ import {
 import { User } from '../user/domain/entities/user.entity';
 import { LocalAuthenticationGuard } from './guards/auth.guard';
 import { RequestUser } from './interface/request-user.interface';
-import JwtAuthenticationGuard from './guards/jwt-auth.guard';
 import { Response } from 'express';
 import JwtRefreshGuard from './guards/jwt-refresh-token.guard';
 import { UserService } from '../user/user.service';
-import { JwtRefreshTokenStrategy } from "./strategy/jwt-refresh-token.strategy";
 
 @Controller('auth')
 export class AuthController {
-  private logger = new Logger('AuthController');
 
   constructor(
     private readonly userService: UserService,
@@ -39,7 +35,7 @@ export class AuthController {
   @UseGuards(LocalAuthenticationGuard)
   @Post('/signin')
   async signIn(@Req() request: RequestUser, @Res() response: Response) {
-    const { user }  = request;
+    const { user } = request;
     const accessTokenCookie = this.authService.getCookieWithJwtToken(user.id);
     const refreshTokenCookie = this.authService.getCookieWithJwtRefreshToken(
       user.id,
@@ -57,7 +53,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('/signout')
+  @Post('signout')
   async logOut(@Req() request: RequestUser, @Res() response: Response) {
     await this.userService.removeRefreshToken(request.user.id);
     response.setHeader('Set-Cookie', this.authService.getCookieForLogOut());

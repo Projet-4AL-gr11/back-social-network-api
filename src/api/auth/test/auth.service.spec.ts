@@ -11,6 +11,7 @@ import { config } from 'dotenv';
 import { UserRepositoryMock } from '../../../util/mocks/repository/user.repository.mock';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import { UserDto } from '../../user/domain/dto/user.dto';
+import { CommandBus, CqrsModule } from '@nestjs/cqrs';
 
 config();
 
@@ -20,6 +21,8 @@ describe('AuthService', () => {
   let bcryptCompare: jest.Mock;
   let userData: UserDto;
   let findOneOrFail: jest.Mock;
+  let commandBus: jest.Mock;
+
   const mockedUser: UserDto = {
     ...{
       id: '1',
@@ -30,6 +33,8 @@ describe('AuthService', () => {
     },
   };
   beforeEach(async () => {
+    commandBus = jest.fn().mockResolvedValue('');
+
     userData = {
       ...mockedUser,
     };
@@ -39,6 +44,7 @@ describe('AuthService', () => {
     };
     app = await Test.createTestingModule({
       imports: [
+        CqrsModule,
         UserRepositoryMock,
         JwtModule.register({
           secret: process.env.JWT_SECRET,
@@ -50,6 +56,12 @@ describe('AuthService', () => {
       ],
       providers: [
         AuthService,
+        {
+          provide: CommandBus,
+          useValue: {
+            execute: commandBus,
+          },
+        },
         {
           provide: ConfigService,
           useValue: mockedConfigService,
@@ -77,9 +89,30 @@ describe('AuthService', () => {
       const userId = '1';
       expect(typeof service.getCookieWithJwtToken(userId)).toEqual('string');
     });
+    it('should return a string', () => {
+      const userId = '1';
+      expect(typeof service.getCookieWithJwtRefreshToken(userId)).toEqual(
+        'string',
+      );
+    });
   });
 
   describe('when registering', () => {
+    describe('sign-up', () => {
+      beforeEach(() => {
+        commandBus.mockResolvedValue(mockedUser);
+      });
+      it('should  return with registered user', async () => {
+        expect(
+          await service.signup({
+            username: 'jhon',
+            email: 'user@email.com',
+            password: 'hash',
+          }),
+        ).toEqual(userData);
+      });
+    });
+
     it('should return true ', async () => {
       const plainText = '1234';
       const hash = await bcrypt.hash('1234', 10);
@@ -95,9 +128,10 @@ describe('AuthService', () => {
 
   describe('when log-out', () => {
     it('should return a string', () => {
-      expect(service.getCookieForLogOut()).toEqual(
+      expect(service.getCookieForLogOut()).toEqual([
         'Authentication=; HttpOnly; Path=/; Max-Age=0',
-      );
+        'Refresh=; HttpOnly; Path=/; Max-Age=0',
+      ]);
     });
   });
 
@@ -125,6 +159,7 @@ describe('AuthService', () => {
         describe('and the user is found in the database', () => {
           beforeEach(() => {
             findOneOrFail.mockResolvedValue(userData);
+            commandBus.mockResolvedValue(userData);
           });
           it('should return the user data', async () => {
             const user = await service.login('John', 'hash');
