@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 import { User } from '../../user/domain/entities/user.entity';
 import { UserDto } from '../../user/domain/dto/user.dto';
 import { CqrsModule } from '@nestjs/cqrs';
-import { mockUser } from '../../../util/mocks/dto/user.dto.mock';
+import { mockUserDto } from '../../../util/mocks/dto/user.dto.mock';
 import { AuthController } from '../auth.controller';
 import { RegisterHandler } from '../cqrs/handler/register.handler';
 
@@ -20,7 +20,7 @@ describe('AuthControllerIntegration', () => {
 
   beforeEach(async () => {
     userData = {
-      ...mockUser,
+      ...mockUserDto,
     };
     const userRepository = {
       create: jest.fn().mockResolvedValue(userData),
@@ -62,8 +62,8 @@ describe('AuthControllerIntegration', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            email: mockUser.email,
-            username: mockUser.username,
+            email: mockUserDto.email,
+            username: mockUserDto.username,
             password: 'strongPassword',
           })
           .expect(201)
@@ -75,39 +75,39 @@ describe('AuthControllerIntegration', () => {
         return request(app.getHttpServer())
           .post('/auth/signup')
           .send({
-            username: mockUser.username,
+            username: mockUserDto.username,
           })
           .expect(400);
       });
       it('should throw an error Username less than 5 carac', () => {
-        return request(app.getHttpServer())
-          .post('/auth/signup')
-          .send({
-            email: mockUser.email,
+        expect(
+          request(app.getHttpServer()).post('/auth/signup').send({
+            email: mockUserDto.email,
             username: 'test',
             password: 'strongPassword',
-          })
-          .expect(500);
+          }),
+        ).rejects.toThrow();
       });
       it('should throw an error Username more than 20 carac', () => {
-        return request(app.getHttpServer())
-          .post('/auth/signup')
-          .send({
-            email: mockUser.email,
+        expect(
+          request(app.getHttpServer()).post('/auth/signup').send({
+            email: mockUserDto.email,
             username: 'billybillybillybillyT',
             password: 'strongPassword',
-          })
-          .expect(500);
+          }),
+        ).rejects.toThrow();
       });
       it('should throw an error invalid email', () => {
-        return request(app.getHttpServer())
-          .post('/auth/signup')
-          .send({
-            email: 'aquequoi@az',
-            username: mockUser.username,
-            password: 'strongPassword',
-          })
-          .expect(400);
+        expect(
+          request(app.getHttpServer())
+            .post('/auth/signup')
+            .send({
+              email: 'aquequoi@az',
+              username: mockUserDto.username,
+              password: 'strongPassword',
+            })
+            .expect(400),
+        ).rejects.toThrow();
       });
     });
   });

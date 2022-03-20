@@ -8,7 +8,9 @@ import { config } from 'dotenv';
 config();
 async function bootstrap() {
   const logger = new Logger('bootstrap');
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
     origin: [process.env.ALLOW_ORIGIN, 'http://127.0.0.1:4200'],
@@ -23,7 +25,6 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());
   await app.listen(process.env.PORT);
-  logger.log(`Application started on port ${process.env.PORT}`);
-  logger.log(app.getUrl());
+  logger.log(`Application started on port ` + (await app.getUrl()));
 }
-bootstrap();
+bootstrap().then();

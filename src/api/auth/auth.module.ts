@@ -5,12 +5,13 @@ import { LocalStrategy } from './strategy/passport-local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { JwtStrategy } from './strategy/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { User } from '../user/domain/entities/user.entity';
 import { RegisterHandler } from './cqrs/handler/register.handler';
 import { CqrsModule } from '@nestjs/cqrs';
+import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
+import { UserService } from "../user/user.service";
 
 config();
 
@@ -27,7 +28,13 @@ config();
     ConfigModule,
     CqrsModule,
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, RegisterHandler],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtRefreshTokenStrategy,
+    RegisterHandler,
+    UserService,
+  ],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -4,7 +4,7 @@ import { User } from '../../../api/user/domain/entities/user.entity';
 import { UserResponse } from '../../../api/user/domain/response/user.response';
 import { UserListResponse } from '../../../api/user/domain/response/user-list.response';
 
-export const mockUser: UserDto = {
+export const mockUserDto: UserDto = {
   ...{
     id: '1',
     email: 'user@email.com',
@@ -13,6 +13,20 @@ export const mockUser: UserDto = {
     userType: UserType.USER,
   },
 };
+
+export const mockUser1: User = new User();
+mockUser1.id = '1';
+mockUser1.email = 'user@email.com';
+mockUser1.username = 'billy';
+mockUser1.password = 'hash';
+mockUser1.userType = UserType.USER;
+
+export const mockUser2: User = new User();
+mockUser2.id = '2';
+mockUser2.email = 'user2@email.com';
+mockUser2.username = 'billy2';
+mockUser2.password = 'hash';
+mockUser2.userType = UserType.USER;
 
 export const mockedUserList: UserDto[] = [
   {
