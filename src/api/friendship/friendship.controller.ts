@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Delete,
   Get,
@@ -9,25 +8,17 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { RequestUser } from '../auth/interface/request-user.interface';
-import { GetSentFriendshipRequestQuery } from './cqrs/query/get-sent-friendship-request.query';
-import { GetReceivedFriendshipRequestQuery } from './cqrs/query/get-received-friendship-request.query';
-import { GetStatusFriendshipQuery } from './cqrs/query/get-status-friendship.query';
-import { SendFriendshipRequestCommand } from './cqrs/command/send-friendship-request.command';
-import { AcceptFriendshipRequestCommand } from './cqrs/command/accept-friendship-request.command';
-import { CancelFriendshipRequestCommand } from './cqrs/command/cancel-friendship-request.command';
-import { RemoveFriendshipCommand } from './cqrs/command/remove-friendship.command';
-import JwtAuthenticationGuard from '../auth/guards/jwt-auth.guard';
 import { FriendshipService } from './friendship.service';
-import { FriendshipRequestDto } from "./domain/dto/friendship-request.dto";
-import { FriendshipDto } from "./domain/dto/friendship.dto";
+import { FriendshipRequestDto } from './domain/dto/friendship-request.dto';
+import { FriendshipDto } from './domain/dto/friendship.dto';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('friendship')
 export class FriendshipController {
   constructor(private readonly friendshipService: FriendshipService) {}
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Get('sent-friendship-request')
   sentFriendshipRequest(@Req() request: RequestUser) {
     return this.friendshipService.sentFriendshipRequest(
@@ -35,7 +26,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Get('received-friendship-request')
   receivedFriendshipRequest(@Req() request: RequestUser) {
     return this.friendshipService.receivedFriendshipRequest(
@@ -43,7 +34,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Get(':id/friendship-status')
   statusFriendship(@Req() request: RequestUser, @Param('id') userId: string) {
     return this.friendshipService.statusFriendship(
@@ -51,7 +42,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Post(':id')
   sendFriendshipRequest(
     @Req() request: RequestUser,
@@ -62,7 +53,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Put(':id')
   acceptFriendshipRequest(
     @Req() request: RequestUser,
@@ -73,7 +64,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Delete(':id/cancel')
   cancelFriendshipRequest(
     @Req() request: RequestUser,
@@ -84,7 +75,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Delete(':id/reject')
   rejectFriendshipRequest(
     @Req() request: RequestUser,
@@ -95,7 +86,7 @@ export class FriendshipController {
     );
   }
 
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   @Delete(':id/remove')
   removeFriendship(@Req() request: RequestUser, @Param('id') userId: string) {
     return this.friendshipService.removeFriendship(

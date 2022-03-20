@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
-import { ErrorEvent } from '../../../../util/error/error.event';
+import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 import { CancelFriendshipRequestEvent } from '../event/cancel-friendship-request.event';
 
 @CommandHandler(CancelFriendshipRequestCommand)
@@ -33,7 +33,7 @@ export class CancelFriendshipRequestHandler
       await this.friendRequestRepository.remove(friendRequest);
     } catch (error) {
       this.eventBus.publish(
-        new ErrorEvent('CancelFriendshipRequestHandler', error),
+        new ErrorsEvent('CancelFriendshipRequestHandler', error),
       );
 
       //TODO: Envoyer une bonne erreur d'user

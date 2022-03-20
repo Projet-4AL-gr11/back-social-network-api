@@ -54,8 +54,8 @@ export class FriendshipService {
     );
     await this.commandBus.execute(
       new CancelFriendshipRequestCommand(
-        commandArgs.senderId,
         commandArgs.userId,
+        commandArgs.senderId,
       ),
     );
     return await this.commandBus.execute(

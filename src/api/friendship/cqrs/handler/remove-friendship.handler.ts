@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Friendship } from '../../domain/entities/friendship.entity';
 import { Repository } from 'typeorm';
 import { RemoveFriendshipEvent } from '../event/remove-friendship.event';
-import { ErrorEvent } from '../../../../util/error/error.event';
+import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 
 @CommandHandler(RemoveFriendshipCommand)
 export class RemoveFriendshipHandler
@@ -38,7 +38,7 @@ export class RemoveFriendshipHandler
         );
       }
     } catch (error) {
-      this.eventBus.publish(new ErrorEvent('RemoveFriendshipHandler', error));
+      this.eventBus.publish(new ErrorsEvent('RemoveFriendshipHandler', error));
       //TODO: Envoyer une bonne erreur d'user
       throw error;
     }

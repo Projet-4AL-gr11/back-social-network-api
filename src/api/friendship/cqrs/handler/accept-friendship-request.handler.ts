@@ -6,17 +6,13 @@ import { Repository } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Friendship } from '../../domain/entities/friendship.entity';
 import { AcceptFriendshipRequestEvent } from '../event/accept-friendship-request.event';
-import { ErrorEvent } from '../../../../util/error/error.event';
+import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 
 @CommandHandler(AcceptFriendshipRequestCommand)
 export class AcceptFriendshipRequestHandler
   implements ICommandHandler<AcceptFriendshipRequestCommand>
 {
   constructor(
-    @InjectRepository(FriendshipRequest)
-    private friendRequestRepository: Repository<FriendshipRequest>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
     @InjectRepository(Friendship)
     private friendshipRepository: Repository<Friendship>,
     private readonly eventBus: EventBus,
@@ -38,7 +34,7 @@ export class AcceptFriendshipRequestHandler
       return this.friendshipRepository.save(friendship);
     } catch (error) {
       this.eventBus.publish(
-        new ErrorEvent('AcceptFriendshipRequestHandler', error),
+        new ErrorsEvent('AcceptFriendshipRequestHandler', error),
       );
       //TODO: Envoyer une bonne erreur d'user
       throw error;

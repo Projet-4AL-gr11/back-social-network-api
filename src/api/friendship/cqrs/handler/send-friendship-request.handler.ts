@@ -10,7 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
-import { ErrorEvent } from '../../../../util/error/error.event';
+import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 import { SendFriendshipRequestEvent } from '../event/send-friendship-request.event';
 
 @CommandHandler(SendFriendshipRequestCommand)
@@ -41,7 +41,7 @@ export class SendFriendshipRequestHandler
       return this.friendRequestRepository.save(friendshipRequest);
     } catch (error) {
       this.eventBus.publish(
-        new ErrorEvent('SendFriendshipRequestHandler', error),
+        new ErrorsEvent('SendFriendshipRequestHandler', error),
       );
       //TODO: Envoyer une bonne erreur d'user
       throw error;
