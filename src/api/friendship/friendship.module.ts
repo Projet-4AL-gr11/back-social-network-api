@@ -8,10 +8,15 @@ import { AcceptFriendshipRequestHandler } from './cqrs/handler/accept-friendship
 import { CancelFriendshipRequestHandler } from './cqrs/handler/cancel-friendship-request.handler';
 import { RemoveFriendshipHandler } from './cqrs/handler/remove-friendship.handler';
 import { SendFriendshipRequestHandler } from './cqrs/handler/send-friendship-request.handler';
-import { GetStatusFriendshipQuery } from './cqrs/query/get-status-friendship.query';
-import { GetReceivedFriendshipRequestQuery } from './cqrs/query/get-received-friendship-request.query';
-import { GetSentFriendshipRequestQuery } from './cqrs/query/get-sent-friendship-request.query';
 import { FriendshipController } from './friendship.controller';
+import { GetStatusFriendshipHandler } from './cqrs/handler/get-status-friendship.handler';
+import { GetReceivedFriendshipHandler } from './cqrs/handler/get-received-friendship.handler';
+import { GetSentFriendshipRequestHandler } from './cqrs/handler/get-sent-friendship-request.handler';
+import { AcceptFriendshipRequestEventHandler } from './cqrs/event-handler/accept-friendship-request.event-handler';
+import { CancelFriendshipRequestEventHandler } from './cqrs/event-handler/cancel-friendship-request-event.handler';
+import { RemoveFriendshipEventHandler } from './cqrs/event-handler/remove-friendship.event-handler';
+import { SendFriendshipRequestEventHandler } from './cqrs/event-handler/send-friendship-request.event-handler';
+import { FriendshipService } from './friendship.service';
 
 @Module({
   imports: [
@@ -20,13 +25,18 @@ import { FriendshipController } from './friendship.controller';
   ],
   controllers: [FriendshipController],
   providers: [
+    FriendshipService,
     AcceptFriendshipRequestHandler,
+    AcceptFriendshipRequestEventHandler,
     CancelFriendshipRequestHandler,
+    CancelFriendshipRequestEventHandler,
     RemoveFriendshipHandler,
+    RemoveFriendshipEventHandler,
     SendFriendshipRequestHandler,
-    GetStatusFriendshipQuery,
-    GetReceivedFriendshipRequestQuery,
-    GetSentFriendshipRequestQuery,
+    SendFriendshipRequestEventHandler,
+    GetStatusFriendshipHandler,
+    GetReceivedFriendshipHandler,
+    GetSentFriendshipRequestHandler,
   ],
 })
 export class FriendshipModule {}
