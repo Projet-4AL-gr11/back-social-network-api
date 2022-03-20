@@ -23,7 +23,7 @@ export class User extends BaseEntity {
   @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ unique: false, nullable: false, select: false })
   password: string;
 
   @Length(5, 20)
