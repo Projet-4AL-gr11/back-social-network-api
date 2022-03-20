@@ -1,10 +1,10 @@
-import { ErrorEvent } from '../error.event';
+import { ErrorsEvent } from '../errorsEvent';
 
 describe('ErrorEvent', () => {
   it('should create an ErrorEvent instance', () => {
-    const event = new ErrorEvent('test1', 'error');
+    const event = new ErrorsEvent('test1', 'error');
     expect(event.localisation).toBe('test1');
     expect(event.error).toBe('error');
-    expect(event instanceof ErrorEvent).toBe(true);
+    expect(event instanceof ErrorsEvent).toBe(true);
   });
 });

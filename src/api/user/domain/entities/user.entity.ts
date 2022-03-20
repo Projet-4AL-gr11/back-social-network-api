@@ -13,6 +13,7 @@ import { UserType } from '../enum/user-type.enum';
 import * as bcrypt from 'bcrypt';
 import { FriendshipRequest } from '../../../friendship/domain/entities/friendship-request.entity';
 import { Friendship } from '../../../friendship/domain/entities/friendship.entity';
+import { Exclude } from "class-transformer";
 
 @Entity()
 export class User extends BaseEntity {
@@ -38,6 +39,12 @@ export class User extends BaseEntity {
     nullable: false,
   })
   userType: UserType;
+
+  @Column({
+    nullable: true
+  })
+  @Exclude()
+  public currentHashedRefreshToken?: string;
 
   @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,
