@@ -23,13 +23,13 @@ export class GetStatusFriendshipHandler
         .createQueryBuilder()
         .leftJoinAndSelect('Friendship.friendOne', 'FriendOne')
         .leftJoinAndSelect('Friendship.friendTwo', 'FriendTwo')
-        .where('(FriendOne.id=:currentUser AND FriendTwo.id=:id)', {
-          currentUser: query.currentUser.id,
+        .where('(FriendOne.id=:currentUser AND FriendTwo.id=:userId)', {
+          currentUser: query.currentUser,
           userId: query.user,
         })
         .orWhere('(FriendOne.id=:userId AND FriendTwo.id=:currentUser)', {
-          currentUser: query.currentUser.id,
           userId: query.user,
+          currentUser: query.currentUser,
         })
         .getOne()) !== undefined
     ) {
@@ -37,10 +37,10 @@ export class GetStatusFriendshipHandler
     } else if (
       (await this.friendshipRequestRepository
         .createQueryBuilder()
-        .leftJoin('FriendRequest.sender', 'Sender')
-        .leftJoin('FriendRequest.user', 'User')
-        .where('Sender.id=:currentUser and User.id=:userId', {
-          currentUser: query.currentUser.id,
+        .leftJoin('FriendshipRequest.sender', 'Sender')
+        .leftJoin('FriendshipRequest.user', 'User')
+        .where('Sender.id=:currentUser AND User.id=:userId', {
+          currentUser: query.currentUser,
           userId: query.user,
         })
         .getOne()) !== undefined
@@ -49,10 +49,10 @@ export class GetStatusFriendshipHandler
     } else if (
       (await this.friendshipRequestRepository
         .createQueryBuilder()
-        .leftJoin('FriendRequest.sender', 'Sender')
-        .leftJoin('FriendRequest.user', 'User')
+        .leftJoin('FriendshipRequest.sender', 'Sender')
+        .leftJoin('FriendshipRequest.user', 'User')
         .where('Sender.id=:userId and User.id=:currentUser', {
-          currentUser: query.currentUser.id,
+          currentUser: query.currentUser,
           userId: query.user,
         })
         .getOne()) !== undefined

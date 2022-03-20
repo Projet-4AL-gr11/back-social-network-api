@@ -1,43 +1,41 @@
 import { CancelFriendshipRequestCommand } from '../command/cancel-friendship-request.command';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Logger } from '@nestjs/common';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
+import { ErrorEvent } from '../../../../util/error/error.event';
+import { CancelFriendshipRequestEvent } from '../event/cancel-friendship-request.event';
 
 @CommandHandler(CancelFriendshipRequestCommand)
 export class CancelFriendshipRequestHandler
   implements ICommandHandler<CancelFriendshipRequestCommand>
 {
-  logger = new Logger('CancelFriendshipRequestHandler');
-
   constructor(
     @InjectRepository(FriendshipRequest)
     private friendRequestRepository: Repository<FriendshipRequest>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: CancelFriendshipRequestCommand): Promise<void> {
     try {
-      await this.friendRequestRepository.remove(
+      const friendRequest: FriendshipRequest =
         await this.friendRequestRepository
           .createQueryBuilder()
-          .leftJoinAndSelect('FriendRequest.user', 'User')
-          .where('User.id=:id', { id: command.sender })
-          .leftJoinAndSelect('FriendRequest.sender', 'Sender')
-          .andWhere('Sender.username=:id', { id: command.userId })
-          .getOne(),
+          .leftJoinAndSelect('FriendshipRequest.user', 'User')
+          .where('User.id=:userId', { userId: command.userId })
+          .leftJoinAndSelect('FriendshipRequest.sender', 'Sender')
+          .andWhere('Sender.id=:senderId', { senderId: command.sender })
+          .getOne();
+      this.eventBus.publish(
+        new CancelFriendshipRequestEvent(command.sender, command.userId),
       );
-      this.logger.log(
-        'UserId ' +
-          command.sender +
-          ' cancel friendship-request to ' +
-          command.userId,
-      );
+      await this.friendRequestRepository.remove(friendRequest);
     } catch (error) {
-      this.logger.error(error);
+      this.eventBus.publish(
+        new ErrorEvent('CancelFriendshipRequestHandler', error),
+      );
+
       //TODO: Envoyer une bonne erreur d'user
       throw error;
     }

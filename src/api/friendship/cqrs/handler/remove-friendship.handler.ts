@@ -1,19 +1,19 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { RemoveFriendshipCommand } from '../command/remove-friendship.command';
-import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Friendship } from '../../domain/entities/friendship.entity';
 import { Repository } from 'typeorm';
+import { RemoveFriendshipEvent } from '../event/remove-friendship.event';
+import { ErrorEvent } from '../../../../util/error/error.event';
 
 @CommandHandler(RemoveFriendshipCommand)
 export class RemoveFriendshipHandler
   implements ICommandHandler<RemoveFriendshipCommand>
 {
-  logger = new Logger('RemoveFriendshipHandler');
-
   constructor(
     @InjectRepository(Friendship)
     private friendshipRepository: Repository<Friendship>,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: RemoveFriendshipCommand): Promise<void> {
@@ -32,16 +32,13 @@ export class RemoveFriendshipHandler
         })
         .getOne();
       if (friendship) {
-        this.logger.log(
-          'UserId ' +
-            command.friendOne +
-            ' remove friendship-request to ' +
-            command.friendTwo,
-        );
         await this.friendshipRepository.remove(friendship);
+        this.eventBus.publish(
+          new RemoveFriendshipEvent(command.friendOne, command.friendTwo),
+        );
       }
     } catch (error) {
-      this.logger.error(error);
+      this.eventBus.publish(new ErrorEvent('RemoveFriendshipHandler', error));
       //TODO: Envoyer une bonne erreur d'user
       throw error;
     }

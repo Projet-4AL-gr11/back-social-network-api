@@ -16,8 +16,8 @@ export class GetSentFriendshipRequestHandler
   async execute(query: GetSentFriendshipRequestQuery) {
     return this.friendshipRequestRepository
       .createQueryBuilder()
-      .leftJoin('FriendRequest.sender', 'Sender')
-      .leftJoinAndSelect('FriendRequest.user', 'User')
+      .leftJoin('FriendshipRequest.sender', 'Sender')
+      .leftJoinAndSelect('FriendshipRequest.user', 'User')
       .where('Sender.id=:id', { id: query.userId })
       .getMany();
   }
