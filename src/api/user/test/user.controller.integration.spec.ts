@@ -127,7 +127,7 @@ describe('UserControllerIntegration', () => {
         });
         it('should respond with 400', async () => {
           await expect(
-            request(app.getHttpServer()).get('/user/0').expect(500),
+            request(app.getHttpServer()).get('/user/0').expect(400),
           ).rejects.toThrow();
         });
       });
