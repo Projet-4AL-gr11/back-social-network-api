@@ -60,7 +60,7 @@ export class AuthController {
 
   //getCurrentUser
   @UseGuards(JwtAuthenticationGuard)
-  @Get()
+  @Get('actual')
   authenticate(@Req() request: RequestUser) {
     const user = request.user;
     user.password = undefined;

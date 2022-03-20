@@ -16,7 +16,10 @@ export class AuthService {
   async login(username: string, plainTextPassword: string): Promise<User> {
     try {
       const user = await this.userRepository.findOneOrFail({
-        username: username,
+        where: [
+          { username: username }
+        ],
+        select: ['username', 'password'],
       });
       if (!(await this.verifyPassword(plainTextPassword, user.password))) {
         throw new HttpException(
