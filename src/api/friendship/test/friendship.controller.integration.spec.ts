@@ -1,9 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { UserDto } from '../../user/domain/dto/user.dto';
-import {
-  mockedUserList,
-} from '../../../util/mocks/dto/user.dto.mock';
-import { Test, TestingModule } from "@nestjs/testing";
+import { mockedUserList } from '../../../util/mocks/dto/user.dto.mock';
+import { Test, TestingModule } from '@nestjs/testing';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ConfigService } from '@nestjs/config';
 import { mockedConfigService } from '../../../util/mocks/config.service.mock';
@@ -32,7 +30,7 @@ import { FriendshipStatus } from '../domain/enum/friendship-status.enum';
 import { GetStatusFriendshipHandler } from '../cqrs/handler/get-status-friendship.handler';
 import { GetReceivedFriendshipHandler } from '../cqrs/handler/get-received-friendship.handler';
 import { GetSentFriendshipRequestHandler } from '../cqrs/handler/get-sent-friendship-request.handler';
-import { AppModule } from "../../../app.module";
+import { AppModule } from '../../../app.module';
 
 describe('FriendshipControllerIntegration', () => {
   let app;
@@ -42,7 +40,7 @@ describe('FriendshipControllerIntegration', () => {
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication()
+    app = moduleFixture.createNestApplication();
     await app.init();
   });
 

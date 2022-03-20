@@ -10,14 +10,14 @@ export class CancelFriendshipRequestEventHandler
   logger_console = new Logger('CancelFriendshipRequest');
 
   handle(event: CancelFriendshipRequestEvent): any {
-    this.logger_console.log(
+    logger.info(
       'UserId ' +
         event.senderId +
         ' cancel friendship-request to UserId ' +
         event.userId,
     );
 
-    logger.info(
+    this.logger_console.log(
       'UserId ' +
         event.senderId +
         ' cancel friendship-request to UserId ' +

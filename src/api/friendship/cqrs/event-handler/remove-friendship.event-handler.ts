@@ -10,14 +10,13 @@ export class RemoveFriendshipEventHandler
   logger_console = new Logger('RemoveFriendship');
 
   handle(event: RemoveFriendshipEvent): any {
-    this.logger_console.log(
+    logger.info(
       'UserId ' +
         event.senderId +
         ' remove friendship request with UserId ' +
         event.userId,
     );
-
-    logger.info(
+    this.logger_console.log(
       'UserId ' +
         event.senderId +
         ' remove friendship request with UserId ' +

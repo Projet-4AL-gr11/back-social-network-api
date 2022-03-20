@@ -10,11 +10,11 @@ export class AcceptFriendshipRequestEventHandler
   logger_console = new Logger('AcceptFriendshipRequest');
 
   handle(event: AcceptFriendshipRequestEvent): any {
-    this.logger_console.log(
+    logger.info(
       'UserId ' + event.senderId + ' become friend with UserId ' + event.userId,
     );
 
-    logger.info(
+    this.logger_console.log(
       'UserId ' + event.senderId + ' become friend with UserId ' + event.userId,
     );
   }
