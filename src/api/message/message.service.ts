@@ -7,7 +7,7 @@ import Message from './domain/entities/message.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { SaveMessageCommand } from './cqrs/command/save-message.command';
-import { FindMessageQuery } from './cqrs/query/find-message.query';
+import { FindMessagesQuery } from './cqrs/query/find-messages.query';
 
 @Injectable()
 export class MessageService {
@@ -17,14 +17,18 @@ export class MessageService {
     private readonly queryBus: QueryBus,
   ) {}
 
-  async saveMessage(content: string, author: User): Promise<Message> {
+  async saveMessage(
+    content: string,
+    author: User,
+    conversationId: string,
+  ): Promise<Message> {
     return await this.commandBus.execute(
-      new SaveMessageCommand(content, author),
+      new SaveMessageCommand(content, author, conversationId),
     );
   }
 
-  async getAllMessages() {
-    return await this.queryBus.execute(new FindMessageQuery());
+  async getAllMessages(conversationId: string): Promise<Message[]> {
+    return await this.queryBus.execute(new FindMessagesQuery(conversationId));
   }
 
   async getUserFromSocket(socket: Socket) {
