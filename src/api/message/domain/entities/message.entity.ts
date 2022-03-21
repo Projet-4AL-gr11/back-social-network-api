@@ -15,7 +15,7 @@ class Message {
   @Column()
   public content: string;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User)
   public author: User;
 
   @CreateDateColumn()
