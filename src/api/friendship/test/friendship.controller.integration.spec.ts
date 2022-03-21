@@ -31,7 +31,7 @@ import { GetStatusFriendshipHandler } from '../cqrs/handler/get-status-friendshi
 import { GetReceivedFriendshipHandler } from '../cqrs/handler/get-received-friendship.handler';
 import { GetSentFriendshipRequestHandler } from '../cqrs/handler/get-sent-friendship-request.handler';
 import { AppModule } from '../../../app.module';
-import { FriendshipService } from "../friendship.service";
+import { FriendshipService } from '../friendship.service';
 
 describe('FriendshipControllerIntegration', () => {
   let app: INestApplication;
