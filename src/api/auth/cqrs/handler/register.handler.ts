@@ -12,10 +12,10 @@ import {
 import { validate } from 'class-validator';
 import { InvalidClassException } from '@nestjs/core/errors/exceptions/invalid-class.exception';
 import { ErrorsEvent } from '../../../../util/error/errorsEvent';
+import { RegisterEvent } from '../event/register.event';
 
 @CommandHandler(RegisterCommand)
 export class RegisterHandler implements ICommandHandler<RegisterCommand> {
-  logger = new Logger('RegisterHandler');
 
   constructor(
     @InjectRepository(User)
@@ -37,7 +37,7 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
         throw new InvalidClassException('Parameter not validate');
       }
       await this.userRepository.save(newUser);
-      this.logger.verbose('New user have registered ' + newUser.username);
+      this.eventBus.publish(new RegisterEvent(newUser.username));
       delete newUser.password;
       return newUser;
     } catch (error) {

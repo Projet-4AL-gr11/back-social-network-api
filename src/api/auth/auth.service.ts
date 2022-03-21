@@ -6,17 +6,17 @@ import { TokenPayload } from './interface/token-payload.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SetCurrentRefreshTokenCommand } from '../user/cqrs/command/set-current-refresh-token.command';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { SignUpDto } from './dto/sign-up.dto';
 import { RegisterCommand } from './cqrs/command/register.command';
 import { GetUserLoginQuery } from '../user/cqrs/query/get-user-login.query';
+import { GetUserQuery } from "../user/cqrs/query/get-user.query";
 
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   async signup(signUpDto: SignUpDto) {
@@ -85,5 +85,14 @@ export class AuthService {
       'Authentication=; HttpOnly; Path=/; Max-Age=0',
       'Refresh=; HttpOnly; Path=/; Max-Age=0',
     ];
+  }
+
+  async getUserFromAuthToken(authenticationToken: string) {
+    const payload: TokenPayload = this.jwtService.verify(authenticationToken, {
+      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+    });
+    if (payload.userId) {
+      return this.queryBus.execute(new GetUserQuery(payload.userId));
+    }
   }
 }
