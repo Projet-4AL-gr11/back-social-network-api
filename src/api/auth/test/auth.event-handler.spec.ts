@@ -33,7 +33,7 @@ describe('AuthEventHandler', () => {
     describe('handler', () => {
       it('should print correctly', () => {
         const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
-        handler.handle({ user: mockedUser });
+        handler.handle({ userId: '1' });
         expect(consoleSpy).toBeCalledTimes(1);
       });
     });

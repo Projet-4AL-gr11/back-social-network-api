@@ -92,7 +92,7 @@ describe('AuthService', () => {
     it('should return a string', () => {
       const userId = '1';
       expect(typeof service.getCookieWithJwtRefreshToken(userId)).toEqual(
-        'string',
+        'object',
       );
     });
   });
@@ -177,4 +177,20 @@ describe('AuthService', () => {
       });
     });
   });
+
+  // TODO : Login
+  // TODO : get-user-login
 });
+
+// Erreur inconnue
+// [Nest] 102731  - 03/21/2022, 1:19:46 PM   ERROR [1] 2
+// node:internal/process/promises:265
+//             triggerUncaughtException(err, true /* fromPromise */);
+// ^
+//
+// [UnhandledPromiseRejection: This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). The promise rejected with the reason "Error: expect(received).rejects.toThrow()
+//
+// Received promise resolved instead of rejected
+// Resolved to value: {"header": {"connection": "close", "content-length": "85", "content-type": "application/json; charset=utf-8", "date": "Mon, 21 Mar 2022 12:19:47 GMT", "etag": "W/\"55-zBmjRowoe1bU6jeUfMplrcgN9TE\"", "x-powered-by": "Express"}, "req": {"data": {"email": "user@email.com", "password": "strongPassword", "username": "test"}, "headers": {"content-type": "application/json"}, "method": "POST", "url": "http://127.0.0.1:43743/auth/signup"}, "status": 500, "text": "{\"statusCode\":500,\"message\":\"Internal Server Error!\",\"error\":\"Internal Server Error\"}"}".] {
+// code: 'ERR_UNHANDLED_REJECTION'
+// }
