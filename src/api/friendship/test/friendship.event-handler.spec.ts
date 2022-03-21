@@ -1,5 +1,4 @@
 import { AcceptFriendshipRequestEventHandler } from '../cqrs/event-handler/accept-friendship-request.event-handler';
-import { AcceptFriendshipRequestHandler } from '../cqrs/handler/accept-friendship-request.handler';
 import { Test } from '@nestjs/testing';
 import { CancelFriendshipRequestEventHandler } from '../cqrs/event-handler/cancel-friendship-request-event.handler';
 import { RemoveFriendshipEventHandler } from '../cqrs/event-handler/remove-friendship.event-handler';
