@@ -11,6 +11,8 @@ import { FriendshipRequest } from './api/friendship/domain/entities/friendship-r
 import { FriendshipModule } from './api/friendship/friendship.module';
 import { MessageModule } from './api/message/message.module';
 import Message from './api/message/domain/entities/message.entity';
+import { ConversationModule } from './api/conversation/conversation.module';
+import { Conversation } from './api/conversation/domain/entities/conversation.entity';
 
 config();
 
@@ -23,7 +25,7 @@ config();
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [User, Friendship, FriendshipRequest, Message],
+      entities: [User, Friendship, FriendshipRequest, Message, Conversation],
       synchronize: true,
       logging: false,
     }),
@@ -31,6 +33,7 @@ config();
     AuthModule,
     FriendshipModule,
     MessageModule,
+    ConversationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
