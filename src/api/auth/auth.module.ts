@@ -12,6 +12,9 @@ import { RegisterHandler } from './cqrs/handler/register.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
 import { UserService } from "../user/user.service";
+import JwtRefreshGuard from "./guards/jwt-refresh-token.guard";
+import { JwtStrategy } from "./strategy/jwt.strategy";
+import { GetUserLoginHandler } from "../user/cqrs/handler/get-user-login.handler";
 
 config();
 
@@ -30,10 +33,12 @@ config();
   ],
   providers: [
     AuthService,
+    UserService,
     LocalStrategy,
+    JwtStrategy,
     JwtRefreshTokenStrategy,
     RegisterHandler,
-    UserService,
+    GetUserLoginHandler,
   ],
   controllers: [AuthController],
   exports: [AuthService],

@@ -3,12 +3,7 @@ import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
-import {
-  HttpException,
-  HttpStatus,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { InternalServerErrorException } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { InvalidClassException } from '@nestjs/core/errors/exceptions/invalid-class.exception';
 import { ErrorsEvent } from '../../../../util/error/errorsEvent';
@@ -16,7 +11,6 @@ import { RegisterEvent } from '../event/register.event';
 
 @CommandHandler(RegisterCommand)
 export class RegisterHandler implements ICommandHandler<RegisterCommand> {
-
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,

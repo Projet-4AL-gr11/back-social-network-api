@@ -12,7 +12,7 @@ describe('MessageCommand', () => {
 
   describe('SaveMessageCommand', () => {
     it('should create a SaveMessageCommand instance', () => {
-      const command = new SaveMessageCommand('test', mockUser1);
+      const command = new SaveMessageCommand('test', mockUser1, '1');
       expect(command.content).toBe('test');
       expect(command.author).toBe(mockUser1);
       expect(command instanceof SaveMessageCommand).toBe(true);
