@@ -11,7 +11,7 @@ import { config } from 'dotenv';
 import { UserRepositoryMock } from '../../../util/mocks/repository/user.repository.mock';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import { UserDto } from '../../user/domain/dto/user.dto';
-import { CommandBus, CqrsModule } from '@nestjs/cqrs';
+import { CommandBus, CqrsModule, QueryBus } from "@nestjs/cqrs";
 
 config();
 
@@ -20,8 +20,8 @@ describe('AuthService', () => {
   let service: AuthService;
   let bcryptCompare: jest.Mock;
   let userData: UserDto;
-  let findOneOrFail: jest.Mock;
   let commandBus: jest.Mock;
+  let queryBus: jest.Mock;
 
   const mockedUser: UserDto = {
     ...{
@@ -34,13 +34,10 @@ describe('AuthService', () => {
   };
   beforeEach(async () => {
     commandBus = jest.fn().mockResolvedValue('');
+    queryBus = jest.fn().mockResolvedValue('');
 
     userData = {
       ...mockedUser,
-    };
-    findOneOrFail = jest.fn().mockResolvedValue(userData);
-    const usersRepository = {
-      findOneOrFail: findOneOrFail,
     };
     app = await Test.createTestingModule({
       imports: [
@@ -63,16 +60,18 @@ describe('AuthService', () => {
           },
         },
         {
+          provide: QueryBus,
+          useValue: {
+            execute: queryBus,
+          },
+        },
+        {
           provide: ConfigService,
           useValue: mockedConfigService,
         },
         {
           provide: JwtService,
           useValue: mockedJwtService,
-        },
-        {
-          provide: getRepositoryToken(User),
-          useValue: usersRepository,
         },
       ],
     }).compile();
@@ -158,8 +157,8 @@ describe('AuthService', () => {
         });
         describe('and the user is found in the database', () => {
           beforeEach(() => {
-            findOneOrFail.mockResolvedValue(userData);
             commandBus.mockResolvedValue(userData);
+            queryBus.mockResolvedValue(userData);
           });
           it('should return the user data', async () => {
             const user = await service.login('John', 'hash');
@@ -168,7 +167,7 @@ describe('AuthService', () => {
         });
         describe('and the user is not found in the database', () => {
           beforeEach(() => {
-            findOneOrFail.mockResolvedValue(undefined);
+            queryBus.mockResolvedValue(undefined);
           });
           it('should throw an error', async () => {
             await expect(service.login('John', 'hash')).rejects.toThrow();
