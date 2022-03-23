@@ -1,23 +1,20 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '../user/domain/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from './interface/token-payload.interface';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { SetCurrentRefreshTokenCommand } from '../user/cqrs/command/set-current-refresh-token.command';
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { SignUpDto } from './dto/sign-up.dto';
 import { RegisterCommand } from './cqrs/command/register.command';
 import { GetUserLoginQuery } from '../user/cqrs/query/get-user-login.query';
+import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 
+@Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-    private readonly jwtService: JwtService,
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
+    private jwtService: JwtService,
+    private commandBus: CommandBus,
+    private queryBus: QueryBus,
   ) {}
 
   async signup(signUpDto: SignUpDto) {
@@ -32,9 +29,7 @@ export class AuthService {
 
   async login(username: string, plainTextPassword: string): Promise<User> {
     try {
-      const user = await this.queryBus.execute(
-        new GetUserLoginQuery(username),
-      );
+      const user = await this.queryBus.execute(new GetUserLoginQuery(username));
 
       if (!(await this.verifyPassword(plainTextPassword, user.password))) {
         throw new HttpException(
@@ -86,5 +81,14 @@ export class AuthService {
       'Authentication=; HttpOnly; Path=/; Max-Age=0',
       'Refresh=; HttpOnly; Path=/; Max-Age=0',
     ];
+  }
+
+  async getUserFromAuthToken(authenticationToken: string) {
+    const payload: TokenPayload = this.jwtService.verify(authenticationToken, {
+      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+    });
+    if (payload.userId) {
+      return this.queryBus.execute(new GetUserQuery(payload.userId));
+    }
   }
 }

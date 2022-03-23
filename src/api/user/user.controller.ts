@@ -11,10 +11,6 @@ import {
 } from '@nestjs/common';
 import { UpdateUserDto } from './domain/dto/update-user.dto';
 import JwtAuthenticationGuard from '../auth/guards/jwt-auth.guard';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GetUserQuery } from './cqrs/query/get-user.query';
-import { UpdateUserCommand } from './cqrs/command/update-user.command';
-import { DeleteUserCommand } from './cqrs/command/delete-user.command';
 import { UserService } from './user.service';
 
 @Controller('user')

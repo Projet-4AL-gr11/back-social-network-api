@@ -53,7 +53,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('signout')
+  @Post('logout')
   async logOut(@Req() request: RequestUser, @Res() response: Response) {
     await this.userService.removeRefreshToken(request.user.id);
     response.setHeader('Set-Cookie', this.authService.getCookieForLogOut());

@@ -7,13 +7,13 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
 } from 'typeorm';
-import { hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
 import * as bcrypt from 'bcrypt';
 import { FriendshipRequest } from '../../../friendship/domain/entities/friendship-request.entity';
 import { Friendship } from '../../../friendship/domain/entities/friendship.entity';
-import { Exclude } from "class-transformer";
+import { Exclude } from 'class-transformer';
+import Message from '../../../message/domain/entities/message.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -42,6 +42,7 @@ export class User extends BaseEntity {
 
   @Column({
     nullable: true,
+    select: false,
   })
   @Exclude()
   public currentHashedRefreshToken?: string;
@@ -67,6 +68,12 @@ export class User extends BaseEntity {
     onDelete: 'SET NULL',
   })
   requestedFriends: FriendshipRequest[];
+
+  @OneToMany(() => Message, (message) => message.author, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  messages: Message[];
 
   @BeforeInsert()
   async setPassword(password: string) {

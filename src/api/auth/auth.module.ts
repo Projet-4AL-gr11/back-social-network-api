@@ -12,7 +12,9 @@ import { RegisterHandler } from './cqrs/handler/register.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
 import { UserService } from '../user/user.service';
+import { JwtStrategy } from './strategy/jwt.strategy';
 import { GetUserLoginHandler } from '../user/cqrs/handler/get-user-login.handler';
+import { RegisterEventHandler } from './cqrs/event-handler/register.event-handler';
 
 config();
 
@@ -26,16 +28,17 @@ config();
     }),
     PassportModule,
     TypeOrmModule.forFeature([User]),
-    ConfigModule,
     CqrsModule,
   ],
   providers: [
     AuthService,
+    UserService,
     LocalStrategy,
+    JwtStrategy,
     JwtRefreshTokenStrategy,
     RegisterHandler,
-    UserService,
     GetUserLoginHandler,
+    RegisterEventHandler,
   ],
   controllers: [AuthController],
   exports: [AuthService],
