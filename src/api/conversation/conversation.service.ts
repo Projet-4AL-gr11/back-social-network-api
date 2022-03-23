@@ -29,4 +29,19 @@ export class ConversationService {
       new GetConversationByIdQuery(conversationId),
     );
   }
+
+  async isMemberOfConversation(
+    userId: string,
+    conversationId,
+  ): Promise<boolean> {
+    let isMember = false;
+    await this.getMembers(conversationId).then((users) => {
+      users.forEach((user) => {
+        if (user.id == userId) {
+          isMember = true;
+        }
+      });
+    });
+    return isMember;
+  }
 }
