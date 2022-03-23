@@ -3,7 +3,7 @@ import { CancelFriendshipRequestEvent } from '../cqrs/event/cancel-friendship-re
 import { RemoveFriendshipEvent } from '../cqrs/event/remove-friendship.event';
 import { SendFriendshipRequestEvent } from '../cqrs/event/send-friendship-request.event';
 
-describe('friendshipEvent', () => {
+describe('FriendshipEvent', () => {
   describe('AcceptFriendshipRequestEvent', () => {
     it('should create a AcceptFriendshipRequestEvent instance', () => {
       const event = new AcceptFriendshipRequestEvent('test1', 'test2');

@@ -18,7 +18,20 @@ export class GetUserIfRefreshTokenMatchesHandler
 
   async execute(query: GetUserIfRefreshTokenMatchesQuery): Promise<User> {
     try {
-      const user = await this.userRepository.findOne(query.userId);
+      const user = await this.userRepository.findOne({
+        select: [
+          'id',
+          'username',
+          'email',
+          'bannerPicture',
+          'profilePicture',
+          'userType',
+          'currentHashedRefreshToken',
+        ],
+        where: {
+          id: query.userId,
+        },
+      });
 
       const isRefreshTokenMatching = await bcrypt.compare(
         query.refreshToken,
