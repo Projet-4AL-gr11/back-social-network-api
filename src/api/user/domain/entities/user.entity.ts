@@ -6,6 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
@@ -14,6 +16,7 @@ import { FriendshipRequest } from '../../../friendship/domain/entities/friendshi
 import { Friendship } from '../../../friendship/domain/entities/friendship.entity';
 import { Exclude } from 'class-transformer';
 import Message from '../../../message/domain/entities/message.entity';
+import { Media } from '../../../media/domain/entities/media.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -74,6 +77,23 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   messages: Message[];
+
+  @OneToOne(() => Media, (media) => media.userProfilePicture, {
+    nullable: true,
+    eager: true,
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  profilePicture: Media;
+  @OneToOne(() => Media, (media) => media.userBanner, {
+    nullable: true,
+    eager: true,
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  bannerPicture: Media;
 
   @BeforeInsert()
   async setPassword(password: string) {

@@ -13,6 +13,8 @@ import { MessageModule } from './api/message/message.module';
 import Message from './api/message/domain/entities/message.entity';
 import { ConversationModule } from './api/conversation/conversation.module';
 import { Conversation } from './api/conversation/domain/entities/conversation.entity';
+import { Media } from './api/media/domain/entities/media.entity';
+import { MediaModule } from "./api/media/media.module";
 
 config();
 
@@ -25,7 +27,14 @@ config();
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [User, Friendship, FriendshipRequest, Message, Conversation],
+      entities: [
+        User,
+        Friendship,
+        FriendshipRequest,
+        Message,
+        Conversation,
+        Media,
+      ],
       synchronize: true,
       logging: false,
     }),
@@ -34,6 +43,7 @@ config();
     FriendshipModule,
     MessageModule,
     ConversationModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
