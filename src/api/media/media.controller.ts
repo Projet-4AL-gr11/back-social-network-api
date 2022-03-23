@@ -1,12 +1,12 @@
 import {
-  Controller,
+  Controller, Delete,
   Get,
   Post,
   Req,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+  UseInterceptors
+} from "@nestjs/common";
 import { MediaService } from './media.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -28,6 +28,18 @@ export class MediaController {
   @UseGuards(JwtRefreshGuard)
   async getBannerPicture(@Req() request: RequestUser) {
     return this.mediaService.getBannerPicture(request.user.id);
+  }
+
+  @Delete('bannerPicture')
+  @UseGuards(JwtRefreshGuard)
+  async deleteBannerPicture(@Req() request: RequestUser) {
+    return this.mediaService.deleteBannerPicture(request.user.id);
+  }
+
+  @Delete('profilePicture')
+  @UseGuards(JwtRefreshGuard)
+  async deleteProfilePicture(@Req() request: RequestUser) {
+    return this.mediaService.deleteProfilePicture(request.user.id);
   }
 
   @Post('profile-picture')

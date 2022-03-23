@@ -8,6 +8,8 @@ import { MediaResponseDto } from './domain/dto/media-response.dto';
 import { GetBannerPictureQuery } from './cqrs/query/get-banner-picture.query';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 import { GetProfilePictureQuery } from './cqrs/query/get-profile-picture.query';
+import { DeleteBannerPictureCommand } from "./cqrs/command/delete-banner-picture.command";
+import { DeleteProfilePictureCommand } from "./cqrs/command/delete-profile-picture.command";
 
 @Injectable()
 export class MediaService {
@@ -19,6 +21,14 @@ export class MediaService {
 
   async uploadBannerPicture(mediaDto: MediaDto): Promise<Media> {
     return this.commandBus.execute(new SaveBannerPictureCommand(mediaDto));
+  }
+
+  async deleteBannerPicture(fileId: string): Promise<void> {
+    return this.commandBus.execute(new DeleteBannerPictureCommand(fileId));
+  }
+
+  async deleteProfilePicture(fileId: string): Promise<void> {
+    return this.commandBus.execute(new DeleteProfilePictureCommand(fileId));
   }
 
   async getBannerPicture(userId: string): Promise<MediaResponseDto> {
