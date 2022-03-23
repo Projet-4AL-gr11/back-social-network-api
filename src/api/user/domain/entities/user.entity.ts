@@ -42,6 +42,7 @@ export class User extends BaseEntity {
 
   @Column({
     nullable: true,
+    select: false,
   })
   @Exclude()
   public currentHashedRefreshToken?: string;

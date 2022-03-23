@@ -21,34 +21,36 @@ export class MessageGateway implements OnGatewayConnection {
     await this.messageService.getUserFromSocket(socket);
   }
 
-  @SubscribeMessage('send_message/:id')
+  @SubscribeMessage('send_message')
   async listenForMessage(
     @MessageBody() content: string,
     @ConnectedSocket() socket: Socket,
-    @Param('id') conversationId: string,
   ) {
     const author = await this.messageService.getUserFromSocket(socket);
     const message = await this.messageService.saveMessage(
       content,
       author,
-      conversationId,
+      'c6062337-6ce5-45f6-be7c-82a01030965a',
     );
     this.server.sockets.emit('receive_message', {
       content,
       author,
-      conversationId,
+      conversation: 'c6062337-6ce5-45f6-be7c-82a01030965a',
     });
 
     return message;
   }
 
-  @SubscribeMessage('request_all_messages/:id')
-  async requestAllMessages(
-    @ConnectedSocket() socket: Socket,
-    @Param('id') conversationId: string,
-  ) {
+  // @SubscribeMessage('request_all_messages/:id')
+  // async requestAllMessages(
+  //   @ConnectedSocket() socket: Socket,
+  //   @Param('id') conversationId: string,
+  @SubscribeMessage('request_all_messages')
+  async requestAllMessages(@ConnectedSocket() socket: Socket) {
     await this.messageService.getUserFromSocket(socket);
-    const messages = await this.messageService.getAllMessages(conversationId);
+    const messages = await this.messageService.getAllMessages(
+      'c6062337-6ce5-45f6-be7c-82a01030965a',
+    );
 
     socket.emit('send_all_messages', messages);
   }

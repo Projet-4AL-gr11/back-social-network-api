@@ -7,6 +7,8 @@ import { UserType } from '../../user/domain/enum/user-type.enum';
 import Message from '../domain/entities/message.entity';
 import { Socket } from 'socket.io';
 import { AuthService } from '../../auth/auth.service';
+import { JwtService } from "@nestjs/jwt";
+import { mockedJwtService } from "../../../util/mocks/jwt.service.mock";
 
 describe('MessageService', () => {
   let service: MessageService;
@@ -38,6 +40,10 @@ describe('MessageService', () => {
           },
         },
         {
+          provide: JwtService,
+          useValue: mockedJwtService,
+        },
+        {
           provide: QueryBus,
           useValue: {
             execute: queryBus,
@@ -46,6 +52,15 @@ describe('MessageService', () => {
       ],
     }).compile();
     service = modRef.get(MessageService);
+  });
+
+  describe('getAllMessage', () => {
+    beforeEach(async () => {
+      queryBus.mockResolvedValue([message, message]);
+    });
+    it('should return messages', async () => {
+      expect(await service.getAllMessages('1')).toStrictEqual([message, message]);
+    });
   });
 
   // TODO: test saveMessage
@@ -59,16 +74,6 @@ describe('MessageService', () => {
   //     expect(await service.saveMessage('test', mockUser1)).toBe(message);
   //   });
   // });
-
-  describe('getAllMessage', () => {
-    beforeEach(async () => {
-      queryBus.mockResolvedValue([message, message]);
-    });
-    it('should return messages', async () => {
-      expect(await service.getAllMessages()).toStrictEqual([message, message]);
-    });
-  });
-
   // describe('getUserFromSocket', () => {
   //   beforeEach(async () => {
   //     queryBus.mockResolvedValue(mockUser1);
