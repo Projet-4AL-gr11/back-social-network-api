@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   Req,
   UploadedFile,
@@ -16,6 +17,18 @@ import multer = require('multer');
 @Controller('media')
 export class MediaController {
   constructor(private mediaService: MediaService) {}
+
+  @Get('profilePicture')
+  @UseGuards(JwtRefreshGuard)
+  async getProfilePicture(@Req() request: RequestUser) {
+    return this.mediaService.getProfilePicture(request.user.id);
+  }
+
+  @Get('bannerPicture')
+  @UseGuards(JwtRefreshGuard)
+  async getBannerPicture(@Req() request: RequestUser) {
+    return this.mediaService.getBannerPicture(request.user.id);
+  }
 
   @Post('profile-picture')
   @UseGuards(JwtRefreshGuard)
