@@ -5,6 +5,7 @@ import { GetConversationByIdQuery } from './cqrs/query/get-conversation-by-id.qu
 import { User } from '../user/domain/entities/user.entity';
 import { GetMembersFriendOneQuery } from './cqrs/query/get-members-friend-one.query';
 import { GetMembersFriendTwoQuery } from './cqrs/query/get-members-friend-two.query';
+import { GetConversationGroupMemberQuery } from "./cqrs/query/get-conversation-group-member.query";
 
 @Injectable()
 export class ConversationService {
@@ -20,6 +21,11 @@ export class ConversationService {
     );
     userList.push(
       await this.queryBus.execute(new GetMembersFriendTwoQuery(conversationId)),
+    );
+    userList.push(
+      await this.queryBus.execute(
+        new GetConversationGroupMemberQuery(conversationId),
+      ),
     );
     return userList;
   }
