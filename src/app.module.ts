@@ -14,7 +14,10 @@ import Message from './api/message/domain/entities/message.entity';
 import { ConversationModule } from './api/conversation/conversation.module';
 import { Conversation } from './api/conversation/domain/entities/conversation.entity';
 import { Media } from './api/media/domain/entities/media.entity';
-import { MediaModule } from "./api/media/media.module";
+import { MediaModule } from './api/media/media.module';
+import { Group } from './api/group/domain/entities/group.entity';
+import { GroupMembership } from './api/group/domain/entities/group_membership.entity';
+import { GroupModule } from './api/group/group.module';
 
 config();
 
@@ -34,6 +37,8 @@ config();
         Message,
         Conversation,
         Media,
+        Group,
+        GroupMembership,
       ],
       synchronize: true,
       logging: false,
@@ -44,6 +49,7 @@ config();
     MessageModule,
     ConversationModule,
     MediaModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [AppService],
