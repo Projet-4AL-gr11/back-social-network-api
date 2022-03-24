@@ -18,6 +18,8 @@ import { MediaModule } from './api/media/media.module';
 import { Group } from './api/group/domain/entities/group.entity';
 import { GroupMembership } from './api/group/domain/entities/group_membership.entity';
 import { GroupModule } from './api/group/group.module';
+import { Exercise } from "./api/exercices/domain/entities/exercise.entity";
+import { ExerciseModule } from "./api/exercices/exercise.module";
 
 config();
 
@@ -39,6 +41,7 @@ config();
         Media,
         Group,
         GroupMembership,
+        Exercise,
       ],
       synchronize: true,
       logging: false,
@@ -50,6 +53,7 @@ config();
     ConversationModule,
     MediaModule,
     GroupModule,
+    ExerciseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
