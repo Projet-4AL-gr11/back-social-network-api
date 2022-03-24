@@ -4,8 +4,8 @@ import { Media } from './domain/entities/media.entity';
 import { MediaService } from './media.service';
 import { SaveProfilePictureHandler } from './cqrs/handler/save-profile-picture.handler';
 import { SaveBannerPictureHandler } from './cqrs/handler/save-banner-picture.handler';
-import { CqrsModule } from "@nestjs/cqrs";
-import { MediaController } from "./media.controller";
+import { CqrsModule } from '@nestjs/cqrs';
+import { MediaController } from './media.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Media]), CqrsModule],

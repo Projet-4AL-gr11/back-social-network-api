@@ -10,8 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UpdateUserDto } from './domain/dto/update-user.dto';
-import JwtAuthenticationGuard from '../auth/guards/jwt-auth.guard';
 import { UserService } from './user.service';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('user')
 export class UserController {
@@ -28,13 +28,13 @@ export class UserController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtRefreshGuard)
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }

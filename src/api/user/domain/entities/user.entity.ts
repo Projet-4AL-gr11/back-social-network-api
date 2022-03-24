@@ -17,6 +17,7 @@ import { Friendship } from '../../../friendship/domain/entities/friendship.entit
 import { Exclude } from 'class-transformer';
 import Message from '../../../message/domain/entities/message.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
+import { GroupMembership } from "../../../group/domain/entities/group_membership.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -84,6 +85,8 @@ export class User extends BaseEntity {
     cascade: true,
     onDelete: 'SET NULL',
   })
+
+  // Media
   @JoinColumn()
   profilePicture: Media;
   @OneToOne(() => Media, (media) => media.userBanner, {
@@ -94,6 +97,10 @@ export class User extends BaseEntity {
   })
   @JoinColumn()
   bannerPicture: Media;
+
+  //Group
+  @OneToMany(() => GroupMembership, group => group.user, {cascade: true, onDelete:'CASCADE'})
+  groups: GroupMembership[];
 
   @BeforeInsert()
   async setPassword(password: string) {

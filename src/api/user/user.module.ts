@@ -10,7 +10,7 @@ import { GetUserIfRefreshTokenMatchesHandler } from './cqrs/handler/get-user-if-
 import { RemoveRefreshTokenHandler } from './cqrs/handler/remove-refresh-token.handler';
 import { SetCurrentRefreshTokenHandler } from './cqrs/handler/set-current-refresh-token.handler';
 import { UserService } from './user.service';
-import { GetUserLoginQuery } from "./cqrs/query/get-user-login.query";
+import { GetUserLoginQuery } from './cqrs/query/get-user-login.query';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), CqrsModule],
