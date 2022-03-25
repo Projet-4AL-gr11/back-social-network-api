@@ -22,7 +22,7 @@ import { Exercise } from './api/exercices/domain/entities/exercise.entity';
 import { ExerciseModule } from './api/exercices/exercise.module';
 import { Language } from './api/language/domain/entities/language.entity';
 import { LanguageModule } from './api/language/language.module';
-import { Event } from "./api/event/domain/entities/event.entity";
+import { Event } from './api/event/domain/entities/event.entity';
 
 config();
 

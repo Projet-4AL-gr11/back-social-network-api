@@ -18,7 +18,9 @@ export class GetMembersFriendOneHandler
       .createQueryBuilder()
       .leftJoin('User.friendsOne', 'Friendship')
       .leftJoin('Friendship.conversation', 'Conversation')
-      .where('Conversation.id=:conversationId', { conversationId: query.conversationId })
+      .where('Conversation.id=:conversationId', {
+        conversationId: query.conversationId,
+      })
       .getMany();
   }
 }

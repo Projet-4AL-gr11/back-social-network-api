@@ -1,7 +1,6 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { RemoveUserFromGroupCommand } from '../../command/remove-user-from-group.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';

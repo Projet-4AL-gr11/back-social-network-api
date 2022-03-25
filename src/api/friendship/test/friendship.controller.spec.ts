@@ -1,6 +1,5 @@
 import { FriendshipController } from '../friendship.controller';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Friendship } from '../domain/entities/friendship.entity';
 import { FriendshipService } from '../friendship.service';
 import {
   mockedFriendship,
@@ -8,9 +7,9 @@ import {
   mockerFriendshipRequest,
 } from '../../../util/mocks/dto/friendship.dto.mock';
 import { FriendshipStatus } from '../domain/enum/friendship-status.enum';
+import { User } from '../../user/domain/entities/user.entity';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const httpMocks = require('node-mocks-http');
-import { User } from '../../user/domain/entities/user.entity';
 
 describe('FriendshipController', () => {
   let friendshipController: FriendshipController;

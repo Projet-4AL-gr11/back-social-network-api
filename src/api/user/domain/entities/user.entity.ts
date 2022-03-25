@@ -1,14 +1,14 @@
 import {
   BaseEntity,
+  BeforeInsert,
   Column,
   Entity,
-  BeforeInsert,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  OneToOne,
   JoinColumn,
-  ManyToMany,
   JoinTable,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';

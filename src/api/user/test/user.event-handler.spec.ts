@@ -1,6 +1,5 @@
 import { DeleteUserEventHandler } from '../cqrs/event-bus/delete-user.event-handler';
 import { Test } from '@nestjs/testing';
-import { DeleteUserEvent } from '../cqrs/event/delete-user.event';
 import { logger } from '../../../util/config/winston-logger.config';
 import { RemoveRefreshTokenEventHandler } from '../cqrs/event-bus/remove-refresh-token.event-handler';
 import { UpdateUserEventHandler } from '../cqrs/event-bus/update-user.event-handler';

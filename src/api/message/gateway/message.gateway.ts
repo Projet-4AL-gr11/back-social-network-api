@@ -8,7 +8,6 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { MessageService } from '../message.service';
-import { Param } from '@nestjs/common';
 
 @WebSocketGateway()
 export class MessageGateway implements OnGatewayConnection {

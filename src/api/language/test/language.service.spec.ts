@@ -8,7 +8,7 @@ describe('LanguageService', () => {
   let service: LanguageService;
   let commandBus: jest.Mock;
   let queryBus: jest.Mock;
-  let mockLanguageDto = new LanguageDto('test');
+  const mockLanguageDto = new LanguageDto('test');
   const mockLanguage = new Language();
   mockLanguage.id = '1';
   mockLanguage.name = 'test';

@@ -1,9 +1,7 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { AcceptFriendshipRequestCommand } from '../../command/accept-friendship-request.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FriendshipRequest } from '../../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { Friendship } from '../../../domain/entities/friendship.entity';
 import { AcceptFriendshipRequestEvent } from '../../event/accept-friendship-request.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';

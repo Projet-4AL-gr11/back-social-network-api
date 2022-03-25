@@ -6,8 +6,8 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { SaveBannerPictureEvent } from '../cqrs/event/save-banner-picture.event';
 import { SaveProfilePictureEventHandler } from '../cqrs/event-handler/save-profile-picture.event-handler';
 import { SaveProfilePictureEvent } from '../cqrs/event/save-profile-picture.event';
-import { SaveEventPictureEventHandler } from "../cqrs/event-handler/save-event-picture.event-handler";
-import { SaveGroupPictureEventHandler } from "../cqrs/event-handler/save-group-picture.event-handler";
+import { SaveEventPictureEventHandler } from '../cqrs/event-handler/save-event-picture.event-handler';
+import { SaveGroupPictureEventHandler } from '../cqrs/event-handler/save-group-picture.event-handler';
 
 describe('MediaEventHandler', () => {
   afterEach(() => {

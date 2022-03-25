@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetEventQuery } from '../../query/get-event.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from '../../../domain/entities/event.entity';
 import { MoreThan, Repository } from 'typeorm';

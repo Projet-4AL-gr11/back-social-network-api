@@ -13,7 +13,9 @@ export class GetGroupWithUserIdHandler
     private groupMembershipRepository: Repository<GroupMembership>,
   ) {}
 
-  async execute(query: GetGroupMembershipWithUserIdQuery): Promise<GroupMembership[]> {
+  async execute(
+    query: GetGroupMembershipWithUserIdQuery,
+  ): Promise<GroupMembership[]> {
     return await this.groupMembershipRepository
       .createQueryBuilder()
       .leftJoinAndMapMany(

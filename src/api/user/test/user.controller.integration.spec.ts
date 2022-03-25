@@ -1,9 +1,5 @@
 import { Test } from '@nestjs/testing';
-import {
-  ExecutionContext,
-  INestApplication,
-  ValidationPipe,
-} from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { mockedConfigService } from '../../../util/mocks/config.service.mock';
 import { JwtService } from '@nestjs/jwt';
@@ -23,10 +19,9 @@ import { UpdateUserHandler } from '../cqrs/handler/command/update-user.handler';
 import { GetUserHandler } from '../cqrs/handler/query/get-user.handler';
 import { UserResponse } from '../domain/response/user.response';
 import { UserType } from '../domain/enum/user-type.enum';
-import JwtAuthenticationGuard from '../../auth/guards/jwt-auth.guard';
 import { JwtStrategy } from '../../auth/strategy/jwt.strategy';
 import { UserService } from '../user.service';
-import JwtRefreshGuard from "../../auth/guards/jwt-refresh-token.guard";
+import JwtRefreshGuard from '../../auth/guards/jwt-refresh-token.guard';
 
 describe('UserControllerIntegration', () => {
   let app: INestApplication;

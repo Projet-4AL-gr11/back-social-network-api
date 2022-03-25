@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { SaveBannerPictureCommand } from '../../command/save-banner-picture.command';
 import { SaveBannerPictureEvent } from '../../event/save-banner-picture.event';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ErrorsEvent } from "../../../../../util/error/errorsEvent";
+import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 
 config();
 

@@ -5,7 +5,7 @@ import { Language } from '../../../domain/entities/language.entity';
 import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { validate } from 'class-validator';
-import { CreateLanguageEvent } from "../../event/create-language.event";
+import { CreateLanguageEvent } from '../../event/create-language.event';
 
 @CommandHandler(CreateLanguageCommand)
 export class CreateLanguageHandler

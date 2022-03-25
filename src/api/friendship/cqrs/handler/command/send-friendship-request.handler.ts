@@ -1,11 +1,5 @@
-import {
-  CommandHandler,
-  EventBus,
-  ICommandHandler,
-  InvalidEventsHandlerException,
-} from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { SendFriendshipRequestCommand } from '../../command/send-friendship-request.command';
-import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';

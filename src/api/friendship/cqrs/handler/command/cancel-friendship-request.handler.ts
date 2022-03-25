@@ -3,7 +3,6 @@ import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { CancelFriendshipRequestEvent } from '../../event/cancel-friendship-request.event';
 

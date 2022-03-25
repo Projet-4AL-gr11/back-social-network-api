@@ -1,8 +1,8 @@
 import { SaveBannerPictureCommand } from '../cqrs/command/save-banner-picture.command';
 import { MediaDto } from '../domain/dto/media.dto';
 import { DeletePictureCommand } from '../cqrs/command/delete-picture.command';
-import { SaveEventPictureCommand } from "../cqrs/command/save-event-picture.command";
-import { SaveGroupPictureCommand } from "../cqrs/command/save-group-picture.command";
+import { SaveEventPictureCommand } from '../cqrs/command/save-event-picture.command';
+import { SaveGroupPictureCommand } from '../cqrs/command/save-group-picture.command';
 
 describe('MediaCommand', () => {
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');

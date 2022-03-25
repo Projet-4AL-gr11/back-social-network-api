@@ -1,13 +1,8 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { AddParticipantToEventCommand } from '../../command/add-participant-to-event.command';
 import { Repository } from 'typeorm';
 import { Event } from '../../../domain/entities/event.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
-import { AddParticipantToEventEvent } from '../../event/add-participant-to-event.event';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateEventCommand } from '../../command/create-event.command';
-import { validate } from 'class-validator';
-import { CreateEventEvent } from '../../event/create-event.event';
 import { DeleteEventCommand } from '../../command/delete-event.command';
 import { DeleteEventEvent } from '../../event/delete-event.event';
 

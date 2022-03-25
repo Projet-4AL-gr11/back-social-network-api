@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { MessageService } from './message.service';
 import Message from './domain/entities/message.entity';
 

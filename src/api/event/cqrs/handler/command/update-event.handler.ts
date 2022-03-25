@@ -3,14 +3,11 @@ import { Repository } from 'typeorm';
 import { Event } from '../../../domain/entities/event.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateEventCommand } from '../../command/create-event.command';
-import { validate } from 'class-validator';
-import { CreateEventEvent } from '../../event/create-event.event';
 import { UpdateEventCommand } from '../../command/update-event.command';
 import { UpdateEventEvent } from '../../event/update-event.event';
 
 @CommandHandler(UpdateEventCommand)
-export class CreateEventHandler implements ICommandHandler<UpdateEventCommand> {
+export class UpdateEventHandler implements ICommandHandler<UpdateEventCommand> {
   constructor(
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,

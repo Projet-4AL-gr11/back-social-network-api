@@ -12,7 +12,7 @@ import { Length } from 'class-validator';
 import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
 import { GroupMembership } from './group_membership.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
-import { Media } from "../../../media/domain/entities/media.entity";
+import { Media } from '../../../media/domain/entities/media.entity';
 
 @Entity()
 export class Group {

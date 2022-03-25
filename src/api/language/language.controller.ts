@@ -1,12 +1,11 @@
-import { Controller, Delete, Get, Param, Put, UseGuards } from "@nestjs/common";
-import { LanguageService } from "./language.service";
-import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
-import { LanguageDto } from "./domain/dto/language.dto";
+import { Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { LanguageService } from './language.service';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { LanguageDto } from './domain/dto/language.dto';
 
 @Controller('language')
 export class LanguageController {
-  constructor(private languageService: LanguageService) {
-  }
+  constructor(private languageService: LanguageService) {}
 
   @Get()
   @UseGuards(JwtRefreshGuard)
@@ -22,7 +21,7 @@ export class LanguageController {
 
   @Delete(':id')
   @UseGuards(JwtRefreshGuard)
-  async delete(@Param('id') id : string) {
+  async delete(@Param('id') id: string) {
     return this.languageService.delete(id);
   }
 

@@ -5,7 +5,6 @@ import {
   Controller,
   Get,
   HttpCode,
-  Logger,
   Post,
   Req,
   Res,
@@ -20,7 +19,6 @@ import { UserService } from '../user/user.service';
 
 @Controller('auth')
 export class AuthController {
-
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,

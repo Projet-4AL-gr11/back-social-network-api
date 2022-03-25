@@ -1,11 +1,11 @@
 import { ConversationController } from '../conversation.controller';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const httpMocks = require('node-mocks-http');
 import { User } from '../../user/domain/entities/user.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConversationService } from '../conversation.service';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import { Conversation } from '../domain/entities/conversation.entity';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const httpMocks = require('node-mocks-http');
 
 describe('ConversationController', () => {
   let conversationController: ConversationController;
