@@ -56,9 +56,10 @@ describe('LanguageService', () => {
 
   describe('UpdateLanguage', () => {
     beforeEach(async () => {
-      commandBus.mockResolvedValue(mockLanguage);
+      commandBus.mockResolvedValue(undefined);
+      queryBus.mockResolvedValue(mockLanguage);
     });
-    it('should return nothing', async function () {
+    it('should return language', async function () {
       expect(await service.update('1', mockLanguageDto)).toEqual(mockLanguage);
     });
   });

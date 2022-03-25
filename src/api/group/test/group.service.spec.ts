@@ -88,10 +88,10 @@ describe('GroupService', () => {
 
   describe('getGroupWithUserId', () => {
     beforeEach(async () => {
-      commandBus.mockResolvedValue(undefined);
+      queryBus.mockResolvedValue(mockGroup);
     });
     it('should return list of groupMembership', async () => {
-      expect(await service.getGroupWithUserId('1')).toBe(undefined);
+      expect(await service.getGroupWithUserId('1')).toBe(mockGroup);
     });
   });
 });
