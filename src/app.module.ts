@@ -18,8 +18,10 @@ import { MediaModule } from './api/media/media.module';
 import { Group } from './api/group/domain/entities/group.entity';
 import { GroupMembership } from './api/group/domain/entities/group_membership.entity';
 import { GroupModule } from './api/group/group.module';
-import { Exercise } from "./api/exercices/domain/entities/exercise.entity";
-import { ExerciseModule } from "./api/exercices/exercise.module";
+import { Exercise } from './api/exercices/domain/entities/exercise.entity';
+import { ExerciseModule } from './api/exercices/exercise.module';
+import { Language } from './api/language/domain/entities/language.entity';
+import { LanguageModule } from './api/language/language.module';
 
 config();
 
@@ -42,6 +44,7 @@ config();
         Group,
         GroupMembership,
         Exercise,
+        Language,
       ],
       synchronize: true,
       logging: false,
@@ -54,6 +57,7 @@ config();
     MediaModule,
     GroupModule,
     ExerciseModule,
+    LanguageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
