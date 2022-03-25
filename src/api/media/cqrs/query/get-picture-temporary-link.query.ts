@@ -1,5 +1,5 @@
 import { Media } from '../../domain/entities/media.entity';
 
-export class GetProfilePictureQuery {
-  constructor(public readonly profilePicture: Media) {}
+export class GetPictureTemporaryLinkQuery {
+  constructor(public readonly picture: Media) {}
 }

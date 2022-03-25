@@ -1,21 +1,19 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { DeleteBannerPictureEvent } from '../event/delete-banner-picture.event';
+import { DeletePictureEvent } from '../event/delete-picture.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 
-@EventsHandler(DeleteBannerPictureEvent)
-export class DeleteBannerPictureEventHandler
-  implements IEventHandler<DeleteBannerPictureEvent>
+@EventsHandler(DeletePictureEvent)
+export class DeletePictureEventHandler
+  implements IEventHandler<DeletePictureEvent>
 {
-  logger_console = new Logger('DeleteBannerHandler');
+  logger_console = new Logger('DeletePictureEventHandler');
 
-  handle(event: DeleteBannerPictureEvent): any {
-    logger.info(
-      'BannerPicture with id : ( ' + event.fileId + ' ) have been delete',
-    );
+  handle(event: DeletePictureEvent): any {
+    logger.info('Picture with id : ( ' + event.fileId + ' ) have been delete');
 
     this.logger_console.log(
-      'BannerPicture with id : ( ' + event.fileId + ' ) have been delete',
+      'Picture with id : ( ' + event.fileId + ' ) have been delete',
     );
   }
 }

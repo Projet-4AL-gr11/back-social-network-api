@@ -55,6 +55,24 @@ describe('MediaService', () => {
     });
   });
 
+  describe('getEventPicture', () => {
+    beforeEach(async () => {
+      queryBus.mockResolvedValue(mockMediaResponse);
+    });
+    it('should return a media', async () => {
+      expect(await service.getEventPicture('1')).toEqual(mockMediaResponse);
+    });
+  });
+
+  describe('getGroupPicture', () => {
+    beforeEach(async () => {
+      queryBus.mockResolvedValue(mockMediaResponse);
+    });
+    it('should return a media', async () => {
+      expect(await service.getGroupPicture('1')).toEqual(mockMediaResponse);
+    });
+  });
+
   describe('SaveBannerPicture', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(mockMedia);
@@ -77,6 +95,24 @@ describe('MediaService', () => {
     });
   });
 
+  describe('SaveEventPicture', () => {
+    beforeEach(async () => {
+      commandBus.mockResolvedValue(mockMedia);
+    });
+    it('should return the new media', async () => {
+      expect(await service.uploadEventPicture(mockMediaDto)).toEqual(mockMedia);
+    });
+  });
+
+  describe('SaveGroupPicture', () => {
+    beforeEach(async () => {
+      commandBus.mockResolvedValue(mockMedia);
+    });
+    it('should return the new media', async () => {
+      expect(await service.uploadGroupPicture(mockMediaDto)).toEqual(mockMedia);
+    });
+  });
+
   describe('DeleteBannerPicture', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(undefined);
@@ -92,6 +128,24 @@ describe('MediaService', () => {
     });
     it('should return nothing', async () => {
       expect(await service.deleteProfilePicture('1')).toEqual(undefined);
+    });
+  });
+
+  describe('DeleteEventPicture', () => {
+    beforeEach(async () => {
+      commandBus.mockResolvedValue(undefined);
+    });
+    it('should return nothing', async () => {
+      expect(await service.deleteEventPicture('1')).toEqual(undefined);
+    });
+  });
+
+  describe('DeleteGroupPicture', () => {
+    beforeEach(async () => {
+      commandBus.mockResolvedValue(undefined);
+    });
+    it('should return nothing', async () => {
+      expect(await service.deleteGroupPicture('1')).toEqual(undefined);
     });
   });
 });

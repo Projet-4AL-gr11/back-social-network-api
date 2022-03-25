@@ -1,3 +1,3 @@
-export class DeleteBannerPictureEvent {
+export class DeletePictureEvent {
   constructor(public readonly fileId: string) {}
 }

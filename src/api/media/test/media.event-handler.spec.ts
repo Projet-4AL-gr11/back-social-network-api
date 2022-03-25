@@ -1,12 +1,13 @@
-import { DeleteBannerPictureEventHandler } from '../cqrs/event-handler/delete-banner-picture.event-handler';
+import { DeletePictureEventHandler } from '../cqrs/event-handler/delete-picture-event.handler';
 import { Test } from '@nestjs/testing';
 import { logger } from '../../../util/config/winston-logger.config';
-import { DeleteProfilePictureEventHandler } from '../cqrs/event-handler/delete-profile-picture.event-handler';
 import { SaveBannerPictureEventHandler } from '../cqrs/event-handler/save-banner-picture.event-handler';
 import { MediaDto } from '../domain/dto/media.dto';
 import { SaveBannerPictureEvent } from '../cqrs/event/save-banner-picture.event';
 import { SaveProfilePictureEventHandler } from '../cqrs/event-handler/save-profile-picture.event-handler';
 import { SaveProfilePictureEvent } from '../cqrs/event/save-profile-picture.event';
+import { SaveEventPictureEventHandler } from "../cqrs/event-handler/save-event-picture.event-handler";
+import { SaveGroupPictureEventHandler } from "../cqrs/event-handler/save-group-picture.event-handler";
 
 describe('MediaEventHandler', () => {
   afterEach(() => {
@@ -15,33 +16,14 @@ describe('MediaEventHandler', () => {
 
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');
 
-  describe('DeleteBannerPictureEventHandler', () => {
-    let handler: DeleteBannerPictureEventHandler;
+  describe('DeletePictureEventHandler', () => {
+    let handler: DeletePictureEventHandler;
 
     beforeEach(async () => {
       const mod = await Test.createTestingModule({
-        providers: [DeleteBannerPictureEventHandler],
+        providers: [DeletePictureEventHandler],
       }).compile();
-      handler = mod.get(DeleteBannerPictureEventHandler);
-    });
-
-    describe('handler', () => {
-      it('should print correctly', () => {
-        const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
-        handler.handle({ fileId: '1' });
-        expect(consoleSpy).toBeCalledTimes(1);
-      });
-    });
-  });
-
-  describe('DeleteProfilePictureEventHandler', () => {
-    let handler: DeleteProfilePictureEventHandler;
-
-    beforeEach(async () => {
-      const mod = await Test.createTestingModule({
-        providers: [DeleteProfilePictureEventHandler],
-      }).compile();
-      handler = mod.get(DeleteProfilePictureEventHandler);
+      handler = mod.get(DeletePictureEventHandler);
     });
 
     describe('handler', () => {
@@ -80,6 +62,44 @@ describe('MediaEventHandler', () => {
         providers: [SaveProfilePictureEventHandler],
       }).compile();
       handler = mod.get(SaveProfilePictureEventHandler);
+    });
+
+    describe('handler', () => {
+      it('should print correctly', () => {
+        const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
+        handler.handle(new SaveProfilePictureEvent(mockMediaDto));
+        expect(consoleSpy).toBeCalledTimes(1);
+      });
+    });
+  });
+
+  describe('SaveEventPictureEventHandler', () => {
+    let handler: SaveEventPictureEventHandler;
+
+    beforeEach(async () => {
+      const mod = await Test.createTestingModule({
+        providers: [SaveEventPictureEventHandler],
+      }).compile();
+      handler = mod.get(SaveEventPictureEventHandler);
+    });
+
+    describe('handler', () => {
+      it('should print correctly', () => {
+        const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
+        handler.handle(new SaveProfilePictureEvent(mockMediaDto));
+        expect(consoleSpy).toBeCalledTimes(1);
+      });
+    });
+  });
+
+  describe('SaveGroupPictureEventHandler', () => {
+    let handler: SaveGroupPictureEventHandler;
+
+    beforeEach(async () => {
+      const mod = await Test.createTestingModule({
+        providers: [SaveGroupPictureEventHandler],
+      }).compile();
+      handler = mod.get(SaveGroupPictureEventHandler);
     });
 
     describe('handler', () => {
