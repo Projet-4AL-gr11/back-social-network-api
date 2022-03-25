@@ -1,6 +1,6 @@
 import { Media } from '../domain/entities/media.entity';
 import { GetBannerPictureQuery } from '../cqrs/query/get-banner-picture.query';
-import { GetProfilePictureQuery } from "../cqrs/query/get-profile-picture.query";
+import { GetProfilePictureQuery } from '../cqrs/query/get-profile-picture.query';
 
 describe('MediaQuery', () => {
   const mockMedia = new Media();
