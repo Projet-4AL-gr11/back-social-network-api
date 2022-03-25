@@ -61,6 +61,7 @@ describe('ConversationService', () => {
         expect(await service.getMembers('1')).toStrictEqual([
           mockUser1,
           mockUser1,
+          mockUser1,
         ]);
       });
     });
@@ -70,6 +71,7 @@ describe('ConversationService', () => {
       });
       it('should return empty list', async () => {
         expect(await service.getMembers('1')).toStrictEqual([
+          undefined,
           undefined,
           undefined,
         ]);
