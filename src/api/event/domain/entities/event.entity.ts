@@ -6,8 +6,8 @@ import {
   ManyToMany,
   ManyToOne,
   OneToOne,
-  PrimaryGeneratedColumn
-} from "typeorm";
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Language } from '../../../language/domain/entities/language.entity';
 import {
@@ -18,7 +18,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { User } from '../../../user/domain/entities/user.entity';
-import { Media } from "../../../media/domain/entities/media.entity";
+import { Media } from '../../../media/domain/entities/media.entity';
 
 @Entity()
 export class Event {
