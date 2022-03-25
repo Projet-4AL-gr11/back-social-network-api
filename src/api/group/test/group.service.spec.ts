@@ -49,7 +49,7 @@ describe('GroupService', () => {
     service = modRef.get(GroupService);
   });
 
-  describe('CreateGroup', async () => {
+  describe('CreateGroup', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(mockGroup);
     });
@@ -58,7 +58,7 @@ describe('GroupService', () => {
     });
   });
 
-  describe('DeleteGroup', async () => {
+  describe('DeleteGroup', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(undefined);
     });
@@ -67,7 +67,7 @@ describe('GroupService', () => {
     });
   });
 
-  describe('UpdateGroup', async () => {
+  describe('UpdateGroup', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(undefined);
       queryBus.mockResolvedValue(mockGroup);
@@ -77,7 +77,7 @@ describe('GroupService', () => {
     });
   });
 
-  describe('RemoveUserFromGroup', async () => {
+  describe('RemoveUserFromGroup', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(undefined);
     });
@@ -86,7 +86,7 @@ describe('GroupService', () => {
     });
   });
 
-  describe('getGroupWithUserId', async () => {
+  describe('getGroupWithUserId', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(undefined);
     });

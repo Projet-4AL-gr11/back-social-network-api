@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Language } from '../../../language/domain/entities/language.entity';
 
 @Entity()
 export class Exercise {
@@ -7,4 +8,10 @@ export class Exercise {
 
   @Column()
   name: string;
+
+  @ManyToOne(() => Language, (language) => language.exercises, {
+    nullable: false,
+    eager: true,
+  })
+  language: Language;
 }

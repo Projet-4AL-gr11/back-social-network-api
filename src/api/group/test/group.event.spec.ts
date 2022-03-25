@@ -33,7 +33,7 @@ describe('GroupEvent', () => {
   describe('UpdateGroupEvent', () => {
     it('should create a UpdateGroupEvent instance', () => {
       const event = new UpdateGroupEvent('1');
-      expect(event.groupId).toBe('bonjour');
+      expect(event.groupId).toBe('1');
       expect(event instanceof UpdateGroupEvent).toBe(true);
     });
   });

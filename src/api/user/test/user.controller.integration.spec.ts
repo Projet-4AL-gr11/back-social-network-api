@@ -26,6 +26,7 @@ import { UserType } from '../domain/enum/user-type.enum';
 import JwtAuthenticationGuard from '../../auth/guards/jwt-auth.guard';
 import { JwtStrategy } from '../../auth/strategy/jwt.strategy';
 import { UserService } from '../user.service';
+import JwtRefreshGuard from "../../auth/guards/jwt-refresh-token.guard";
 
 describe('UserControllerIntegration', () => {
   let app: INestApplication;
@@ -74,7 +75,7 @@ describe('UserControllerIntegration', () => {
         },
       ],
     })
-      .overrideGuard(JwtAuthenticationGuard)
+      .overrideGuard(JwtRefreshGuard)
       .useValue({})
       .compile();
     app = module.createNestApplication();
@@ -145,15 +146,6 @@ describe('UserControllerIntegration', () => {
           UserType.USER,
         );
         findOneOrFail.mockResolvedValue(expectedValue);
-      });
-      beforeEach(() => {
-        const expectedValue = new UserResponse(
-          '1',
-          'hohoho',
-          'hohoho@gmail.com',
-          UserType.USER,
-        );
-        update.mockResolvedValue(expectedValue);
       });
       it('should respond with updated user', () => {
         const expectedData = {
