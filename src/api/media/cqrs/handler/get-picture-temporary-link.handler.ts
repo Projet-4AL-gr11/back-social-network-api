@@ -5,13 +5,13 @@ import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../util/error/errorsEvent';
 import { S3 } from 'aws-sdk';
 import { config } from 'dotenv';
-import { GetProfilePictureQuery } from '../query/get-profile-picture.query';
+import { GetPictureTemporaryLinkQuery } from '../query/get-picture-temporary-link.query';
 
 config();
 
-@QueryHandler(GetProfilePictureQuery)
-export class GetProfilePictureHandler
-  implements IQueryHandler<GetProfilePictureQuery>
+@QueryHandler(GetPictureTemporaryLinkQuery)
+export class GetPictureTemporaryLinkHandler
+  implements IQueryHandler<GetPictureTemporaryLinkQuery>
 {
   constructor(
     @InjectRepository(Media)
@@ -19,15 +19,15 @@ export class GetProfilePictureHandler
     private eventBus: EventBus,
   ) {}
 
-  async execute(query: GetProfilePictureQuery): Promise<any> {
+  async execute(query: GetPictureTemporaryLinkQuery): Promise<any> {
     try {
-      const url = await this.generateResignedUrl(query.profilePicture.key);
+      const url = await this.generateResignedUrl(query.picture.key);
       return {
-        ...query.profilePicture,
+        ...query.picture,
         url,
       };
     } catch (error) {
-      this.eventBus.publish(new ErrorsEvent('GetProfilePictureQuery', error));
+      this.eventBus.publish(new ErrorsEvent('GetTemporaryLinkHandler', error));
       throw error;
     }
   }

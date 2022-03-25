@@ -5,11 +5,14 @@ import { Media } from './domain/entities/media.entity';
 import { SaveProfilePictureCommand } from './cqrs/command/save-profile-picture.command';
 import { SaveBannerPictureCommand } from './cqrs/command/save-banner-picture.command';
 import { MediaResponseDto } from './domain/dto/media-response.dto';
-import { GetBannerPictureQuery } from './cqrs/query/get-banner-picture.query';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
-import { GetProfilePictureQuery } from './cqrs/query/get-profile-picture.query';
-import { DeleteBannerPictureCommand } from './cqrs/command/delete-banner-picture.command';
-import { DeleteProfilePictureCommand } from './cqrs/command/delete-profile-picture.command';
+import { Event } from '../event/domain/entities/event.entity';
+import { Group } from '../group/domain/entities/group.entity';
+import { GetGroupQuery } from '../group/cqrs/query/get-group.query';
+import { GetPictureTemporaryLinkQuery } from './cqrs/query/get-picture-temporary-link.query';
+import { DeletePictureCommand } from './cqrs/command/delete-picture.command';
+import { SaveEventPictureCommand } from './cqrs/command/save-event-picture.command';
+import { SaveGroupPictureCommand } from './cqrs/command/save-group-picture.command';
 
 @Injectable()
 export class MediaService {
@@ -23,27 +26,59 @@ export class MediaService {
     return this.commandBus.execute(new SaveBannerPictureCommand(mediaDto));
   }
 
+  async uploadEventPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SaveEventPictureCommand(mediaDto));
+  }
+
+  async uploadGroupPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SaveGroupPictureCommand(mediaDto));
+  }
+
   async deleteBannerPicture(fileId: string): Promise<void> {
-    return this.commandBus.execute(new DeleteBannerPictureCommand(fileId));
+    return this.commandBus.execute(new DeletePictureCommand(fileId));
   }
 
   async deleteProfilePicture(fileId: string): Promise<void> {
-    return this.commandBus.execute(new DeleteProfilePictureCommand(fileId));
+    return this.commandBus.execute(new DeletePictureCommand(fileId));
+  }
+
+  async deleteEventPicture(fileId: string): Promise<void> {
+    return this.commandBus.execute(new DeletePictureCommand(fileId));
+  }
+
+  async deleteGroupPicture(fileId: string): Promise<void> {
+    return this.commandBus.execute(new DeletePictureCommand(fileId));
   }
 
   async getBannerPicture(userId: string): Promise<MediaResponseDto> {
     const user = await this.queryBus.execute(new GetUserQuery(userId));
-    return this.queryBus.execute(new GetBannerPictureQuery(user.bannerPicture));
+    return this.queryBus.execute(
+      new GetPictureTemporaryLinkQuery(user.bannerPicture),
+    );
   }
 
   async getProfilePicture(userId: string): Promise<MediaResponseDto> {
     const user = await this.queryBus.execute(new GetUserQuery(userId));
     return this.queryBus.execute(
-      new GetProfilePictureQuery(user.profilePicture),
+      new GetPictureTemporaryLinkQuery(user.profilePicture),
     );
   }
 
-  // TODO: Route pour eventPicture
+  async getEventPicture(eventId: string): Promise<MediaResponseDto> {
+    const event: Event = await this.queryBus.execute(
+      new GetEventQuery(eventId),
+    );
+    return this.queryBus.execute(
+      new GetPictureTemporaryLinkQuery(event.picture),
+    );
+  }
 
-  // TODO: Route pour groupPicture
+  async getGroupPicture(groupId: string): Promise<MediaResponseDto> {
+    const group: Group = await this.queryBus.execute(
+      new GetGroupQuery(groupId),
+    );
+    return this.queryBus.execute(
+      new GetPictureTemporaryLinkQuery(group.picture),
+    );
+  }
 }
