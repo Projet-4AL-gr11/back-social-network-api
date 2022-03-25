@@ -8,8 +8,8 @@ import { MediaResponseDto } from './domain/dto/media-response.dto';
 import { GetBannerPictureQuery } from './cqrs/query/get-banner-picture.query';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 import { GetProfilePictureQuery } from './cqrs/query/get-profile-picture.query';
-import { DeleteBannerPictureCommand } from "./cqrs/command/delete-banner-picture.command";
-import { DeleteProfilePictureCommand } from "./cqrs/command/delete-profile-picture.command";
+import { DeleteBannerPictureCommand } from './cqrs/command/delete-banner-picture.command';
+import { DeleteProfilePictureCommand } from './cqrs/command/delete-profile-picture.command';
 
 @Injectable()
 export class MediaService {
@@ -42,4 +42,8 @@ export class MediaService {
       new GetProfilePictureQuery(user.profilePicture),
     );
   }
+
+  // TODO: Route pour eventPicture
+
+  // TODO: Route pour groupPicture
 }

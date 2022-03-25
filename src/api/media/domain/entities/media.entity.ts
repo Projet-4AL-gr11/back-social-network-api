@@ -8,6 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
+import { Event } from '../../../event/domain/entities/event.entity';
+import { Group } from '../../../group/domain/entities/group.entity';
 
 @Entity()
 export class Media {
@@ -21,6 +23,12 @@ export class Media {
   userProfilePicture: User;
   @OneToOne(() => User, (user) => user.bannerPicture, { onDelete: 'CASCADE' })
   userBanner: User;
+
+  @OneToOne(() => Event, (event) => event.picture, { onDelete: 'CASCADE' })
+  eventPicture: Event;
+
+  @OneToOne(() => Group, (group) => group.picture, { onDelete: 'CASCADE' })
+  groupPicture: Group;
 
   @CreateDateColumn()
   createdAt: Date;

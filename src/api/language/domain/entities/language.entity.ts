@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
+import { Event } from '../../../event/domain/entities/event.entity';
 
 @Entity()
 export class Language {
@@ -15,6 +16,8 @@ export class Language {
   name: string;
   @OneToMany(() => Exercise, (exercise) => exercise.language)
   exercises: Exercise[];
+  @OneToMany(() => Event, (event) => event.language)
+  events: Event[];
   @CreateDateColumn()
   createdAt: Date;
 }

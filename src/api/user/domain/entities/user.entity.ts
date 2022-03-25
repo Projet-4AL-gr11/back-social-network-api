@@ -5,9 +5,10 @@ import {
   BeforeInsert,
   OneToMany,
   PrimaryGeneratedColumn,
-  DeleteDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { UserType } from '../enum/user-type.enum';
@@ -17,7 +18,8 @@ import { Friendship } from '../../../friendship/domain/entities/friendship.entit
 import { Exclude } from 'class-transformer';
 import Message from '../../../message/domain/entities/message.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
-import { GroupMembership } from "../../../group/domain/entities/group_membership.entity";
+import { GroupMembership } from '../../../group/domain/entities/group_membership.entity';
+import { Event } from '../../../event/domain/entities/event.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -99,11 +101,21 @@ export class User extends BaseEntity {
   bannerPicture: Media;
 
   //Group
-  @OneToMany(() => GroupMembership, group => group.user, {cascade: true, onDelete:'CASCADE'})
+  @OneToMany(() => GroupMembership, (group) => group.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   groups: GroupMembership[];
 
   @BeforeInsert()
   async setPassword(password: string) {
     this.password = await bcrypt.hash(password || this.password, 10);
   }
+
+  // Event
+  @OneToMany(() => Event, (event) => event.user)
+  createdEvents: Event[];
+  @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
+  @JoinTable()
+  eventsParticipation: Event[];
 }
