@@ -4,9 +4,9 @@ import { Conversation } from './domain/entities/conversation.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ConversationService } from './conversation.service';
-import { GetMembersFriendOneHandler } from './cqrs/handler/get-members-friend-one.handler';
-import { GetMembersFriendTwoHandler } from './cqrs/handler/get-members-friend-two.handler';
-import { GetConversationByIdHandler } from './cqrs/handler/get-conversation-by-id.handler';
+import { GetMembersFriendOneHandler } from './cqrs/handler/query/get-members-friend-one.handler';
+import { GetMembersFriendTwoHandler } from './cqrs/handler/query/get-members-friend-two.handler';
+import { GetConversationByIdHandler } from './cqrs/handler/query/get-conversation-by-id.handler';
 import { ConversationController } from './conversation.controller';
 
 @Module({

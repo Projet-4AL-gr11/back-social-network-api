@@ -1,4 +1,4 @@
-import { SaveMessageHandler } from '../cqrs/handler/save-message.handler';
+import { SaveMessageHandler } from '../cqrs/handler/command/save-message.handler';
 import { Test } from '@nestjs/testing';
 import { logger } from '../../../util/config/winston-logger.config';
 import { SaveMessageEventHandler } from '../cqrs/event-handler/save-message.event-handler';

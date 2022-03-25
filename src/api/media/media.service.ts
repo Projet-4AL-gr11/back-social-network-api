@@ -13,6 +13,7 @@ import { GetPictureTemporaryLinkQuery } from './cqrs/query/get-picture-temporary
 import { DeletePictureCommand } from './cqrs/command/delete-picture.command';
 import { SaveEventPictureCommand } from './cqrs/command/save-event-picture.command';
 import { SaveGroupPictureCommand } from './cqrs/command/save-group-picture.command';
+import { GetEventQuery } from "../event/cqrs/query/get-event.query";
 
 @Injectable()
 export class MediaService {

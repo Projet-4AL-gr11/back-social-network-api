@@ -18,9 +18,9 @@ import {
   mockedUserListResponse,
 } from '../../../util/mocks/dto/user.dto.mock';
 import { UserController } from '../user.controller';
-import { DeleteUserHandler } from '../cqrs/handler/delete-user.handler';
-import { UpdateUserHandler } from '../cqrs/handler/update-user.handler';
-import { GetUserHandler } from '../cqrs/handler/get-user.handler';
+import { DeleteUserHandler } from '../cqrs/handler/command/delete-user.handler';
+import { UpdateUserHandler } from '../cqrs/handler/command/update-user.handler';
+import { GetUserHandler } from '../cqrs/handler/query/get-user.handler';
 import { UserResponse } from '../domain/response/user.response';
 import { UserType } from '../domain/enum/user-type.enum';
 import JwtAuthenticationGuard from '../../auth/guards/jwt-auth.guard';
