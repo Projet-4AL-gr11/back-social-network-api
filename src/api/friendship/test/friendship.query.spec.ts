@@ -1,4 +1,3 @@
-import { SendFriendshipRequestEvent } from '../cqrs/event/send-friendship-request.event';
 import { GetSentFriendshipRequestQuery } from '../cqrs/query/get-sent-friendship-request.query';
 import { GetStatusFriendshipQuery } from '../cqrs/query/get-status-friendship.query';
 

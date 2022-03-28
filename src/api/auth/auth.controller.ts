@@ -5,7 +5,6 @@ import {
   Controller,
   Get,
   HttpCode,
-  Logger,
   Post,
   Req,
   Res,
@@ -20,20 +19,19 @@ import { UserService } from '../user/user.service';
 
 @Controller('auth')
 export class AuthController {
-
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
   ) {}
 
-  @Post('/signup')
+  @Post('/register')
   async signUp(@Body() signUpDto: SignUpDto): Promise<User> {
     return await this.authService.signup(signUpDto);
   }
 
   @HttpCode(200)
   @UseGuards(LocalAuthenticationGuard)
-  @Post('/signin')
+  @Post('/login')
   async signIn(@Req() request: RequestUser, @Res() response: Response) {
     const { user } = request;
     const accessTokenCookie = this.authService.getCookieWithJwtToken(user.id);

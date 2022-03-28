@@ -1,11 +1,9 @@
 import { MessageService } from '../message.service';
 import { Test } from '@nestjs/testing';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { mockedFriendshipList } from '../../../util/mocks/dto/friendship.dto.mock';
 import { User } from '../../user/domain/entities/user.entity';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import Message from '../domain/entities/message.entity';
-import { Socket } from 'socket.io';
 import { AuthService } from '../../auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { mockedJwtService } from '../../../util/mocks/jwt.service.mock';

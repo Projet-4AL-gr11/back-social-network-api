@@ -1,17 +1,17 @@
 import {
-  Controller, Delete,
+  Controller,
+  Delete,
   Get,
   Post,
   Req,
   UploadedFile,
   UseGuards,
-  UseInterceptors
-} from "@nestjs/common";
+  UseInterceptors,
+} from '@nestjs/common';
 import { MediaService } from './media.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { RequestUser } from '../auth/interface/request-user.interface';
-import { Express } from 'express';
 import multer = require('multer');
 
 @Controller('media')

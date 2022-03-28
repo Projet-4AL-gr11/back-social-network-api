@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { User } from '../../user/domain/entities/user.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockedJwtService } from '../../../util/mocks/jwt.service.mock';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { mockedConfigService } from '../../../util/mocks/config.service.mock';
@@ -11,7 +9,7 @@ import { config } from 'dotenv';
 import { UserRepositoryMock } from '../../../util/mocks/repository/user.repository.mock';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import { UserDto } from '../../user/domain/dto/user.dto';
-import { CommandBus, CqrsModule, QueryBus } from "@nestjs/cqrs";
+import { CommandBus, CqrsModule, QueryBus } from '@nestjs/cqrs';
 
 config();
 

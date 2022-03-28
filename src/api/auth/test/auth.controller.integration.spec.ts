@@ -11,7 +11,7 @@ import { User } from '../../user/domain/entities/user.entity';
 import { UserDto } from '../../user/domain/dto/user.dto';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AuthController } from '../auth.controller';
-import { RegisterHandler } from '../cqrs/handler/register.handler';
+import { RegisterHandler } from '../cqrs/handler/command/register.handler';
 import { UserService } from '../../user/user.service';
 import { UserType } from '../../user/domain/enum/user-type.enum';
 import JwtAuthenticationGuard from '../guards/jwt-auth.guard';

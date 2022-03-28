@@ -101,7 +101,9 @@ describe('UserService', () => {
       commandBus.mockResolvedValue(undefined);
     });
     it('should return nothing', async () => {
-      expect(await service.setCurrentRefreshToken('token', '1')).toEqual(undefined);
+      expect(await service.setCurrentRefreshToken('token', '1')).toEqual(
+        undefined,
+      );
     });
   });
 
