@@ -24,14 +24,14 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @Post('/signup')
+  @Post('/register')
   async signUp(@Body() signUpDto: SignUpDto): Promise<User> {
     return await this.authService.signup(signUpDto);
   }
 
   @HttpCode(200)
   @UseGuards(LocalAuthenticationGuard)
-  @Post('/signin')
+  @Post('/login')
   async signIn(@Req() request: RequestUser, @Res() response: Response) {
     const { user } = request;
     const accessTokenCookie = this.authService.getCookieWithJwtToken(user.id);
