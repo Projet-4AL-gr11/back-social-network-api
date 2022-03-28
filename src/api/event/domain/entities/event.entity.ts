@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToOne,
@@ -19,6 +20,7 @@ import {
 } from 'class-validator';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
+import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 
 @Entity()
 export class Event {
@@ -72,4 +74,11 @@ export class Event {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToMany(() => Exercise, (exercise) => exercise.events, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinTable()
+  exercises: Exercise[];
 }

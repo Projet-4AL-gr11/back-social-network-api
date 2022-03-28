@@ -99,4 +99,20 @@ export class EventController {
   ): Promise<void> {
     return this.eventService.removeParticipant(id, userId);
   }
+
+  @Post('exercise/:id')
+  async addExercise(
+    @Param('id') id: string,
+    @Body() exerciseId: string,
+  ): Promise<void> {
+    return this.eventService.addExercise(id, exerciseId);
+  }
+
+  @Delete('exercise/:id')
+  async removeExercise(
+    @Param('id') id: string,
+    @Body() exerciseId: string,
+  ): Promise<void> {
+    return this.eventService.removeExercise(id, exerciseId);
+  }
 }

@@ -16,6 +16,8 @@ import { AddParticipantToEventCommand } from './cqrs/command/add-participant-to-
 import { DeleteEventCommand } from './cqrs/command/delete-event.command';
 import { RemoveParticipantToEventCommand } from './cqrs/command/remove-participant-to-event.command';
 import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.query';
+import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
+import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
 
 @Injectable()
 export class EventService {
@@ -49,15 +51,29 @@ export class EventService {
   async delete(id: string): Promise<void> {
     return await this.commandBus.execute(new DeleteEventCommand(id));
   }
+
   async addParticipant(eventId: string, userId: string): Promise<void> {
     return await this.commandBus.execute(
       new AddParticipantToEventCommand(eventId, userId),
     );
   }
 
+  async addExercise(eventId: string, exerciseId: string): Promise<void> {
+    // TODO: verifier que le language de l'exercise correspond au language de l'event
+    return await this.commandBus.execute(
+      new AddExerciseToEventCommand(exerciseId, eventId),
+    );
+  }
+
   async removeParticipant(eventId: string, userId: string): Promise<void> {
     return await this.commandBus.execute(
       new RemoveParticipantToEventCommand(eventId, userId),
+    );
+  }
+
+  async removeExercise(eventId: string, exerciseId: string): Promise<void> {
+    return await this.commandBus.execute(
+      new RemoveExerciseToEventCommand(exerciseId, eventId),
     );
   }
 

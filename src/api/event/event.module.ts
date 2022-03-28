@@ -17,6 +17,8 @@ import { CreateEventHandler } from './cqrs/handler/command/create-event.handler'
 import { DeleteEventHandler } from './cqrs/handler/command/delete-event.handler';
 import { RemoveParticipantHandler } from './cqrs/handler/command/remove-participant.handler';
 import { UpdateEventHandler } from './cqrs/handler/command/update-event.handler';
+import { AddExerciseToEventHandler } from './cqrs/handler/command/add-exercise-to-event.handler';
+import { RemoveExerciseToEventHandler } from './cqrs/handler/command/remove-exercise-to-event.handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User]), CqrsModule],
@@ -35,6 +37,8 @@ import { UpdateEventHandler } from './cqrs/handler/command/update-event.handler'
     DeleteEventHandler,
     RemoveParticipantHandler,
     UpdateEventHandler,
+    AddExerciseToEventHandler,
+    RemoveExerciseToEventHandler,
   ],
 })
 export class EventModule {}
