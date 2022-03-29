@@ -50,13 +50,13 @@ export class PostController {
     return this.postService.getSharedPost(id);
   }
 
-  @Get('getSharedPost/:id?=:offset&=:limit')
+  @Get('getTimeline/:userId?=:offset&=:limit')
   getTimeline(
-    @Param('id') id: string,
+    @Param('userId') userId: string,
     @Param('offset') offset: string,
     @Param('limit') limit: string,
   ) {
-    return this.postService.getTimeLine(id, Number(offset), Number(limit));
+    return this.postService.getTimeLine(userId, Number(offset), Number(limit));
   }
 
   @Post()

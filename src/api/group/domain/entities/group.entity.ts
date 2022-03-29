@@ -53,7 +53,7 @@ export class Group {
   @OneToMany(() => Post, (post) => post.group)
   posts: Post[];
 
-  @ManyToMany(() => User, (user) => user.followedGroup, {
+  @ManyToMany(() => User, (user) => user.followedGroups, {
     cascade: true,
     onDelete: 'CASCADE',
   })

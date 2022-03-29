@@ -9,19 +9,9 @@ export class UpdatePostEventHandler implements IEventHandler<UpdatePostEvent> {
   logger_console = new Logger('UpdatePostEvent');
 
   handle(event: UpdatePostEvent): any {
-    logger.info(
-      'User with Id : ( ' +
-        event.userId +
-        ' ) update with post id : ( ' +
-        event.postId +
-        ' )',
-    );
+    logger.info(' Update of post with id : ( ' + event.postId + ' )');
     this.logger_console.log(
-      'User with Id : ( ' +
-        event.userId +
-        ' ) update with post id : ( ' +
-        event.postId +
-        ' )',
+      'Update of post with id : ( ' + event.postId + ' )',
     );
   }
 }
