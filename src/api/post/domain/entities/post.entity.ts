@@ -14,6 +14,7 @@ import { Group } from '../../../group/domain/entities/group.entity';
 import { Length } from 'class-validator';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
+import { Comment } from '../../../comment/domain/entities/comment.entity';
 
 @Entity()
 export class Post {
@@ -37,6 +38,8 @@ export class Post {
   sharesPost: Post;
   @ManyToMany(() => User, (user) => user.likedPosts, { onDelete: 'CASCADE' })
   likes: User[];
+  @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
+  comments: Comment[];
   @Length(0, 512)
   @Column({ nullable: true, length: 512 })
   text: string;

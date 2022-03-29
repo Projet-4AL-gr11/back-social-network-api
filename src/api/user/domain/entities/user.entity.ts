@@ -22,6 +22,7 @@ import { GroupMembership } from '../../../group/domain/entities/group_membership
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
+import { Comment } from '../../../comment/domain/entities/comment.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -137,4 +138,11 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   createdPosts: Post[];
+
+  // Comment
+  @OneToMany(() => Comment, (comment) => comment.creator, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  comments: Comment[];
 }
