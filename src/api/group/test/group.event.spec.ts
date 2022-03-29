@@ -2,6 +2,8 @@ import { DeleteGroupEvent } from '../cqrs/event/delete-group.event';
 import { CreateGroupEvent } from '../cqrs/event/create-group.event';
 import { RemoveUserFromGroupEvent } from '../cqrs/event/remove-user-from-group.event';
 import { UpdateGroupEvent } from '../cqrs/event/update-group.event';
+import { AddGroupFollowerEvent } from "../cqrs/event/add-group-follower.event";
+import { RemoveGroupFollowerEvent } from "../cqrs/event/remove-group-follower.event";
 
 describe('GroupEvent', () => {
   describe('DeleteGroupEvent', () => {
@@ -35,6 +37,24 @@ describe('GroupEvent', () => {
       const event = new UpdateGroupEvent('1');
       expect(event.groupId).toBe('1');
       expect(event instanceof UpdateGroupEvent).toBe(true);
+    });
+  });
+
+  describe('AddGroupFollowerEvent', () => {
+    it('should create a AddGroupFollowerEvent instance', () => {
+      const event = new AddGroupFollowerEvent('1', 'bonjour');
+      expect(event.userId).toBe('1');
+      expect(event.groupId).toBe('bonjour');
+      expect(event instanceof AddGroupFollowerEvent).toBe(true);
+    });
+  });
+
+  describe('RemoveGroupFollowerEvent', () => {
+    it('should create a RemoveGroupFollowerEvent instance', () => {
+      const event = new RemoveGroupFollowerEvent('1', 'bonjour');
+      expect(event.userId).toBe('1');
+      expect(event.groupId).toBe('bonjour');
+      expect(event instanceof RemoveGroupFollowerEvent).toBe(true);
     });
   });
 });

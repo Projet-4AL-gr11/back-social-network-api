@@ -20,6 +20,8 @@ import Message from '../../../message/domain/entities/message.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { GroupMembership } from '../../../group/domain/entities/group_membership.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
+import { Post } from '../../../post/domain/entities/post.entity';
+import { Group } from '../../../group/domain/entities/group.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -112,10 +114,27 @@ export class User extends BaseEntity {
     this.password = await bcrypt.hash(password || this.password, 10);
   }
 
+  @ManyToMany(() => Group, (group) => group.followers)
+  @JoinTable()
+  followedGroups: Group[];
+
   // Event
   @OneToMany(() => Event, (event) => event.user)
   createdEvents: Event[];
   @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
   @JoinTable()
   eventsParticipation: Event[];
+
+  //Post
+  @ManyToMany(() => Post, (post) => post.likes, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinTable()
+  likedPosts: Post[];
+  @OneToMany(() => Post, (post) => post.creator, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  createdPosts: Post[];
 }

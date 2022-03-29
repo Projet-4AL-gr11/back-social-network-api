@@ -10,12 +10,17 @@ import { RemoveUserFromGroupCommand } from './cqrs/command/remove-user-from-grou
 import { GetGroupQuery } from './cqrs/query/get-group.query';
 import { GetGroupMembershipWithUserIdQuery } from './cqrs/query/get-group-membership-with-user-id.query';
 import { GroupMembership } from './domain/entities/group_membership.entity';
+import { GetGroupFollowerQuery } from './cqrs/query/get-group-follower.query';
+import { AddGroupFollowerCommand } from './cqrs/command/add-group-follower.command';
+import { RemoveGroupFollowerCommand } from './cqrs/command/remove-group-follower.command';
+import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 
 @Injectable()
 export class GroupService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  async create(user: User, groupDto: GroupDto): Promise<Group> {
+  async create(userId: string, groupDto: GroupDto): Promise<Group> {
+    const user = await this.queryBus.execute(new GetUserQuery(userId));
     return await this.commandBus.execute(
       new CreateGroupCommand(user, groupDto),
     );
@@ -47,6 +52,22 @@ export class GroupService {
   async getGroupWithUserId(userId: string): Promise<GroupMembership[]> {
     return await this.queryBus.execute(
       new GetGroupMembershipWithUserIdQuery(userId),
+    );
+  }
+
+  async getFollowers(groupId: string): Promise<User[]> {
+    return await this.queryBus.execute(new GetGroupFollowerQuery(groupId));
+  }
+
+  async addFollower(userId: string, groupId: string): Promise<void> {
+    return await this.commandBus.execute(
+      new AddGroupFollowerCommand(userId, groupId),
+    );
+  }
+
+  async removeFollower(userId: string, groupId: string): Promise<void> {
+    return await this.commandBus.execute(
+      new RemoveGroupFollowerCommand(userId, groupId),
     );
   }
 }

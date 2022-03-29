@@ -5,6 +5,8 @@ import { GroupDto } from '../domain/dto/group.dto';
 import { DeleteGroupCommand } from '../cqrs/command/delete-group.command';
 import { RemoveUserFromGroupCommand } from '../cqrs/command/remove-user-from-group.command';
 import { UpdateGroupCommand } from '../cqrs/command/update-group.command';
+import { AddGroupFollowerCommand } from "../cqrs/command/add-group-follower.command";
+import { RemoveGroupFollowerCommand } from "../cqrs/command/remove-group-follower.command";
 
 describe('GroupCommand', () => {
   const mockUser1: User = new User();
@@ -47,6 +49,24 @@ describe('GroupCommand', () => {
       expect(command.groupId).toBe('1');
       expect(command.groupDto).toBe(mockGroupDto);
       expect(command instanceof UpdateGroupCommand).toBe(true);
+    });
+  });
+
+  describe('AddGroupFollowerCommand', () => {
+    it('should create a AddGroupFollowerCommand instance', () => {
+      const command = new AddGroupFollowerCommand('1', '2');
+      expect(command.userId).toBe('1');
+      expect(command.groupId).toBe('2');
+      expect(command instanceof AddGroupFollowerCommand).toBe(true);
+    });
+  });
+
+  describe('RemoveGroupFollowerCommand', () => {
+    it('should create a RemoveGroupFollowerCommand instance', () => {
+      const command = new RemoveGroupFollowerCommand('1', '2');
+      expect(command.userId).toBe('1');
+      expect(command.groupId).toBe('2');
+      expect(command instanceof RemoveGroupFollowerCommand).toBe(true);
     });
   });
 });
