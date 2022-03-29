@@ -8,6 +8,10 @@ import { SaveProfilePictureEventHandler } from '../cqrs/event-handler/save-profi
 import { SaveProfilePictureEvent } from '../cqrs/event/save-profile-picture.event';
 import { SaveEventPictureEventHandler } from '../cqrs/event-handler/save-event-picture.event-handler';
 import { SaveGroupPictureEventHandler } from '../cqrs/event-handler/save-group-picture.event-handler';
+import { SavePostPictureEventHandler } from "../cqrs/event-handler/save-post-picture.event-handler";
+import { SavePostPictureEvent } from "../cqrs/event/save-post-picture.event";
+import { SaveCommentPictureEventHandler } from "../cqrs/event-handler/save-comment-picture.event-handler";
+import { SaveCommentPictureEvent } from "../cqrs/event/save-comment-picture.event";
 
 describe('MediaEventHandler', () => {
   afterEach(() => {
@@ -106,6 +110,46 @@ describe('MediaEventHandler', () => {
       it('should print correctly', () => {
         const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
         handler.handle(new SaveProfilePictureEvent(mockMediaDto));
+        expect(consoleSpy).toBeCalledTimes(1);
+      });
+    });
+  });
+
+
+  describe('SavePostPictureEventHandler', () => {
+    let handler: SavePostPictureEventHandler;
+
+    beforeEach(async () => {
+      const mod = await Test.createTestingModule({
+        providers: [SavePostPictureEventHandler],
+      }).compile();
+      handler = mod.get(SavePostPictureEventHandler);
+    });
+
+    describe('handler', () => {
+      it('should print correctly', () => {
+        const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
+        handler.handle(new SavePostPictureEvent(mockMediaDto));
+        expect(consoleSpy).toBeCalledTimes(1);
+      });
+    });
+  });
+
+
+  describe('SaveCommentPictureEventHandler', () => {
+    let handler: SaveCommentPictureEventHandler;
+
+    beforeEach(async () => {
+      const mod = await Test.createTestingModule({
+        providers: [SaveCommentPictureEventHandler],
+      }).compile();
+      handler = mod.get(SaveCommentPictureEventHandler);
+    });
+
+    describe('handler', () => {
+      it('should print correctly', () => {
+        const consoleSpy = jest.spyOn(logger, 'info').mockImplementation();
+        handler.handle(new SaveCommentPictureEvent(mockMediaDto));
         expect(consoleSpy).toBeCalledTimes(1);
       });
     });

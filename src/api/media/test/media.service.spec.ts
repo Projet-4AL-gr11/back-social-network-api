@@ -73,6 +73,15 @@ describe('MediaService', () => {
     });
   });
 
+  describe('getPostPicture', () => {
+    beforeEach(async () => {
+      queryBus.mockResolvedValue(mockMediaResponse);
+    });
+    it('should return a media', async () => {
+      expect(await service.getPostPicture('1')).toEqual(mockMediaResponse);
+    });
+  });
+
   describe('SaveBannerPicture', () => {
     beforeEach(async () => {
       commandBus.mockResolvedValue(mockMedia);
