@@ -65,6 +65,16 @@ export class PostController {
     return this.postService.createPost(user.id, postDto);
   }
 
+  @Post('forGroup/:groupId')
+  createPostForGroup(
+    @Req() request: RequestUser,
+    @Param('groupId') groupId: string,
+    @Body() postDto: PostDto,
+  ) {
+    const { user } = request;
+    return this.postService.createPost(user.id, postDto, groupId);
+  }
+
   @Post('like/:id')
   likePost(@Req() request: RequestUser, @Param('id') postId: string) {
     const { user } = request;

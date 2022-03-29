@@ -16,14 +16,32 @@ import { promises } from 'dns';
 import { IsPostOwnerQuery } from './cqrs/query/is-post-owner.query';
 import { GetSharedPostQuery } from './cqrs/query/get-shared-post.query';
 import { GetPostTimelineQuery } from './cqrs/query/get-post-timeline.query';
+import { GetGroupQuery } from '../group/cqrs/query/get-group.query';
 
 @Injectable()
 export class PostService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  async createPost(userId: string, postDto: PostDto): Promise<Post> {
+  async createPost(
+    userId: string,
+    postDto: PostDto,
+    groupId?: string,
+  ): Promise<Post> {
+    let post: Post;
+
     const user = await this.queryBus.execute(new GetUserQuery(userId));
-    return this.commandBus.execute(new CreatePostCommand(user, postDto));
+
+    if (postDto.group) {
+      const group = await this.queryBus.execute(new GetGroupQuery(groupId));
+      post = await this.commandBus.execute(
+        new CreatePostCommand(user, postDto, group),
+      );
+    } else {
+      post = await this.commandBus.execute(
+        new CreatePostCommand(user, postDto),
+      );
+    }
+    return post;
   }
 
   async getById(postId: string): Promise<Post> {
