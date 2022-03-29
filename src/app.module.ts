@@ -24,8 +24,10 @@ import { Language } from './api/language/domain/entities/language.entity';
 import { LanguageModule } from './api/language/language.module';
 import { Event } from './api/event/domain/entities/event.entity';
 import { EventModule } from './api/event/event.module';
-import { Post } from "./api/post/domain/entities/post.entity";
-import { PostModule } from "./api/post/post.module";
+import { Post } from './api/post/domain/entities/post.entity';
+import { PostModule } from './api/post/post.module';
+import { CommentModule } from './api/comment/comment.module';
+import { Comment } from './api/comment/domain/entities/comment.entity';
 
 config();
 
@@ -51,6 +53,7 @@ config();
         Language,
         Event,
         Post,
+        Comment,
       ],
       synchronize: true,
       logging: false,
@@ -66,6 +69,7 @@ config();
     LanguageModule,
     EventModule,
     PostModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

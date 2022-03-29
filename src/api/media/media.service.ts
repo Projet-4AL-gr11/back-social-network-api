@@ -14,6 +14,12 @@ import { DeletePictureCommand } from './cqrs/command/delete-picture.command';
 import { SaveEventPictureCommand } from './cqrs/command/save-event-picture.command';
 import { SaveGroupPictureCommand } from './cqrs/command/save-group-picture.command';
 import { GetEventQuery } from '../event/cqrs/query/get-event.query';
+import { SavePostPictureCommand } from './cqrs/command/save-post-picture.command';
+import { SaveCommentPictureCommand } from './cqrs/command/save-comment-picture.command';
+import { GetPostQuery } from '../post/cqrs/query/get-post.query';
+import { Post } from '../post/domain/entities/post.entity';
+import { Comment } from '../comment/domain/entities/comment.entity';
+import { GetCommentQuery } from '../comment/cqrs/query/get-comment.query';
 
 @Injectable()
 export class MediaService {
@@ -35,6 +41,14 @@ export class MediaService {
     return this.commandBus.execute(new SaveGroupPictureCommand(mediaDto));
   }
 
+  async uploadPostPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SavePostPictureCommand(mediaDto));
+  }
+
+  async uploadCommentPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SaveCommentPictureCommand(mediaDto));
+  }
+
   async deleteBannerPicture(fileId: string): Promise<void> {
     return this.commandBus.execute(new DeletePictureCommand(fileId));
   }
@@ -48,6 +62,10 @@ export class MediaService {
   }
 
   async deleteGroupPicture(fileId: string): Promise<void> {
+    return this.commandBus.execute(new DeletePictureCommand(fileId));
+  }
+
+  async deletePicture(fileId: string): Promise<void> {
     return this.commandBus.execute(new DeletePictureCommand(fileId));
   }
 
@@ -81,5 +99,31 @@ export class MediaService {
     return this.queryBus.execute(
       new GetPictureTemporaryLinkQuery(group.picture),
     );
+  }
+
+  async getPostPicture(postId: string): Promise<MediaResponseDto[]> {
+    const post: Post = await this.queryBus.execute(new GetPostQuery(postId));
+    const response: MediaResponseDto[] = [];
+
+    for (const media of post.medias) {
+      response.push(
+        await this.queryBus.execute(new GetPictureTemporaryLinkQuery(media)),
+      );
+    }
+    return response;
+  }
+
+  async getCommentPicture(commentId: string): Promise<MediaResponseDto[]> {
+    const comment: Comment = await this.queryBus.execute(
+      new GetCommentQuery(commentId),
+    );
+    const response: MediaResponseDto[] = [];
+
+    for (const media of comment.medias) {
+      response.push(
+        await this.queryBus.execute(new GetPictureTemporaryLinkQuery(media)),
+      );
+    }
+    return response;
   }
 }

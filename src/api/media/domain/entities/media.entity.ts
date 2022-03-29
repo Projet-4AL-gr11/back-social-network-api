@@ -12,6 +12,7 @@ import { User } from '../../../user/domain/entities/user.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
+import { Comment } from '../../../comment/domain/entities/comment.entity';
 
 @Entity()
 export class Media {
@@ -34,6 +35,11 @@ export class Media {
 
   @ManyToOne(() => Post, (post) => post.medias, { onDelete: 'CASCADE' })
   post: Post;
+
+  @ManyToOne(() => Comment, (comment) => comment.medias, {
+    onDelete: 'CASCADE',
+  })
+  comments: Comment;
 
   @CreateDateColumn()
   createdAt: Date;
