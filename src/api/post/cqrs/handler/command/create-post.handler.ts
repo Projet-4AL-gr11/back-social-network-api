@@ -17,16 +17,35 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
 
   async execute(command: CreatePostCommand): Promise<Post> {
     try {
-      const post = this.postRepository.create({
-        ...command.postDto,
-        creator: command.user,
-      });
+      let post: Post;
+      if (command.group) {
+        post = this.postRepository.create({
+          ...command.postDto,
+          creator: command.user,
+          group: command.group,
+        });
+      } else {
+        post = this.postRepository.create({
+          ...command.postDto,
+          creator: command.user,
+        });
+      }
+
       const err = await validate(post);
       if (err.length > 0) {
         throw err;
       }
       const savedPost = await this.postRepository.save(post);
-      this.eventBus.publish(new CreatePostEvent(command.user.id, savedPost.id));
+
+      if (command.group) {
+        this.eventBus.publish(
+          new CreatePostEvent(command.user.id, savedPost.id, command.group.id),
+        );
+      } else {
+        this.eventBus.publish(
+          new CreatePostEvent(command.user.id, savedPost.id),
+        );
+      }
       return savedPost;
     } catch (error) {
       // TODO: Renvoyer une vrai erreur
