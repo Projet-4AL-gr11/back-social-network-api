@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -10,6 +11,7 @@ import {
 import { User } from '../../../user/domain/entities/user.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
+import { Post } from '../../../post/domain/entities/post.entity';
 
 @Entity()
 export class Media {
@@ -29,6 +31,9 @@ export class Media {
 
   @OneToOne(() => Group, (group) => group.picture, { onDelete: 'CASCADE' })
   groupPicture: Group;
+
+  @ManyToOne(() => Post, (post) => post.medias, { onDelete: 'CASCADE' })
+  post: Post;
 
   @CreateDateColumn()
   createdAt: Date;
