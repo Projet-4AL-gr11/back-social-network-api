@@ -24,6 +24,8 @@ import { Language } from './api/language/domain/entities/language.entity';
 import { LanguageModule } from './api/language/language.module';
 import { Event } from './api/event/domain/entities/event.entity';
 import { EventModule } from './api/event/event.module';
+import { Post } from "./api/post/domain/entities/post.entity";
+import { PostModule } from "./api/post/post.module";
 
 config();
 
@@ -48,6 +50,7 @@ config();
         Exercise,
         Language,
         Event,
+        Post,
       ],
       synchronize: true,
       logging: false,
@@ -62,6 +65,7 @@ config();
     ExerciseModule,
     LanguageModule,
     EventModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
