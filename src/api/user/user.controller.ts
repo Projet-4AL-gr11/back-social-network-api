@@ -5,11 +5,14 @@ import {
   Get,
   Param,
   Patch,
+  Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { UpdateUserDto } from './domain/dto/update-user.dto';
 import { UserService } from './user.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { RequestUser } from '../auth/interface/request-user.interface';
 
 @Controller('user')
 export class UserController {
@@ -23,6 +26,28 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
+  }
+
+  @Get('isBlocked/:id')
+  isBlocked(@Req() request: RequestUser, @Param('id') id: string) {
+    return this.userService.isBlocked(request.user.id, id);
+  }
+
+  @Get('hasBlocked/:id')
+  hasBlocked(@Req() request: RequestUser, @Param('id') id: string) {
+    return this.userService.hasBlocked(request.user.id, id);
+  }
+
+  @Post('block/:id')
+  blockUser(@Req() request: RequestUser, @Param('id') id: string) {
+    const { user } = request;
+    return this.userService.blockUser(user.id, id);
+  }
+
+  @Post('unblock/:id')
+  unblockUser(@Req() request: RequestUser, @Param('id') id: string) {
+    const { user } = request;
+    return this.userService.unblockUser(user.id, id);
   }
 
   @Patch(':id')
