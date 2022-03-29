@@ -19,6 +19,7 @@ import { SaveCommentPictureCommand } from './cqrs/command/save-comment-picture.c
 import { GetPostQuery } from '../post/cqrs/query/get-post.query';
 import { Post } from '../post/domain/entities/post.entity';
 import { Comment } from '../comment/domain/entities/comment.entity';
+import { GetCommentQuery } from '../comment/cqrs/query/get-comment.query';
 
 @Injectable()
 export class MediaService {
