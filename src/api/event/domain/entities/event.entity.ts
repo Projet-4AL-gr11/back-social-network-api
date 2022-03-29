@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -21,6 +22,7 @@ import {
 import { User } from '../../../user/domain/entities/user.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
+import { Post } from '../../../post/domain/entities/post.entity';
 
 @Entity()
 export class Event {
@@ -81,4 +83,7 @@ export class Event {
   })
   @JoinTable()
   exercises: Exercise[];
+
+  @OneToMany(() => Post, (post) => post.sharedEvent, { onDelete: 'CASCADE' })
+  posts: Post[];
 }

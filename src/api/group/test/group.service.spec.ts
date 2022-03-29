@@ -54,7 +54,7 @@ describe('GroupService', () => {
       commandBus.mockResolvedValue(mockGroup);
     });
     it('should return new group', async () => {
-      expect(await service.create(mockUser1, mockGroupDto)).toBe(mockGroup);
+      expect(await service.create('1', mockGroupDto)).toBe(mockGroup);
     });
   });
 
@@ -94,4 +94,8 @@ describe('GroupService', () => {
       expect(await service.getGroupWithUserId('1')).toBe(mockGroup);
     });
   });
+
+  //TODO: test addFollower
+  //TODO: test removeFollower
+  //TODO: test getFollower
 });

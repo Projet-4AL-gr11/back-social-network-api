@@ -1,5 +1,6 @@
 import { GetGroupQuery } from '../cqrs/query/get-group.query';
 import { GetGroupMembershipWithUserIdQuery } from '../cqrs/query/get-group-membership-with-user-id.query';
+import { GetGroupFollowerQuery } from "../cqrs/query/get-group-follower.query";
 
 describe('GroupQuery', () => {
   describe('GetGroupQuery', () => {
@@ -19,6 +20,14 @@ describe('GroupQuery', () => {
       const query = new GetGroupMembershipWithUserIdQuery('1');
       expect(query.userId).toBe('1');
       expect(query instanceof GetGroupMembershipWithUserIdQuery).toBe(true);
+    });
+  });
+
+  describe('GetGroupFollowerQuery', () => {
+    it('should return GetGroupFollowerQuery instance', () => {
+      const query = new GetGroupFollowerQuery('1');
+      expect(query.groupId).toBe('1');
+      expect(query instanceof GetGroupFollowerQuery).toBe(true);
     });
   });
 });
