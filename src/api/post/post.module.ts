@@ -16,9 +16,12 @@ import { GetPostHandler } from './cqrs/handler/query/get-post.handler';
 import { GetSharedPostHandler } from './cqrs/handler/query/get-shared-post.handler';
 import { IsLikedPostHandler } from './cqrs/handler/query/is-liked-post.handler';
 import { IsPostOwnerHandler } from './cqrs/handler/query/is-post-owner.handler';
+import { GetGroupPostHandler } from './cqrs/handler/query/get-group-post.handler';
+import { GetGroupHandler } from '../group/cqrs/handler/query/get-group.handler';
+import { Group } from "../group/domain/entities/group.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Post, User]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([Post, User, Group]), CqrsModule],
   controllers: [PostController],
   providers: [
     PostService,
@@ -33,6 +36,7 @@ import { IsPostOwnerHandler } from './cqrs/handler/query/is-post-owner.handler';
     GetSharedPostHandler,
     IsLikedPostHandler,
     IsPostOwnerHandler,
+    GetGroupPostHandler,
   ],
 })
 export class PostModule {}
