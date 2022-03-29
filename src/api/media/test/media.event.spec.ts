@@ -3,6 +3,8 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { DeletePictureEvent } from '../cqrs/event/delete-picture.event';
 import { SaveEventPictureEvent } from '../cqrs/event/save-event-picture.event';
 import { SaveGroupPictureEvent } from '../cqrs/event/save-group-picture.event';
+import { SavePostPictureEvent } from "../cqrs/event/save-post-picture.event";
+import { SaveCommentPictureEvent } from "../cqrs/event/save-comment-picture.event";
 
 describe('MediaEvent', () => {
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');
@@ -54,4 +56,25 @@ describe('MediaEvent', () => {
       expect(event instanceof SaveGroupPictureEvent).toBe(true);
     });
   });
+
+  describe('SavePostPictureEvent', () => {
+    it('should return a SavePostPictureEvent instance', () => {
+      const event = new SavePostPictureEvent(mockMediaDto);
+      expect(event.mediaDto.ownerId).toBe(mockMediaDto.ownerId);
+      expect(event.mediaDto.dataBuffer).toBe(mockMediaDto.dataBuffer);
+      expect(event.mediaDto.fileName).toBe(mockMediaDto.fileName);
+      expect(event instanceof SavePostPictureEvent).toBe(true);
+    });
+  });
+
+  describe('SaveCommentPictureEvent', () => {
+    it('should return a SaveCommentPictureEvent instance', () => {
+      const event = new SaveCommentPictureEvent(mockMediaDto);
+      expect(event.mediaDto.ownerId).toBe(mockMediaDto.ownerId);
+      expect(event.mediaDto.dataBuffer).toBe(mockMediaDto.dataBuffer);
+      expect(event.mediaDto.fileName).toBe(mockMediaDto.fileName);
+      expect(event instanceof SaveCommentPictureEvent).toBe(true);
+    });
+  });
+
 });
