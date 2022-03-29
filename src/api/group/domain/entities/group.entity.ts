@@ -4,6 +4,8 @@ import {
   Entity,
   getRepository,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -13,6 +15,8 @@ import { Conversation } from '../../../conversation/domain/entities/conversation
 import { GroupMembership } from './group_membership.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
+import { Post } from '../../../post/domain/entities/post.entity';
+import { User } from '../../../user/domain/entities/user.entity';
 
 @Entity()
 export class Group {
@@ -45,6 +49,16 @@ export class Group {
   })
   @JoinColumn()
   picture: Media;
+
+  @OneToMany(() => Post, (post) => post.group)
+  posts: Post[];
+
+  @ManyToMany(() => User, (user) => user.followedGroup, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinTable()
+  followers: User[];
 
   @BeforeInsert()
   async setConversation() {

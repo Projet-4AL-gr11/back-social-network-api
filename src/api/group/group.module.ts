@@ -11,9 +11,16 @@ import { GetGroupHandler } from './cqrs/handler/query/get-group.handler';
 import { GetGroupWithUserIdHandler } from './cqrs/handler/query/get-group-with-user-id.handler';
 import { RemoveUserFromGroupHandler } from './cqrs/handler/command/remove-user-from-group.handler';
 import { UpdateGroupHandler } from './cqrs/handler/command/update-group.handler';
+import { AddGroupFollowerHandler } from './cqrs/handler/command/add-group-follower.handler';
+import { RemoveGroupFollowerHandler } from './cqrs/handler/command/remove-group-follower.handler';
+import { GetGroupFollowerHandler } from './cqrs/handler/query/get-group-follower.handler';
+import { User } from '../user/domain/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Group, GroupMembership]), CqrsModule],
+  imports: [
+    TypeOrmModule.forFeature([Group, GroupMembership, User]),
+    CqrsModule,
+  ],
   controllers: [GroupController],
   providers: [
     GroupService,
@@ -23,6 +30,9 @@ import { UpdateGroupHandler } from './cqrs/handler/command/update-group.handler'
     GetGroupWithUserIdHandler,
     RemoveUserFromGroupHandler,
     UpdateGroupHandler,
+    AddGroupFollowerHandler,
+    RemoveGroupFollowerHandler,
+    GetGroupFollowerHandler,
   ],
 })
 export class GroupModule {}
