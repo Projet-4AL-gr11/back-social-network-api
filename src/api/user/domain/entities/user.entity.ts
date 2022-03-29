@@ -145,4 +145,11 @@ export class User extends BaseEntity {
     onDelete: 'SET NULL',
   })
   comments: Comment[];
+
+  //blockedex
+  @ManyToMany(() => User, (user) => user.blockedUsers, { onDelete: 'CASCADE' })
+  blockers: User[];
+  @ManyToMany(() => User, (user) => user.blockers, { cascade: true })
+  @JoinTable()
+  blockedUsers: User[];
 }
