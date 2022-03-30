@@ -15,6 +15,7 @@ import { Length } from 'class-validator';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class Post {
@@ -49,6 +50,13 @@ export class Post {
     onDelete: 'SET NULL',
   })
   medias: Media[];
+
+  @OneToMany(() => Report, (report) => report.reportedPost, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reported: Report[];
+
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()

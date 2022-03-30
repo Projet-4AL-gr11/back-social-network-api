@@ -23,6 +23,7 @@ import { Event } from '../../../event/domain/entities/event.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -152,4 +153,16 @@ export class User extends BaseEntity {
   @ManyToMany(() => User, (user) => user.blockers, { cascade: true })
   @JoinTable()
   blockedUsers: User[];
+
+  //Report
+  @OneToMany(() => Report, (report) => report.userReporter, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reports: Report[];
+  @OneToMany(() => Report, (report) => report.reportedUser, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reported: Report[];
 }
