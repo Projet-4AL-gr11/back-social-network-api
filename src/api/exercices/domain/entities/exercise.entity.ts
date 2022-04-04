@@ -25,6 +25,4 @@ export class Exercise {
 
   @ManyToMany(() => Event, (event) => event.exercises)
   events: Event[];
-
-
 }

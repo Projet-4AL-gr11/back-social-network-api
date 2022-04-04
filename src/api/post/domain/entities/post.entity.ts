@@ -41,6 +41,7 @@ export class Post {
   likes: User[];
   @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
   comments: Comment[];
+  // TODO: Ajouter une variable pour les commentaires
   @Length(0, 512)
   @Column({ nullable: true, length: 512 })
   text: string;
