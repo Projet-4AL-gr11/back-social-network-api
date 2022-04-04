@@ -29,6 +29,7 @@ import { PostModule } from './api/post/post.module';
 import { CommentModule } from './api/comment/comment.module';
 import { Comment } from './api/comment/domain/entities/comment.entity';
 import { Report } from './api/report/domain/entities/report.entity';
+import { ReportModule } from "./api/report/report.module";
 
 config();
 
@@ -72,6 +73,7 @@ config();
     EventModule,
     PostModule,
     CommentModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
