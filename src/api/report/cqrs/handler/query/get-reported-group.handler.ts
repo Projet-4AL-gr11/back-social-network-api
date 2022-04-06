@@ -16,6 +16,17 @@ export class GetReportedGroupHandler
   ) {}
 
   execute(query: GetReportedGroupQuery): Promise<any> {
-    throw 'not implemented';
+    if (query.id) {
+      return this.reportRepository
+          .createQueryBuilder()
+          .leftJoinAndSelect('ReportedGroup', 'Group')
+          .where('Group.id=:id', {id: query.id})
+          .getMany()
+    }
+    return this.reportRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('ReportedGroup', 'Group')
+        .where('Group != null')
+        .getMany();
   }
 }

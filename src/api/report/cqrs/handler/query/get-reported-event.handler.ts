@@ -16,6 +16,17 @@ export class GetReportedEventHandler
   ) {}
 
   execute(query: GetReportedEventQuery): Promise<any> {
-    throw 'not implemented';
+    if (query.id) {
+      return this.reportRepository
+          .createQueryBuilder()
+          .leftJoinAndSelect('ReportedEvent', 'Event')
+          .where('Event.id=:id', {id: query.id})
+          .getMany()
+    }
+    return this.reportRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('ReportedEvent', 'Event')
+        .where('Event != null')
+        .getMany();
   }
 }

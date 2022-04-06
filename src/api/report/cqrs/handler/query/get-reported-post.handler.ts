@@ -16,6 +16,17 @@ export class GetReportedPostHandler
   ) {}
 
   execute(query: GetReportedPostQuery): Promise<any> {
-    throw 'not implemented';
+    if (query.id) {
+      return this.reportRepository
+          .createQueryBuilder()
+          .leftJoinAndSelect('ReportedPost', 'Post')
+          .where('Post.id=:id', {id: query.id})
+          .getMany()
+    }
+    return this.reportRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('ReportedPost', 'Post')
+        .where('Post != null')
+        .getMany();
   }
 }

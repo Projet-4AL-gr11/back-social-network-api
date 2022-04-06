@@ -16,6 +16,17 @@ export class GetReportedUserHandler
   ) {}
 
   execute(query: GetReportedUserQuery): Promise<any> {
-    throw 'not implemented';
+    if (query.id) {
+      return this.reportRepository
+          .createQueryBuilder()
+          .leftJoinAndSelect('ReportedUser', 'User')
+          .where('User.id=:id', {id: query.id})
+          .getMany()
+    }
+    return this.reportRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('ReportedUser', 'User')
+        .where('User != null')
+        .getMany();
   }
 }

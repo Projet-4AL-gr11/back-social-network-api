@@ -15,7 +15,18 @@ export class GetReportedCommentHandler
     private reportRepository: Repository<Report>,
   ) {}
 
-  execute(query: GetReportedCommentQuery): Promise<any> {
-    throw 'not implemented';
+  execute(query: GetReportedCommentQuery): Promise<Report[]> {
+    if (query.id) {
+      return this.reportRepository
+          .createQueryBuilder()
+          .leftJoinAndSelect('ReportedComment', 'Comment')
+          .where('Comment.id=:id', {id: query.id})
+          .getMany()
+    }
+    return this.reportRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('ReportedComment', 'Comment')
+        .where('Comment != null')
+        .getMany();
   }
 }
