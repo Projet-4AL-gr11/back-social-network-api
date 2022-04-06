@@ -17,6 +17,7 @@ import { Event } from '../../../event/domain/entities/event.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { User } from '../../../user/domain/entities/user.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class Group {
@@ -59,6 +60,12 @@ export class Group {
   })
   @JoinTable()
   followers: User[];
+
+  @OneToMany(() => Report, (report) => report.reportedGroup, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reported: Report[];
 
   @BeforeInsert()
   async setConversation() {

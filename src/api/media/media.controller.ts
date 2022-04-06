@@ -129,6 +129,7 @@ export class MediaController {
     });
   }
 
+  // TODO: A revoir pour plusieurs photo
   @Post('post-picture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
@@ -143,6 +144,7 @@ export class MediaController {
     });
   }
 
+  // TODO: A revoir pour plusieurs photo
   @Post('post-picture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))

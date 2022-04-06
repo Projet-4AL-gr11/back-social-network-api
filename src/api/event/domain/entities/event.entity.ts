@@ -23,6 +23,7 @@ import { User } from '../../../user/domain/entities/user.entity';
 import { Media } from '../../../media/domain/entities/media.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class Event {
@@ -86,4 +87,10 @@ export class Event {
 
   @OneToMany(() => Post, (post) => post.sharedEvent, { onDelete: 'CASCADE' })
   posts: Post[];
+
+  @OneToMany(() => Report, (report) => report.reportedEvent, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reported: Report[];
 }
