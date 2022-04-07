@@ -30,6 +30,10 @@ import { CommentModule } from './api/comment/comment.module';
 import { Comment } from './api/comment/domain/entities/comment.entity';
 import { Report } from './api/report/domain/entities/report.entity';
 import { ReportModule } from "./api/report/report.module";
+import {Leaderboard} from "./api/leaderboard/domain/entities/leaderboard.entity";
+import {EventRanking} from "./api/leaderboard/domain/entities/event-ranking.entity";
+import {LeaderboardModule} from "./api/leaderboard/leaderboard.module";
+import {ExerciseTemplate} from "./api/exercices/domain/entities/exercise-template.entity";
 
 config();
 
@@ -57,6 +61,9 @@ config();
         Post,
         Comment,
         Report,
+        Leaderboard,
+        EventRanking,
+        ExerciseTemplate,
       ],
       synchronize: true,
       logging: false,
@@ -74,6 +81,7 @@ config();
     PostModule,
     CommentModule,
     ReportModule,
+    LeaderboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
