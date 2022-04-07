@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
+import {Leaderboard} from "../../../leaderboard/domain/entities/leaderboard.entity";
+import {ExerciseTemplate} from "../../../exercices/domain/entities/exercise-template.entity";
 
 @Entity()
 export class Language {
@@ -14,10 +16,12 @@ export class Language {
   id: string;
   @Column()
   name: string;
-  @OneToMany(() => Exercise, (exercise) => exercise.language)
-  exercises: Exercise[];
+  @OneToMany(() => ExerciseTemplate, (exerciseTemplate) => exerciseTemplate.language)
+  exerciseTemplates: ExerciseTemplate[];
   @OneToMany(() => Event, (event) => event.language)
   events: Event[];
+  @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.language)
+  leaderboards: Leaderboard[];
   @CreateDateColumn()
   createdAt: Date;
 }

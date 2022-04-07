@@ -24,6 +24,8 @@ import { Media } from '../../../media/domain/entities/media.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
+import {Leaderboard} from "../../../leaderboard/domain/entities/leaderboard.entity";
+import {EventRanking} from "../../../leaderboard/domain/entities/event-ranking.entity";
 
 @Entity()
 export class Event {
@@ -78,11 +80,10 @@ export class Event {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToMany(() => Exercise, (exercise) => exercise.events, {
+  @OneToMany(() => Exercise, (exercise) => exercise.events, {
     cascade: true,
     onDelete: 'CASCADE',
   })
-  @JoinTable()
   exercises: Exercise[];
 
   @OneToMany(() => Post, (post) => post.sharedEvent, { onDelete: 'CASCADE' })
@@ -93,4 +94,10 @@ export class Event {
     onDelete: 'SET NULL',
   })
   reported: Report[];
+
+  @OneToMany(() => EventRanking, (eventRanking) => eventRanking.event, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  eventRanking: EventRanking[];
 }

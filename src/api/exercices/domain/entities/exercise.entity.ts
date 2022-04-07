@@ -3,11 +3,13 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  ManyToOne,
+  ManyToOne, OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Language } from '../../../language/domain/entities/language.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
+import {Leaderboard} from "../../../leaderboard/domain/entities/leaderboard.entity";
+import {IsDate} from "class-validator";
 
 @Entity()
 export class Exercise {
@@ -17,12 +19,20 @@ export class Exercise {
   @Column()
   name: string;
 
-  @ManyToOne(() => Language, (language) => language.exercises, {
-    nullable: false,
-    eager: true,
-  })
-  language: Language;
-
   @ManyToMany(() => Event, (event) => event.exercises)
   events: Event[];
+
+  @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.exercise, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  leaderboards: Leaderboard[];
+
+  @Column()
+  @IsDate()
+  startingDate: Date;
+
+  @Column()
+  @IsDate()
+  endingDate: Date;
 }

@@ -5,7 +5,7 @@ import {
   Entity,
   JoinColumn,
   JoinTable,
-  ManyToMany,
+  ManyToMany, ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -24,6 +24,9 @@ import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
+import {Exercise} from "../../../exercices/domain/entities/exercise.entity";
+import {Leaderboard} from "../../../leaderboard/domain/entities/leaderboard.entity";
+import {EventRanking} from "../../../leaderboard/domain/entities/event-ranking.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -127,6 +130,9 @@ export class User extends BaseEntity {
   @JoinTable()
   eventsParticipation: Event[];
 
+  @OneToMany(() => EventRanking, (eventRanking) => eventRanking.user)
+  eventRanking: EventRanking[];
+
   //Post
   @ManyToMany(() => Post, (post) => post.likes, {
     cascade: true,
@@ -147,7 +153,7 @@ export class User extends BaseEntity {
   })
   comments: Comment[];
 
-  //blockedex
+  //blockédex
   @ManyToMany(() => User, (user) => user.blockedUsers, { onDelete: 'CASCADE' })
   blockers: User[];
   @ManyToMany(() => User, (user) => user.blockers, { cascade: true })
@@ -160,9 +166,17 @@ export class User extends BaseEntity {
     onDelete: 'SET NULL',
   })
   reports: Report[];
+
   @OneToMany(() => Report, (report) => report.reportedUser, {
     cascade: true,
     onDelete: 'SET NULL',
   })
   reported: Report[];
+
+  //Leaderboard
+  @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  leaderboards: Leaderboard[];
 }
