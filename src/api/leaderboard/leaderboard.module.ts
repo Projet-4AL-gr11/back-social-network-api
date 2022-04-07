@@ -35,4 +35,4 @@ import {GetLeaderboardForUserHandler} from "./cqrs/handler/query/get-leaderboard
         GetLeaderboardForUserHandler,
     ],
 })
-export class UserModule {}
+export class LeaderboardModule {}
