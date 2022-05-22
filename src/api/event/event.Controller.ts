@@ -40,6 +40,11 @@ export class EventController {
     return await this.eventService.getEventParticipant(id);
   }
 
+  @Get('participation/:id')
+  async getParticipation(@Param('id') id: string): Promise<Event[]> {
+    return await this.eventService.getEventParticipation(id);
+  }
+
   @Get('owner/:id')
   async getOwner(@Param('id') id: string): Promise<User> {
     return await this.eventService.getOwner(id);

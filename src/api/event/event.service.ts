@@ -18,6 +18,7 @@ import { RemoveParticipantToEventCommand } from './cqrs/command/remove-participa
 import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.query';
 import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
 import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
+import { GetEventParticipationQuery } from "./cqrs/query/get-event-participation.query";
 
 @Injectable()
 export class EventService {
@@ -37,6 +38,10 @@ export class EventService {
 
   async getEventParticipant(eventId: string): Promise<User[]> {
     return await this.queryBus.execute(new GetEventMemberQuery(eventId));
+  }
+
+  async getEventParticipation(userId: string): Promise<Event[]> {
+    return await this.queryBus.execute(new GetEventParticipationQuery(userId));
   }
 
   async create(eventDto: EventDto): Promise<Event> {
