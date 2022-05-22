@@ -4,8 +4,8 @@ import { logger } from '../../../util/config/winston-logger.config';
 import { DeleteGroupEventHandler } from '../cqrs/event-handler/delete-group.event-handler';
 import { RemoveUserFromGroupEventHandler } from '../cqrs/event-handler/remove-user-from-group.event-handler';
 import { UpdateGroupEventHandler } from '../cqrs/event-handler/update-group.event-handler';
-import { RemoveGroupFollowEventHandler } from "../cqrs/event-handler/remove-group-follow.event-handler";
-import { AddGroupFollowerEventHandler } from "../cqrs/event-handler/add-group-follower.event-handler";
+import { RemoveGroupFollowEventHandler } from '../cqrs/event-handler/remove-group-follow.event-handler';
+import { AddGroupFollowerEventHandler } from '../cqrs/event-handler/add-group-follower.event-handler';
 
 describe('GroupEventHandler', () => {
   afterEach(() => {

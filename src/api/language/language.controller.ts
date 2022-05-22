@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { LanguageService } from './language.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 import { LanguageDto } from './domain/dto/language.dto';

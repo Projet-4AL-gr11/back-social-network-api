@@ -1,5 +1,5 @@
-import { User } from "../../../user/domain/entities/user.entity";
-import { Event } from "../../../event/domain/entities/event.entity";
+import { User } from '../../../user/domain/entities/user.entity';
+import { Event } from '../../../event/domain/entities/event.entity';
 
 export class CreateReportEventCommand {
   constructor(

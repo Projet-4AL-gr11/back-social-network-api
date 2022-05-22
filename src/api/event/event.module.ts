@@ -19,7 +19,7 @@ import { RemoveParticipantHandler } from './cqrs/handler/command/remove-particip
 import { UpdateEventHandler } from './cqrs/handler/command/update-event.handler';
 import { AddExerciseToEventHandler } from './cqrs/handler/command/add-exercise-to-event.handler';
 import { RemoveExerciseToEventHandler } from './cqrs/handler/command/remove-exercise-to-event.handler';
-import {EventRanking} from "../leaderboard/domain/entities/event-ranking.entity";
+import { EventRanking } from '../leaderboard/domain/entities/event-ranking.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],

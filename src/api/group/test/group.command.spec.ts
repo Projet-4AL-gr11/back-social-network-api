@@ -5,8 +5,8 @@ import { GroupDto } from '../domain/dto/group.dto';
 import { DeleteGroupCommand } from '../cqrs/command/delete-group.command';
 import { RemoveUserFromGroupCommand } from '../cqrs/command/remove-user-from-group.command';
 import { UpdateGroupCommand } from '../cqrs/command/update-group.command';
-import { AddGroupFollowerCommand } from "../cqrs/command/add-group-follower.command";
-import { RemoveGroupFollowerCommand } from "../cqrs/command/remove-group-follower.command";
+import { AddGroupFollowerCommand } from '../cqrs/command/add-group-follower.command';
+import { RemoveGroupFollowerCommand } from '../cqrs/command/remove-group-follower.command';
 
 describe('GroupCommand', () => {
   const mockUser1: User = new User();

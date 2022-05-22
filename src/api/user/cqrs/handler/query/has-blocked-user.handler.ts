@@ -1,10 +1,10 @@
-import { EventBus, IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { IsBlockedUserQuery } from "../../query/is-blocked-user.query";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../../../domain/entities/user.entity";
-import { Repository } from "typeorm";
-import { ErrorsEvent } from "../../../../../util/error/errorsEvent";
-import { HasBlockedUserQuery } from "../../query/has-blocked-user.query";
+import { EventBus, IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { IsBlockedUserQuery } from '../../query/is-blocked-user.query';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../../../domain/entities/user.entity';
+import { Repository } from 'typeorm';
+import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
+import { HasBlockedUserQuery } from '../../query/has-blocked-user.query';
 
 @QueryHandler(HasBlockedUserQuery)
 export class HasBlockedUserHandler

@@ -3,13 +3,15 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  ManyToOne, OneToMany,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Language } from '../../../language/domain/entities/language.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
-import {Leaderboard} from "../../../leaderboard/domain/entities/leaderboard.entity";
-import {IsDate} from "class-validator";
+import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
+import { IsDate } from 'class-validator';
+import { ExerciseTemplate } from './exercise-template.entity';
 
 @Entity()
 export class Exercise {
@@ -35,4 +37,13 @@ export class Exercise {
   @Column()
   @IsDate()
   endingDate: Date;
+
+  @ManyToOne(
+    () => ExerciseTemplate,
+    (exerciseTemplate) => exerciseTemplate.exercise,
+    {
+      nullable: false,
+    },
+  )
+  exerciseTemplate: ExerciseTemplate;
 }

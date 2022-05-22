@@ -1,12 +1,12 @@
-import { CommandHandler, EventBus, ICommandHandler } from "@nestjs/cqrs";
-import { RemoveParticipantToEventCommand } from "../../command/remove-participant-to-event.command";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Event } from "../../../domain/entities/event.entity";
-import { Repository } from "typeorm";
-import { RemoveParticipantToEventEvent } from "../../event/remove-participant-to-event.event";
-import { ErrorsEvent } from "../../../../../util/error/errorsEvent";
-import { RemoveExerciseToEventCommand } from "../../command/remove-exercise-to-event.command";
-import { RemoveExerciseToEventEvent } from "../../event/remove-exercise-to-event.event";
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { RemoveParticipantToEventCommand } from '../../command/remove-participant-to-event.command';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Event } from '../../../domain/entities/event.entity';
+import { Repository } from 'typeorm';
+import { RemoveParticipantToEventEvent } from '../../event/remove-participant-to-event.event';
+import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
+import { RemoveExerciseToEventCommand } from '../../command/remove-exercise-to-event.command';
+import { RemoveExerciseToEventEvent } from '../../event/remove-exercise-to-event.event';
 
 @CommandHandler(RemoveExerciseToEventCommand)
 export class RemoveExerciseToEventHandler

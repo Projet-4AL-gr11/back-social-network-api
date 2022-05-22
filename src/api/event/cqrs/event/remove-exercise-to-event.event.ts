@@ -4,4 +4,3 @@ export class RemoveExerciseToEventEvent {
     public readonly eventId: string,
   ) {}
 }
-

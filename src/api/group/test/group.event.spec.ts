@@ -2,8 +2,8 @@ import { DeleteGroupEvent } from '../cqrs/event/delete-group.event';
 import { CreateGroupEvent } from '../cqrs/event/create-group.event';
 import { RemoveUserFromGroupEvent } from '../cqrs/event/remove-user-from-group.event';
 import { UpdateGroupEvent } from '../cqrs/event/update-group.event';
-import { AddGroupFollowerEvent } from "../cqrs/event/add-group-follower.event";
-import { RemoveGroupFollowerEvent } from "../cqrs/event/remove-group-follower.event";
+import { AddGroupFollowerEvent } from '../cqrs/event/add-group-follower.event';
+import { RemoveGroupFollowerEvent } from '../cqrs/event/remove-group-follower.event';
 
 describe('GroupEvent', () => {
   describe('DeleteGroupEvent', () => {

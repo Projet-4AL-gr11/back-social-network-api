@@ -1,4 +1,3 @@
 export class GetLeaderboardForExerciseQuery {
-    constructor(public readonly exerciseId: string) {
-    }
+  constructor(public readonly exerciseId: string) {}
 }

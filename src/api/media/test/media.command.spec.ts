@@ -3,8 +3,8 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { DeletePictureCommand } from '../cqrs/command/delete-picture.command';
 import { SaveEventPictureCommand } from '../cqrs/command/save-event-picture.command';
 import { SaveGroupPictureCommand } from '../cqrs/command/save-group-picture.command';
-import { SavePostPictureCommand } from "../cqrs/command/save-post-picture.command";
-import { SaveCommentPictureCommand } from "../cqrs/command/save-comment-picture.command";
+import { SavePostPictureCommand } from '../cqrs/command/save-post-picture.command';
+import { SaveCommentPictureCommand } from '../cqrs/command/save-comment-picture.command';
 
 describe('MediaCommand', () => {
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');

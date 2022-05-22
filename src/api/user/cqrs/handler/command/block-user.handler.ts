@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { User } from '../../../domain/entities/user.entity';
 import { BlockUserCommand } from '../../command/block-user.command';
-import { BlockUserEvent } from "../../event/block-user.event";
+import { BlockUserEvent } from '../../event/block-user.event';
 
 @CommandHandler(BlockUserCommand)
 export class BlockUserHandler implements ICommandHandler<BlockUserCommand> {

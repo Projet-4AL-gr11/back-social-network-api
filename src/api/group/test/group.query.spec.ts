@@ -1,6 +1,6 @@
 import { GetGroupQuery } from '../cqrs/query/get-group.query';
 import { GetGroupMembershipWithUserIdQuery } from '../cqrs/query/get-group-membership-with-user-id.query';
-import { GetGroupFollowerQuery } from "../cqrs/query/get-group-follower.query";
+import { GetGroupFollowerQuery } from '../cqrs/query/get-group-follower.query';
 
 describe('GroupQuery', () => {
   describe('GetGroupQuery', () => {

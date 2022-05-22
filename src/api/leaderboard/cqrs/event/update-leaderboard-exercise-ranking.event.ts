@@ -1,3 +1,3 @@
 export class UpdateLeaderboardExerciseRankingEvent {
-    constructor( public readonly exerciseId: string) {}
+  constructor(public readonly exerciseId: string) {}
 }

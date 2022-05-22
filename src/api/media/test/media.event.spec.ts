@@ -3,8 +3,8 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { DeletePictureEvent } from '../cqrs/event/delete-picture.event';
 import { SaveEventPictureEvent } from '../cqrs/event/save-event-picture.event';
 import { SaveGroupPictureEvent } from '../cqrs/event/save-group-picture.event';
-import { SavePostPictureEvent } from "../cqrs/event/save-post-picture.event";
-import { SaveCommentPictureEvent } from "../cqrs/event/save-comment-picture.event";
+import { SavePostPictureEvent } from '../cqrs/event/save-post-picture.event';
+import { SaveCommentPictureEvent } from '../cqrs/event/save-comment-picture.event';
 
 describe('MediaEvent', () => {
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');
@@ -76,5 +76,4 @@ describe('MediaEvent', () => {
       expect(event instanceof SaveCommentPictureEvent).toBe(true);
     });
   });
-
 });

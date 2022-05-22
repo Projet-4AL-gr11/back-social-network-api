@@ -1,5 +1,5 @@
-import { User } from "../../../user/domain/entities/user.entity";
-import { Post } from "../../../post/domain/entities/post.entity";
+import { User } from '../../../user/domain/entities/user.entity';
+import { Post } from '../../../post/domain/entities/post.entity';
 
 export class CreateReportPostCommand {
   constructor(
