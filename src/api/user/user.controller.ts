@@ -38,6 +38,11 @@ export class UserController {
     return this.userService.hasBlocked(request.user.id, id);
   }
 
+  @Get(':id')
+  getFriendship(@Param('id') id: string) {
+    return this.userService.getFriendship(id);
+  }
+
   @Post('block/:id')
   blockUser(@Req() request: RequestUser, @Param('id') id: string) {
     const { user } = request;
