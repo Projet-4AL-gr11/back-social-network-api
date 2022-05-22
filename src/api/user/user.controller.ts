@@ -38,7 +38,7 @@ export class UserController {
     return this.userService.hasBlocked(request.user.id, id);
   }
 
-  @Get(':id')
+  @Get('friendships/:id')
   getFriendship(@Param('id') id: string) {
     return this.userService.getFriendship(id);
   }
