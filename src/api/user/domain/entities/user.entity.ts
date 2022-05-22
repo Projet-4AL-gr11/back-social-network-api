@@ -55,6 +55,12 @@ export class User extends BaseEntity {
   userType: UserType;
 
   @Column({
+    type: 'text',
+    nullable: true,
+  })
+  bio: string;
+
+  @Column({
     nullable: true,
     select: false,
   })

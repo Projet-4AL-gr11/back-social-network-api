@@ -66,7 +66,7 @@ config();
         ExerciseTemplate,
       ],
       synchronize: true,
-      logging: false,
+      logging: true,
     }),
     UserModule,
     AuthModule,
