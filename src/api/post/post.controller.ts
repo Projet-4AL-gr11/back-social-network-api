@@ -12,6 +12,8 @@ import {
 import { PostService } from './post.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { PostDto } from './domain/dto/post.dto';
+import { LocalAuthenticationGuard } from "../auth/guards/auth.guard";
+import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
 
 @Controller('post')
 export class PostController {
@@ -33,13 +35,13 @@ export class PostController {
     return this.postService.getLikes(id);
   }
 
-  @Get('isLiked/:id')
+  @Get('is-liked/:id')
   isLiked(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isLiked(user.id, postId);
   }
 
-  @Get('isPostOwner/:id')
+  @Get('is-post-owner/:id')
   isPostOwner(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isPostOwner(user.id, postId);
@@ -50,13 +52,15 @@ export class PostController {
     return this.postService.getSharedPost(id);
   }
 
-  @Get('getTimeline/:userId?=:offset&=:limit')
+  @UseGuards(JwtRefreshGuard)
+  @Get('getTimeline/:offset/:limit')
   getTimeline(
-    @Param('userId') userId: string,
+    @Req() request: RequestUser,
     @Param('offset') offset: string,
     @Param('limit') limit: string,
   ) {
-    return this.postService.getTimeLine(userId, Number(offset), Number(limit));
+    const { user } = request;
+    return this.postService.getTimeLine(user.id, Number(offset), Number(limit));
   }
 
   @Post()

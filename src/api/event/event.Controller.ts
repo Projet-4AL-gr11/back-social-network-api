@@ -6,11 +6,13 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './domain/entities/event.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { EventDto } from './domain/dto/event.dto';
+import { RequestUser } from '../auth/interface/request-user.interface';
 
 @Controller('event')
 export class EventController {
@@ -58,21 +60,27 @@ export class EventController {
   @Get('isOwner/:id')
   async isOwner(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Req() request: RequestUser,
   ): Promise<boolean> {
-    return await this.eventService.isOwner(id, userId);
+    const { user } = request;
+    return await this.eventService.isOwner(id, user.id);
   }
 
   @Get('isMember/:id')
   async isMember(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Req() request: RequestUser,
   ): Promise<boolean> {
-    return await this.eventService.isMember(id, userId);
+    const { user } = request;
+    return await this.eventService.isMember(id, user.id);
   }
 
   @Post()
-  async create(@Body() eventDto: EventDto): Promise<Event> {
+  async create(
+    @Body() eventDto: EventDto,
+    @Req() request: RequestUser,
+  ): Promise<Event> {
+    eventDto.user = request.user;
     return this.eventService.create(eventDto);
   }
 
@@ -84,6 +92,7 @@ export class EventController {
     return this.eventService.update(id, eventDto);
   }
 
+  // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
     return await this.eventService.delete(id);
@@ -97,7 +106,7 @@ export class EventController {
     return this.eventService.addParticipant(id, userId);
   }
 
-  @Delete('participant/:id')
+  @Put('participant/:id')
   async removeParticipant(
     @Param('id') id: string,
     @Body() userId: string,
@@ -113,7 +122,7 @@ export class EventController {
     return this.eventService.addExercise(id, exerciseId);
   }
 
-  @Delete('exercise/:id')
+  @Put('exercise/:id')
   async removeExercise(
     @Param('id') id: string,
     @Body() exerciseId: string,

@@ -29,7 +29,7 @@ export class ReportController {
     return this.reportService.getReportedComments();
   }
 
-  @Post()
+  @Post('comment')
   createReportComment(@Body() reportDto: ReportRequestDto) {
     return this.reportService.createReportComment(reportDto);
   }
@@ -45,7 +45,7 @@ export class ReportController {
     return this.reportService.getReportedEvents();
   }
 
-  @Post()
+  @Post('event')
   createReportEvent(@Body() reportDto: ReportRequestDto) {
     return this.reportService.createReportEvent(reportDto);
   }
@@ -61,7 +61,7 @@ export class ReportController {
     return this.reportService.getReportedGroups();
   }
 
-  @Post()
+  @Post('group')
   createReportGroup(@Body() reportDto: ReportRequestDto) {
     return this.reportService.createReportGroup(reportDto);
   }
@@ -72,12 +72,12 @@ export class ReportController {
     return this.reportService.getReportedUser(id);
   }
 
-  @Get('comments')
+  @Get('users')
   getReportedUsers() {
     return this.reportService.getReportedUsers();
   }
 
-  @Post()
+  @Post('user')
   createReportUser(@Body() reportDto: ReportRequestDto) {
     return this.reportService.createReportUser(reportDto);
   }

@@ -9,7 +9,7 @@ export class EventDto {
     public readonly startDate?: Date,
     public readonly endDate?: Date,
     public readonly participationLimit?: number,
-    public readonly user?: User,
+    public user?: User,
     public readonly group?: Group,
     public readonly language?: Language,
   ) {}

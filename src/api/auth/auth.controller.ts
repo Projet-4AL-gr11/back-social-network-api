@@ -46,6 +46,7 @@ export class AuthController {
       accessTokenCookie,
       refreshTokenCookie.cookie,
     ]);
+    user.currentHashedRefreshToken = refreshTokenCookie.token;
     user.password = undefined;
     return response.send(user);
   }
