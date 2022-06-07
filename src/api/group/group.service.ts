@@ -15,6 +15,8 @@ import { AddGroupFollowerCommand } from './cqrs/command/add-group-follower.comma
 import { RemoveGroupFollowerCommand } from './cqrs/command/remove-group-follower.command';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 import { GetGroupWhereUserIsAdminQuery } from './cqrs/query/get-group-where-user-is-admin.query';
+import { IsUserGroupOwnerQuery } from './cqrs/query/is-user-group-owner.query';
+import { IsUserGroupAdminQuery } from './cqrs/query/is-user-group-admin.query';
 
 @Injectable()
 export class GroupService {
@@ -34,12 +36,6 @@ export class GroupService {
 
   async delete(groupId: string): Promise<void> {
     return await this.commandBus.execute(new DeleteGroupCommand(groupId));
-  }
-
-  async removeUser(groupId: string, userId: string): Promise<void> {
-    return await this.commandBus.execute(
-      new RemoveUserFromGroupCommand(groupId, userId),
-    );
   }
 
   async getAll(): Promise<Group[]> {
@@ -77,4 +73,28 @@ export class GroupService {
       new GetGroupWhereUserIsAdminQuery(userId),
     );
   }
+
+  async removeUser(groupId: string, userId: string): Promise<void> {
+    return await this.commandBus.execute(
+      new RemoveUserFromGroupCommand(groupId, userId),
+    );
+  }
+
+  async isUserOwner(groupId: string, userId: string): Promise<boolean> {
+    return await this.queryBus.execute(
+      new IsUserGroupOwnerQuery(groupId, userId),
+    );
+  }
+
+  async isUserAdmin(groupId: string, userId: string): Promise<boolean> {
+    return await this.queryBus.execute(
+      new IsUserGroupAdminQuery(groupId, userId),
+    );
+  }
+
+  giveAdminRight(groupId: string, userId: string) {}
+
+  removeAdminRight(groupId: string, userId: string) {}
+
+  giveGroupOwnership(groupId: string, userId: string) {}
 }

@@ -18,7 +18,7 @@ import { RemoveParticipantToEventCommand } from './cqrs/command/remove-participa
 import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.query';
 import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
 import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
-import { GetEventParticipationQuery } from "./cqrs/query/get-event-participation.query";
+import { GetEventParticipationQuery } from './cqrs/query/get-event-participation.query';
 
 @Injectable()
 export class EventService {

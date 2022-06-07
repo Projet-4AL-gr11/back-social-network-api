@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Req } from '@nestjs/common';
+import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { ConversationService } from './conversation.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('Conversation')
 export class ConversationController {
@@ -17,6 +18,7 @@ export class ConversationController {
   }
 
   @Get('isConversationMember/:id')
+  @UseGuards(JwtRefreshGuard)
   isConversationMember(
     @Param('id') conversationId: string,
     @Req() request: RequestUser,

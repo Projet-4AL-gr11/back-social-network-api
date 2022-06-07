@@ -35,12 +35,14 @@ export class PostController {
   }
 
   @Get('is-liked/:id')
+  @UseGuards(JwtRefreshGuard)
   isLiked(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isLiked(user.id, postId);
   }
 
   @Get('is-post-owner/:id')
+  @UseGuards(JwtRefreshGuard)
   isPostOwner(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isPostOwner(user.id, postId);
@@ -70,6 +72,7 @@ export class PostController {
   }
 
   @Post('forGroup/:groupId')
+  @UseGuards(JwtRefreshGuard)
   createPostForGroup(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,
@@ -80,12 +83,14 @@ export class PostController {
   }
 
   @Post('like/:id')
+  @UseGuards(JwtRefreshGuard)
   likePost(@Req() request: RequestUser, @Param('id') postId: string) {
     const { user } = request;
     return this.postService.likePost(user.id, postId);
   }
 
   @Post('dislike/:id')
+  @UseGuards(JwtRefreshGuard)
   dislikePost(@Req() request: RequestUser, @Param('id') postId: string) {
     const { user } = request;
     return this.postService.dislikePost(user.id, postId);
