@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { User } from '../user/domain/entities/user.entity';
 import { Event } from './domain/entities/event.entity';
-import { EventController } from './event.Controller';
+import { EventController } from './event.controller';
 import { EventService } from './event.service';
 import { GetEventGroupOwnerHandler } from './cqrs/handler/query/get-event-group-owner.handler';
 import { IsEventMemberHandler } from './cqrs/handler/query/is-event-member.handler';
