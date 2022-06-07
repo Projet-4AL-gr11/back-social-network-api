@@ -6,12 +6,13 @@ import {
   Param,
   Post,
   Put,
-  Req, UseGuards
-} from "@nestjs/common";
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { Comment } from './domain/entities/comment.entity';
 import { RequestUser } from '../auth/interface/request-user.interface';
-import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('comment')
 export class CommentController {

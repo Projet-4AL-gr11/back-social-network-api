@@ -16,10 +16,10 @@ import { RemoveGroupFollowerHandler } from './cqrs/handler/command/remove-group-
 import { GetGroupFollowerHandler } from './cqrs/handler/query/get-group-follower.handler';
 import { User } from '../user/domain/entities/user.entity';
 import { GetGroupWhereUserIsAdminHandler } from './cqrs/handler/query/get-group-where-user-is-admin.handler';
-import { IsUserGroupAdminHandler } from "./cqrs/handler/query/is-user-group-admin.handler";
-import { IsUserGroupOwnerHandler } from "./cqrs/handler/query/is-user-group-owner.handler";
-import { GiveAdminRightHandler } from "./cqrs/handler/command/give-admin-right.handler";
-import { RemoveAdminRightHandler } from "./cqrs/handler/command/remove-admin-right.handler";
+import { IsUserGroupAdminHandler } from './cqrs/handler/query/is-user-group-admin.handler';
+import { IsUserGroupOwnerHandler } from './cqrs/handler/query/is-user-group-owner.handler';
+import { GiveAdminRightHandler } from './cqrs/handler/command/give-admin-right.handler';
+import { RemoveAdminRightHandler } from './cqrs/handler/command/remove-admin-right.handler';
 
 @Module({
   imports: [
