@@ -37,6 +37,11 @@ export class GroupController {
     return this.groupService.getFollowers(groupId);
   }
 
+  @Get('whereAdmin/:id')
+  getGroupWhereUserIsAdmin(@Param('id') userId: string) {
+    return this.groupService.getFollowers(userId);
+  }
+
   @Post()
   createGroup(@Req() request: RequestUser, @Body() groupDto: GroupDto) {
     const { user } = request;

@@ -15,6 +15,7 @@ import { AddGroupFollowerHandler } from './cqrs/handler/command/add-group-follow
 import { RemoveGroupFollowerHandler } from './cqrs/handler/command/remove-group-follower.handler';
 import { GetGroupFollowerHandler } from './cqrs/handler/query/get-group-follower.handler';
 import { User } from '../user/domain/entities/user.entity';
+import { GetGroupWhereUserIsAdminHandler } from './cqrs/handler/query/get-group-where-user-is-admin.handler';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { User } from '../user/domain/entities/user.entity';
     AddGroupFollowerHandler,
     RemoveGroupFollowerHandler,
     GetGroupFollowerHandler,
+    GetGroupWhereUserIsAdminHandler,
   ],
 })
 export class GroupModule {}

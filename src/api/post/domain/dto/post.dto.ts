@@ -5,7 +5,6 @@ import { Event } from '../../../event/domain/entities/event.entity';
 
 export class PostDto {
   text: string;
-  creator: User;
   group?: Group;
   sharedEvent?: Event;
   sharesPost?: Post;

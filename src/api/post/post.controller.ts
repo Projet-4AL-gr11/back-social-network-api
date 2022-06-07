@@ -12,8 +12,7 @@ import {
 import { PostService } from './post.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { PostDto } from './domain/dto/post.dto';
-import { LocalAuthenticationGuard } from "../auth/guards/auth.guard";
-import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('post')
 export class PostController {
@@ -63,7 +62,8 @@ export class PostController {
     return this.postService.getTimeLine(user.id, Number(offset), Number(limit));
   }
 
-  @Post()
+  @UseGuards(JwtRefreshGuard)
+  @Post('/')
   createPost(@Req() request: RequestUser, @Body() postDto: PostDto) {
     const { user } = request;
     return this.postService.createPost(user.id, postDto);

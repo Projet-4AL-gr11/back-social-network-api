@@ -66,6 +66,8 @@ export class User extends BaseEntity {
   })
   @Exclude()
   public currentHashedRefreshToken?: string;
+  @Exclude()
+  public jwtToken?: string;
 
   @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,

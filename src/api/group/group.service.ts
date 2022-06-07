@@ -14,6 +14,7 @@ import { GetGroupFollowerQuery } from './cqrs/query/get-group-follower.query';
 import { AddGroupFollowerCommand } from './cqrs/command/add-group-follower.command';
 import { RemoveGroupFollowerCommand } from './cqrs/command/remove-group-follower.command';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
+import { GetGroupWhereUserIsAdminQuery } from './cqrs/query/get-group-where-user-is-admin.query';
 
 @Injectable()
 export class GroupService {
@@ -68,6 +69,12 @@ export class GroupService {
   async removeFollower(userId: string, groupId: string): Promise<void> {
     return await this.commandBus.execute(
       new RemoveGroupFollowerCommand(userId, groupId),
+    );
+  }
+
+  async getWhereUserIsAdmin(userId: string): Promise<Group> {
+    return await this.queryBus.execute(
+      new GetGroupWhereUserIsAdminQuery(userId),
     );
   }
 }
