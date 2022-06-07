@@ -28,7 +28,7 @@ export class GroupController {
   }
 
   @Get('userId/:id')
-  findGroupWithUserId(@Param('id') id: string) {
+  findGroupsWithUserId(@Param('id') id: string) {
     return this.groupService.getGroupWithUserId(id);
   }
 
@@ -38,8 +38,8 @@ export class GroupController {
   }
 
   @Get('whereAdmin/:id')
-  getGroupWhereUserIsAdmin(@Param('id') userId: string) {
-    return this.groupService.getFollowers(userId);
+  getGroupsWhereUserIsAdmin(@Param('id') userId: string) {
+    return this.groupService.getWhereUserIsAdmin(userId);
   }
 
   @Post()
