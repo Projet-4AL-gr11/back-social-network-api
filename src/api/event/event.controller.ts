@@ -6,13 +6,14 @@ import {
   Param,
   Post,
   Put,
-  Req,
-} from '@nestjs/common';
+  Req, UseGuards
+} from "@nestjs/common";
 import { EventService } from './event.service';
 import { Event } from './domain/entities/event.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { EventDto } from './domain/dto/event.dto';
 import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
 
 @Controller('event')
 export class EventController {
@@ -58,6 +59,7 @@ export class EventController {
   }
 
   @Get('isOwner/:id')
+  @UseGuards(JwtRefreshGuard)
   async isOwner(
     @Param('id') id: string,
     @Req() request: RequestUser,
@@ -67,6 +69,7 @@ export class EventController {
   }
 
   @Get('isMember/:id')
+  @UseGuards(JwtRefreshGuard)
   async isMember(
     @Param('id') id: string,
     @Req() request: RequestUser,
@@ -76,6 +79,7 @@ export class EventController {
   }
 
   @Post()
+  @UseGuards(JwtRefreshGuard)
   async create(
     @Body() eventDto: EventDto,
     @Req() request: RequestUser,

@@ -52,6 +52,7 @@ export class GroupController {
   }
 
   @Post('addFollower/:groupId')
+  @UseGuards(JwtRefreshGuard)
   addGroupFollower(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,
@@ -61,6 +62,7 @@ export class GroupController {
   }
 
   @Post('removeFollower/:groupId')
+  @UseGuards(JwtRefreshGuard)
   removeGroupFollower(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,

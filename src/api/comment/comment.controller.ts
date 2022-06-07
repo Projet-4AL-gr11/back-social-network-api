@@ -6,11 +6,12 @@ import {
   Param,
   Post,
   Put,
-  Req,
-} from '@nestjs/common';
+  Req, UseGuards
+} from "@nestjs/common";
 import { CommentService } from './comment.service';
 import { Comment } from './domain/entities/comment.entity';
 import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
 
 @Controller('comment')
 export class CommentController {
@@ -23,6 +24,7 @@ export class CommentController {
   }
 
   @Post(':id')
+  @UseGuards(JwtRefreshGuard)
   async create(
     @Req() request: RequestUser,
     @Param('id') postId: string,
