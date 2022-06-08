@@ -1,0 +1,24 @@
+entity: Exercise
+parameters: {}
+items:
+  exercisePython{1..10}:
+    name: 'Exercise Python ($current)'
+    exerciseTemplate: '@exerciseTemplate{1..5}'
+  exercisePython{16..25}:
+    name: 'Exercise Python ($current)'
+    exerciseTemplate: '@exerciseTemplate{1..5}'
+
+  exercisePython2{1..10}:
+    name: 'Exercise Python2 ($current)'
+    exerciseTemplate: '@exerciseTemplate{1..5}'
+
+  exercisePython2{16..25}:
+    name: 'Exercise Python2 ($current)'
+    exerciseTemplate: '@exerciseTemplate{6..10}'
+
+  exerciseJS{1..15}:
+    name: 'Exercise JS ($current)'
+    exerciseTemplate: '@exerciseTemplate{6..10}'
+  exerciseJS2{1..15}:
+    name: 'Exercise JS ($current)'
+    exerciseTemplate: '@exerciseTemplate{6..10}'

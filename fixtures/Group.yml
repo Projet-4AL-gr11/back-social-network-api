@@ -1,0 +1,12 @@
+entity: Group
+parameters: {}
+items:
+  group1:
+    name: 'Group 1'
+    conversation: '@conversationGroup1'
+
+  group2:
+    name: 'Group 2'
+    conversation: '@conversationGroup2'
+
+

@@ -1,0 +1,7 @@
+entity: Language
+parameters: {}
+items:
+  Python:
+    name: 'Python'
+  JS:
+    name: 'JS'

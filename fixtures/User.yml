@@ -1,0 +1,32 @@
+entity: User
+parameters: {}
+items:
+  user{1..200}:
+    username: 'User($current)'
+    email: 'user($current)@gmail.com'
+    password: 'user($current)&123'
+    userType: 'USER'
+    bio: 'Bio de user ($current) {{lorem.paragraph}}'
+
+  user{201..300}:
+    username: 'User($current)'
+    email: 'user($current)@gmail.com'
+    password: 'user($current)&123'
+    userType: 'USER'
+    bio: 'Bio de user ($current) {{lorem.paragraph}}'
+    followedGroups:
+      - '@group1'
+      - '@group2'
+    blockedUsers:
+      - '@user($current-100)'
+  user{301..400}:
+    username: 'User($current)'
+    email: 'user($current)@gmail.com'
+    password: 'user($current)&123'
+    userType: 'USER'
+    bio: 'Bio de user ($current) {{lorem.paragraph}}'
+    followedGroups:
+      - '@group1'
+      - '@group2'
+    blockers:
+      - '@user($current-100)'

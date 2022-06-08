@@ -1,0 +1,29 @@
+entity: Comment
+parameters: {}
+items:
+  commentSimpleA{1..20}:
+    creator: '@user($current)'
+    post: '@postSimple($current)'
+    text: '{{lorem.paragraph}}'
+  commentSimpleB{1..20}:
+    creator: '@user($current)'
+    post: '@postSimple($current)'
+    text: '{{lorem.paragraph}}'
+
+  commentSimpleC{1..20}:
+    creator: '@user($current)'
+    post: '@postPartagePost($current)'
+    text: '{{lorem.paragraph}}'
+  commentSimpleD{1..20}:
+    creator: '@user($current)'
+    post: '@postPartagePost($current)'
+    text: '{{lorem.paragraph}}'
+
+  commentSimpleE{1..20}:
+    creator: '@user($current)'
+    post: '@postPartageEvent($current)'
+    text: '{{lorem.paragraph}}'
+  commentSimpleF{1..20}:
+    creator: '@user($current)'
+    post: '@postPartageEvent($current)'
+    text: '{{lorem.paragraph}}'
