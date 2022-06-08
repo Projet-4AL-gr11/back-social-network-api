@@ -1,0 +1,134 @@
+entity: Event
+parameters: {}
+items:
+  event{1..5}:
+    name: 'Event ($current)'
+    description: '{{lorem.paragraph}}'
+    startDate: '{{date.soon}}'
+    endDate: '{{date.future}}'
+    participantsLimite: 10
+    user: '@user($current)'
+    participants:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    language:
+      - '@JS'
+      - '@Python'
+    exercise:
+      - '@exerciseJS($current)'
+      - '@exercisePython($current)'
+
+  event{6..10}:
+    name: 'Event ($current)'
+    description: '{{lorem.paragraph}}'
+    startDate: '{{date.past}}'
+    endDate: '{{date.past}}'
+    participantsLimite: 100
+    user: '@user($current)'
+    participants:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    language:
+      - '@JS'
+      - '@Python'
+    exercise:
+      - '@exerciseJS($current)'
+      - '@exercisePython($current)'
+    eventRanking:
+      - '@eventRankingA($current)'
+      - '@eventRankingB($current)'
+      - '@eventRankingC($current)'
+      - '@eventRankingD($current)'
+      - '@eventRankingE($current)'
+      - '@eventRankingF($current)'
+      - '@eventRankingG($current)'
+      - '@eventRankingH($current)'
+      - '@eventRankingI($current)'
+      - '@eventRankingJ($current)'
+  event{11..15}:
+    name: 'Event ($current)'
+    description: '{{lorem.paragraph}}'
+    startDate: '{{date.soon}}'
+    endDate: '{{date.future}}'
+    participantsLimite: 100
+    user: '@user($current)'
+    participants:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    language:
+      - '@JS'
+    exercise:
+      - '@exerciseJS($current)'
+      - '@exerciseJS2($current)'
+  event{16..20}:
+    name: 'Event ($current)'
+    description: '{{lorem.paragraph}}'
+    startDate: '{{date.soon}}'
+    endDate: '{{date.future}}'
+    participantsLimite: 100
+    user: '@user($current)'
+    participants:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    language:
+      - '@Python'
+    exercise:
+      - '@exercisePython($current)'
+      - '@exercisePython2($current)'
+
+  event{21..25}:
+    name: 'Event ($current)'
+    description: '{{lorem.paragraph}}'
+    startDate: '{{date.soon}}'
+    endDate: '{{date.future}}'
+    participantsLimite: 100
+    user: '@user1'
+    groupe: '@group{1..2}'
+    participants:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    language:
+      - '@Python'
+    exercise:
+      - '@exercisePython($current)'
+      - '@exercisePython2($current)'

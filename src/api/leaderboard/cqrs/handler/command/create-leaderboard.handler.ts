@@ -21,7 +21,7 @@ export class CreateLeaderboardHandler
   async execute(command: CreateLeaderboardCommand): Promise<Leaderboard> {
     try {
       const currentDate: Date = new Date(Date.now());
-      if (currentDate > command.exercise.endingDate) {
+      if (currentDate > command.exercise.event.endDate) {
         const leaderboard = await this.leaderboardRepository.create({
           user: command.user,
           exercise: command.exercise,

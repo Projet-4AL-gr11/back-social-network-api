@@ -19,16 +19,16 @@ import multer = require('multer');
 export class MediaController {
   constructor(private mediaService: MediaService) {}
 
-  @Get('profilePicture')
+  @Get('profilePicture/:userId')
   @UseGuards(JwtRefreshGuard)
-  async getProfilePicture(@Req() request: RequestUser) {
-    return this.mediaService.getProfilePicture(request.user.id);
+  async getProfilePicture(@Param('userId') userId: string) {
+    return this.mediaService.getProfilePicture(userId);
   }
 
-  @Get('bannerPicture')
+  @Get('bannerPicture/:userId')
   @UseGuards(JwtRefreshGuard)
-  async getBannerPicture(@Req() request: RequestUser) {
-    return this.mediaService.getBannerPicture(request.user.id);
+  async getBannerPicture(@Param('userId') userId: string) {
+    return this.mediaService.getBannerPicture(userId);
   }
 
   @Get('groupPicture/:groupId')
@@ -145,7 +145,7 @@ export class MediaController {
   }
 
   // TODO: A revoir pour plusieurs photo
-  @Post('post-picture/:id')
+  @Post('comment-picture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveCommentPicture(

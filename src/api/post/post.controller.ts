@@ -12,6 +12,7 @@ import {
 import { PostService } from './post.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { PostDto } from './domain/dto/post.dto';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('post')
 export class PostController {
@@ -33,13 +34,15 @@ export class PostController {
     return this.postService.getLikes(id);
   }
 
-  @Get('isLiked/:id')
+  @Get('is-liked/:id')
+  @UseGuards(JwtRefreshGuard)
   isLiked(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isLiked(user.id, postId);
   }
 
-  @Get('isPostOwner/:id')
+  @Get('is-post-owner/:id')
+  @UseGuards(JwtRefreshGuard)
   isPostOwner(@Param('id') postId: string, @Req() request: RequestUser) {
     const { user } = request;
     return this.postService.isPostOwner(user.id, postId);
@@ -50,22 +53,26 @@ export class PostController {
     return this.postService.getSharedPost(id);
   }
 
-  @Get('getTimeline/:userId?=:offset&=:limit')
+  @UseGuards(JwtRefreshGuard)
+  @Get('getTimeline/:offset/:limit')
   getTimeline(
-    @Param('userId') userId: string,
+    @Req() request: RequestUser,
     @Param('offset') offset: string,
     @Param('limit') limit: string,
   ) {
-    return this.postService.getTimeLine(userId, Number(offset), Number(limit));
+    const { user } = request;
+    return this.postService.getTimeLine(user.id, Number(offset), Number(limit));
   }
 
-  @Post()
+  @UseGuards(JwtRefreshGuard)
+  @Post('/')
   createPost(@Req() request: RequestUser, @Body() postDto: PostDto) {
     const { user } = request;
     return this.postService.createPost(user.id, postDto);
   }
 
   @Post('forGroup/:groupId')
+  @UseGuards(JwtRefreshGuard)
   createPostForGroup(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,
@@ -76,12 +83,14 @@ export class PostController {
   }
 
   @Post('like/:id')
+  @UseGuards(JwtRefreshGuard)
   likePost(@Req() request: RequestUser, @Param('id') postId: string) {
     const { user } = request;
     return this.postService.likePost(user.id, postId);
   }
 
   @Post('dislike/:id')
+  @UseGuards(JwtRefreshGuard)
   dislikePost(@Req() request: RequestUser, @Param('id') postId: string) {
     const { user } = request;
     return this.postService.dislikePost(user.id, postId);

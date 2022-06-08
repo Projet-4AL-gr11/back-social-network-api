@@ -15,6 +15,7 @@ import { BlockUserHandler } from './cqrs/handler/command/block-user.handler';
 import { UnblockUserHandler } from './cqrs/handler/command/unblock-user.handler';
 import { HasBlockedUserHandler } from './cqrs/handler/query/has-blocked-user.handler';
 import { IsBlockedUserHandler } from './cqrs/handler/query/is-blocked-user.handler';
+import { GetUserFriendsHandler } from './cqrs/handler/query/get-user-friends.handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), CqrsModule],
@@ -32,6 +33,7 @@ import { IsBlockedUserHandler } from './cqrs/handler/query/is-blocked-user.handl
     UnblockUserHandler,
     HasBlockedUserHandler,
     IsBlockedUserHandler,
+    GetUserFriendsHandler,
   ],
 })
 export class UserModule {}

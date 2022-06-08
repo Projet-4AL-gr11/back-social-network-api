@@ -1,0 +1,7 @@
+entity: Report
+parameters: {}
+items:
+  reportUser{1..2}:
+    userReporter: '@user1'
+    text: '{{lorem.paragraph}}'
+    reportedUser: '@user($current)'

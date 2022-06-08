@@ -1,0 +1,6 @@
+entity: Conversation
+parameters: {}
+items:
+  conversationGroup{1..2}:
+
+  conversationFriend{1..10}:
