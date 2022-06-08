@@ -10,3 +10,5 @@ import { ExerciseTemplate } from './domain/entities/exercise-template.entity';
   providers: [GetExerciseHandler],
 })
 export class ExerciseModule {}
+
+// TODO: Vérifier que pour get un exercice la date de l'event a bien commencé et qu'il n'est pas finit

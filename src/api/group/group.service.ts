@@ -92,9 +92,15 @@ export class GroupService {
     );
   }
 
-  giveAdminRight(groupId: string, userId: string) {}
+  giveAdminRight(groupId: string, userId: string) {
+    return;
+  }
 
-  removeAdminRight(groupId: string, userId: string) {}
+  removeAdminRight(groupId: string, userId: string) {
+    return;
+  }
 
-  giveGroupOwnership(groupId: string, userId: string) {}
+  giveGroupOwnership(groupId: string, userId: string) {
+    return;
+  }
 }

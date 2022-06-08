@@ -20,8 +20,8 @@ export class Report {
   id: string;
   @ManyToOne(() => User, (user) => user.reports, { onDelete: 'CASCADE' })
   userReporter: User;
-  @Length(0, 500)
-  @Column({ length: 500, nullable: false })
+  @Length(0, 1000)
+  @Column({ length: 1000, nullable: false })
   text: string;
   @ManyToOne(() => User, (user) => user.reported, { onDelete: 'CASCADE' })
   reportedUser: User;
