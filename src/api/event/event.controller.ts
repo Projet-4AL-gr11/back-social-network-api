@@ -90,17 +90,26 @@ export class EventController {
   }
 
   @Put(':id')
+  @UseGuards(JwtRefreshGuard)
   async update(
     @Param('id') id: string,
     @Body() eventDto: EventDto,
+    @Req() request: RequestUser,
   ): Promise<Event> {
-    return this.eventService.update(id, eventDto);
+    const { user } = request;
+    if (this.eventService.isOwner(user.id, id)) {
+      return this.eventService.update(id, eventDto);
+    }
   }
 
   // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<void> {
-    return await this.eventService.delete(id);
+  @UseGuards(JwtRefreshGuard)
+  async delete(@Param('id') id: string, @Req() request: RequestUser,): Promise<void> {
+    const { user } = request;
+    if (this.eventService.isOwner(user.id, id)) {
+      return await this.eventService.delete(id);
+    }
   }
 
   @Post('participant/:id')

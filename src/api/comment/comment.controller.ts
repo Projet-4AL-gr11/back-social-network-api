@@ -17,7 +17,6 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 @Controller('comment')
 export class CommentController {
   constructor(private commentService: CommentService) {}
-  //TODO: Ajouter AddGard
 
   @Get(':id')
   async getById(@Param('id') id: string): Promise<Comment> {
@@ -36,11 +35,13 @@ export class CommentController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtRefreshGuard)
   async delete(@Param('id') id: string): Promise<void> {
     return this.commentService.delete(id);
   }
 
   @Put(':id')
+  @UseGuards(JwtRefreshGuard)
   async update(
     @Param('id') commentId: string,
     @Body() text: string,
