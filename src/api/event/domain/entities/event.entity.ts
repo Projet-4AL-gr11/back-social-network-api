@@ -35,8 +35,8 @@ export class Event {
   @Column({ nullable: false, length: 50 })
   name: string;
   @IsOptional()
-  @MaxLength(200)
-  @Column({ nullable: false, length: 200 })
+  @MaxLength(500)
+  @Column({ nullable: true, length: 500 })
   description: string;
 
   @IsDate()
@@ -62,11 +62,10 @@ export class Event {
   })
   participants: User[];
 
-  @ManyToOne(() => Language, (language) => language.events, {
-    nullable: false,
+  @ManyToMany(() => Language, (language) => language.events, {
     eager: true,
   })
-  language: Language;
+  languages: Language[];
 
   @OneToOne(() => Media, (media) => media.eventPicture, {
     cascade: true,
@@ -80,7 +79,7 @@ export class Event {
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToMany(() => Exercise, (exercise) => exercise.events, {
+  @OneToMany(() => Exercise, (exercise) => exercise.event, {
     cascade: true,
     onDelete: 'CASCADE',
   })

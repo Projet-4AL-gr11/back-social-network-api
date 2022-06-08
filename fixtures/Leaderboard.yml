@@ -1,0 +1,103 @@
+entity: Leaderboard
+parameters: {}
+items:
+  leaderboardJSA{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user1'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSB{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user2'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSC{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user3'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSD{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user4'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSE{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user5'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSF{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user6'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSG{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user7'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSH{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user8'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSI{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user9'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardJSJ{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user10'
+    exercise: '@exerciseJS($current)'
+    language: '@JS'
+  leaderboardPythonA{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user1'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonB{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user2'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonC{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user3'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonD{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user4'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonE{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user5'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonF{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user6'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonG{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user7'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonH{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user8'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonI{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user9'
+    exercise: '@exercisePython($current)'
+    language: '@Python'
+  leaderboardPythonJ{6..10}:
+    userEntry: 'lorem.paragraph'
+    user: '@user10'
+    exercise: '@exercisePython($current)'
+    language: '@Python'

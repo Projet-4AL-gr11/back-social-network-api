@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json",
-    "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve"
+    "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve",
+    "fixtures": "fixtures ./fixtures --config ./ormconfig.ts --sync --require=ts-node/register --require=tsconfig-paths/register"
   },
   "dependencies": {
     "@compodoc/compodoc": "^1.1.19",
@@ -32,7 +33,7 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/platform-socket.io": "^8.4.1",
-    "@nestjs/typeorm": "^8.0.3",
+    "@nestjs/typeorm": "^8.1.2",
     "@nestjs/websockets": "^8.4.1",
     "@types/aws-sdk": "^2.7.0",
     "@types/cookie": "^0.4.1",
@@ -79,6 +80,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
+    "typeorm-fixtures-cli": "^1.11.1",
     "typescript": "^4.3.5"
   },
   "jest": {

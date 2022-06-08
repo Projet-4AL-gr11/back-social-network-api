@@ -25,7 +25,6 @@ import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
-import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
 

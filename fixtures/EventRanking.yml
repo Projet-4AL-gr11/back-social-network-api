@@ -1,0 +1,33 @@
+entity: EventRanking
+parameters: {}
+items:
+  eventRankingA{6..10}:
+    user: '@user1'
+    score: 22
+  eventRankingB{6..10}:
+    user: '@user2'
+    score: 598
+  eventRankingC{6..10}:
+    user: '@user3'
+    score: 102
+  eventRankingD{6..10}:
+    user: '@user4'
+    score: 58
+  eventRankingE{6..10}:
+    user: '@user5'
+    score: 102
+  eventRankingF{6..10}:
+    user: '@user6'
+    score: 10000
+  eventRankingG{6..10}:
+    user: '@user7'
+    score: 1
+  eventRankingH{6..10}:
+    user: '@user8'
+    score: 105
+  eventRankingI{6..10}:
+    user: '@user9'
+    score: 1002
+  eventRankingJ{6..10}:
+    user: '@user10'
+    score: 1000

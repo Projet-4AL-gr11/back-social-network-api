@@ -21,7 +21,7 @@ export class Language {
     (exerciseTemplate) => exerciseTemplate.language,
   )
   exerciseTemplates: ExerciseTemplate[];
-  @OneToMany(() => Event, (event) => event.language)
+  @OneToMany(() => Event, (event) => event.languages)
   events: Event[];
   @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.language)
   leaderboards: Leaderboard[];

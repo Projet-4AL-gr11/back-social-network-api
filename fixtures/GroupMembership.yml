@@ -1,0 +1,33 @@
+entity: GroupMembership
+parameters: {}
+items:
+  groupMembership1:
+    user: '@user1'
+    group: '@group1'
+    isAdmin: 0
+    isOwner: 1
+  groupMembership{2..3}:
+    user: '@user($current)'
+    group: '@group1'
+    isAdmin: 1
+    isOwner: 0
+  groupMembership{4..5}:
+    user: '@user($current)'
+    group: '@group1'
+    isAdmin: 0
+    isOwner: 0
+  groupMembership6:
+    user: '@user6'
+    group: '@group2'
+    isAdmin: 0
+    isOwner: 1
+  groupMembership{7..8}:
+    user: '@user($current)'
+    group: '@group2'
+    isAdmin: 1
+    isOwner: 0
+  groupMembership{9..10}:
+    user: '@user($current)'
+    group: '@group2'
+    isAdmin: 0
+    isOwner: 1

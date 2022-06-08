@@ -1,0 +1,9 @@
+entity: ExerciseTemplate
+parameters: {}
+items:
+  exerciseTemplate{1..5}:
+    name: 'exercise template ($current)'
+    language: '@Python'
+  exerciseTemplate{6..10}:
+    name: 'exercise template ($current)'
+    language: '@JS'
