@@ -34,39 +34,16 @@ import { Leaderboard } from './api/leaderboard/domain/entities/leaderboard.entit
 import { EventRanking } from './api/leaderboard/domain/entities/event-ranking.entity';
 import { LeaderboardModule } from './api/leaderboard/leaderboard.module';
 import { ExerciseTemplate } from './api/exercices/domain/entities/exercise-template.entity';
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseConfiguration } from './database.configuration';
 
 config();
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '172.17.0.2',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
-      entities: [
-        User,
-        Friendship,
-        FriendshipRequest,
-        Message,
-        Conversation,
-        Media,
-        Group,
-        GroupMembership,
-        Exercise,
-        Language,
-        Event,
-        Post,
-        Comment,
-        Report,
-        Leaderboard,
-        EventRanking,
-        ExerciseTemplate,
-      ],
-      synchronize: true,
-      logging: true,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseConfiguration,
     }),
     UserModule,
     AuthModule,
