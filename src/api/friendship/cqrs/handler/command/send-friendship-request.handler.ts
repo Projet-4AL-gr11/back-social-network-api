@@ -14,8 +14,6 @@ export class SendFriendshipRequestHandler
   constructor(
     @InjectRepository(FriendshipRequest)
     private friendRequestRepository: Repository<FriendshipRequest>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
     private readonly eventBus: EventBus,
   ) {}
 

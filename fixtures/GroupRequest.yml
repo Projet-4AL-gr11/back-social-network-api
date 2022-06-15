@@ -1,0 +1,10 @@
+entity: GroupRequest
+prameters: {}
+items:
+  groupRequest{200..250}:
+    group: '@group1'
+    user: '@user($current)'
+
+  groupRequest{251..300}:
+    group: '@group2'
+    user: '@user($current)'

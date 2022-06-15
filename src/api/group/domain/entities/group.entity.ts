@@ -18,6 +18,7 @@ import { Media } from '../../../media/domain/entities/media.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
+import { GroupRequest } from './group_request.entity';
 
 @Entity()
 export class Group {
@@ -66,6 +67,9 @@ export class Group {
     onDelete: 'SET NULL',
   })
   reported: Report[];
+
+  @OneToMany(() => GroupRequest, (groupRequest) => groupRequest.group)
+  requestSend: GroupRequest[];
 
   @BeforeInsert()
   async setConversation() {

@@ -27,6 +27,7 @@ import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
+import { GroupRequest } from "../../../group/domain/entities/group_request.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -121,6 +122,12 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   groups: GroupMembership[];
+
+  @OneToMany(() => GroupRequest, (groupRequest) => groupRequest.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  groupRequests: GroupRequest[];
 
   @BeforeInsert()
   async setPassword(password: string) {

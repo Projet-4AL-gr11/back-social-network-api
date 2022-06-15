@@ -20,10 +20,15 @@ import { IsUserGroupAdminHandler } from './cqrs/handler/query/is-user-group-admi
 import { IsUserGroupOwnerHandler } from './cqrs/handler/query/is-user-group-owner.handler';
 import { GiveAdminRightHandler } from './cqrs/handler/command/give-admin-right.handler';
 import { RemoveAdminRightHandler } from './cqrs/handler/command/remove-admin-right.handler';
+import { GroupRequest } from './domain/entities/group_request.entity';
+import { AcceptGroupRequestEventHandler } from './cqrs/event-handler/accept-group-request.event-handler';
+import { CancelGroupRequestHandler } from './cqrs/handler/command/cancel-group-request.handler';
+import { GiveGroupOwnershipHandler } from './cqrs/handler/command/give-group-ownership.handler';
+import { SendGroupRequestHandler } from './cqrs/handler/command/send-group-request.handler';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Group, GroupMembership, User]),
+    TypeOrmModule.forFeature([Group, GroupMembership, User, GroupRequest]),
     CqrsModule,
   ],
   controllers: [GroupController],
@@ -43,6 +48,10 @@ import { RemoveAdminRightHandler } from './cqrs/handler/command/remove-admin-rig
     IsUserGroupOwnerHandler,
     GiveAdminRightHandler,
     RemoveAdminRightHandler,
+    AcceptGroupRequestEventHandler,
+    CancelGroupRequestHandler,
+    GiveGroupOwnershipHandler,
+    SendGroupRequestHandler,
   ],
 })
 export class GroupModule {}

@@ -43,7 +43,7 @@ export class FriendshipController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post(':id')
+  @Post('sendFriendshipRequest/:id')
   sendFriendshipRequest(
     @Req() request: RequestUser,
     @Param('id') userId: string,
@@ -54,7 +54,7 @@ export class FriendshipController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Put(':id')
+  @Put('acceptFriendshipRequest/:id')
   acceptFriendshipRequest(
     @Req() request: RequestUser,
     @Param('id') userId: string,
