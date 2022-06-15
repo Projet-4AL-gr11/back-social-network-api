@@ -118,17 +118,17 @@ export class GroupController {
     );
   }
 
-  @Get('isUserOwner/:groupId')
-  isUserOwner(@Param('id') groupId: string, @Body() userId: string) {
+  @Get('isUserOwner/:groupId/:userId')
+  isUserOwner(@Param('id') groupId: string, @Param('userId') userId: string) {
     return this.groupService.isUserOwner(groupId, userId);
   }
 
-  @Get('isUserAdmin/:groupId')
-  isUserAdmin(@Param('id') groupId: string, @Body() userId: string) {
+  @Get('isUserAdmin/:groupId/:userId')
+  isUserAdmin(@Param('id') groupId: string, @Param('userId') userId: string) {
     return this.groupService.isUserAdmin(groupId, userId);
   }
 
-  @Post('giveAdminRight/:groupId')
+  @Put('giveAdminRight/:groupId')
   @UseGuards(JwtRefreshGuard)
   giveAdminRight(
     @Req() request: RequestUser,
@@ -164,5 +164,60 @@ export class GroupController {
     return new Error(
       "you don't have permission to remove admin right to this person in this group",
     );
+  }
+
+  @Put('giveGroupOwnership/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  giveGroupOwnership(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (this.groupService.isUserOwner(groupId, user.id)) {
+      return this.groupService.giveGroupOwnership(groupId, user.id, userId);
+    }
+    return new Error(
+      "you don't have permission to remove admin right to this person in this group",
+    );
+  }
+
+  @Post('sendGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  sendGroupRequest(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      this.groupService.isUserAdmin(groupId, user.id)
+    ) {
+      return this.groupService.sendGroupRequest(groupId, userId);
+    }
+    return new Error(
+      "you don't have permission to remove admin right to this person in this group",
+    );
+  }
+
+  @Post('acceptGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  acceptGroupRequest(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+  ) {
+    const { user } = request;
+    return this.groupService.acceptGroupRequest(groupId, user.id);
+  }
+
+  @Post('cancelGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  cancelGroupRequest(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+  ) {
+    const { user } = request;
+    return this.groupService.cancelGroupRequest(groupId, user.id);
   }
 }

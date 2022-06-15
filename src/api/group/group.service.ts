@@ -17,6 +17,12 @@ import { GetUserQuery } from '../user/cqrs/query/get-user.query';
 import { GetGroupWhereUserIsAdminQuery } from './cqrs/query/get-group-where-user-is-admin.query';
 import { IsUserGroupOwnerQuery } from './cqrs/query/is-user-group-owner.query';
 import { IsUserGroupAdminQuery } from './cqrs/query/is-user-group-admin.query';
+import { GiveAdminRightCommand } from './cqrs/command/give-admin-right.command';
+import { RemoveAdminRightCommand } from './cqrs/command/remove-admin-right.command';
+import { GiveGroupOwnershipCommand } from './cqrs/command/give-group-ownership.command';
+import { AcceptGroupRequestCommand } from './cqrs/command/accept-group-request.command';
+import { CancelGroupRequestCommand } from './cqrs/command/cancel-group-request.command';
+import { SendGroupRequestCommand } from './cqrs/command/send-group-request.command';
 
 @Injectable()
 export class GroupService {
@@ -92,15 +98,43 @@ export class GroupService {
     );
   }
 
-  giveAdminRight(groupId: string, userId: string) {
+  async giveAdminRight(groupId: string, userId: string) {
+    return await this.commandBus.execute(
+      new GiveAdminRightCommand(groupId, userId),
+    );
+  }
+
+  async removeAdminRight(groupId: string, userId: string) {
+    return await this.commandBus.execute(
+      new RemoveAdminRightCommand(groupId, userId),
+    );
+  }
+
+  async giveGroupOwnership(groupId: string, ownerId: string, userId: string) {
+    return await this.commandBus.execute(
+      new GiveGroupOwnershipCommand(groupId, ownerId, userId),
+    );
+  }
+
+  async acceptGroupRequest(groupId: string, userId: string) {
+    const group = await this.queryBus.execute(new GetGroupQuery(groupId));
+    const user = await this.queryBus.execute(new GetUserQuery(userId));
+    await this.commandBus.execute(new AcceptGroupRequestCommand(user, group));
+    await this.commandBus.execute(
+      new CancelGroupRequestCommand(userId, groupId),
+    );
     return;
   }
 
-  removeAdminRight(groupId: string, userId: string) {
-    return;
+  async cancelGroupRequest(groupId: string, userId: string) {
+    return this.commandBus.execute(
+      new CancelGroupRequestCommand(userId, groupId),
+    );
   }
 
-  giveGroupOwnership(groupId: string, userId: string) {
-    return;
+  async sendGroupRequest(groupId: string, userId: string) {
+    const group = await this.queryBus.execute(new GetGroupQuery(groupId));
+    const user = await this.queryBus.execute(new GetUserQuery(userId));
+    return this.commandBus.execute(new SendGroupRequestCommand(user, group));
   }
 }
