@@ -65,6 +65,16 @@ export class PostController {
   }
 
   @UseGuards(JwtRefreshGuard)
+  @Get('getUserPost/:userId/:offset/:limit')
+  getUserPost(
+    @Param('userId') userId: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ) {
+    return this.postService.getUserPosts(userId, Number(offset), Number(limit));
+  }
+
+  @UseGuards(JwtRefreshGuard)
   @Post('/')
   createPost(@Req() request: RequestUser, @Body() postDto: PostDto) {
     const { user } = request;
