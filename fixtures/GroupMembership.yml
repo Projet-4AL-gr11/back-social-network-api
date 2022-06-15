@@ -4,23 +4,23 @@ items:
   groupMembership1:
     user: '@user1'
     group: '@group1'
-    isAdmin: 0
-    isOwner: 1
+    isAdmin: false
+    isOwner: true
   groupMembership{2..3}:
     user: '@user($current)'
     group: '@group1'
-    isAdmin: 1
-    isOwner: 0
+    isAdmin: true
+    isOwner: false
   groupMembership{4..5}:
     user: '@user($current)'
     group: '@group1'
-    isAdmin: 0
-    isOwner: 0
+    isAdmin: false
+    isOwner: false
   groupMembership6:
     user: '@user6'
     group: '@group2'
-    isAdmin: 0
-    isOwner: 1
+    isAdmin: false
+    isOwner: true
   groupMembership{7..8}:
     user: '@user($current)'
     group: '@group2'
@@ -29,5 +29,5 @@ items:
   groupMembership{9..10}:
     user: '@user($current)'
     group: '@group2'
-    isAdmin: 0
-    isOwner: 1
+    isAdmin: false
+    isOwner: false
