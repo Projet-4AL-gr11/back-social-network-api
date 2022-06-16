@@ -18,7 +18,7 @@ export class GetEventNotEndHandler
       where: {
         endDate: MoreThan(query.dateNow),
       },
-      relations: ['organisation', 'category', 'user', 'picture'],
+      relations: ['group', 'languages', 'user', 'picture'],
     });
   }
 }
