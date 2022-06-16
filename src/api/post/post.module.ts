@@ -19,6 +19,7 @@ import { IsPostOwnerHandler } from './cqrs/handler/query/is-post-owner.handler';
 import { GetGroupPostHandler } from './cqrs/handler/query/get-group-post.handler';
 import { GetGroupHandler } from '../group/cqrs/handler/query/get-group.handler';
 import { Group } from '../group/domain/entities/group.entity';
+import { GetUserPostsHandler } from './cqrs/handler/query/get-user-posts.handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post, User, Group]), CqrsModule],
@@ -37,6 +38,7 @@ import { Group } from '../group/domain/entities/group.entity';
     IsLikedPostHandler,
     IsPostOwnerHandler,
     GetGroupPostHandler,
+    GetUserPostsHandler,
   ],
 })
 export class PostModule {}

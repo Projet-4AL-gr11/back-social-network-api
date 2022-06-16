@@ -20,7 +20,7 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 export class EventController {
   constructor(private eventService: EventService) {}
 
-  @Get('id')
+  @Get(':id')
   async getById(@Param('id') id: string): Promise<Event> {
     return await this.eventService.getById(id);
   }

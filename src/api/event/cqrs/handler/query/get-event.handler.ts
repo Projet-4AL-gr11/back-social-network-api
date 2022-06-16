@@ -13,7 +13,10 @@ export class GetEventHandler implements IQueryHandler<GetEventQuery> {
 
   execute(query: GetEventQuery): Promise<any> {
     if (query.eventId) {
-      return this.eventRepository.findOne(query.eventId);
+      return this.eventRepository
+        .createQueryBuilder()
+        .where('Event.id=:id', { id: query.eventId })
+        .getOne();
     }
     return this.eventRepository.find();
   }
