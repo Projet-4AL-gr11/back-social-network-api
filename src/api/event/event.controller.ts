@@ -112,34 +112,34 @@ export class EventController {
     }
   }
 
-  @Post('participant/:id')
+  @Post('participant/:id/:userId')
   async addParticipant(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Param('userId') userId: string,
   ): Promise<void> {
     return this.eventService.addParticipant(id, userId);
   }
 
-  @Put('participant/:id')
+  @Put('participant/:id/:userId')
   async removeParticipant(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Param('userId') userId: string,
   ): Promise<void> {
     return this.eventService.removeParticipant(id, userId);
   }
 
-  @Post('exercise/:id')
+  @Post('exercise/:id/:exerciseId')
   async addExercise(
     @Param('id') id: string,
-    @Body() exerciseId: string,
+    @Param('exerciseId') exerciseId: string,
   ): Promise<void> {
     return this.eventService.addExercise(id, exerciseId);
   }
 
-  @Put('exercise/:id')
+  @Put('exercise/:id/:exerciseId')
   async removeExercise(
     @Param('id') id: string,
-    @Body() exerciseId: string,
+    @Param('exerciseId') exerciseId: string,
   ): Promise<void> {
     return this.eventService.removeExercise(id, exerciseId);
   }
