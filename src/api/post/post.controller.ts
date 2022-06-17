@@ -78,6 +78,7 @@ export class PostController {
   @Post('/')
   createPost(@Req() request: RequestUser, @Body() postDto: PostDto) {
     const { user } = request;
+    console.log(postDto);
     return this.postService.createPost(user.id, postDto);
   }
 

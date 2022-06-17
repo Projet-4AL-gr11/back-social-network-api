@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ReportService } from './report.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { PostDto } from '../post/domain/dto/post.dto';
 import { ReportRequestDto } from './domain/dto/report-request.dto';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('report')
 export class ReportController {
@@ -30,8 +39,13 @@ export class ReportController {
   }
 
   @Post('comment')
-  createReportComment(@Body() reportDto: ReportRequestDto) {
-    return this.reportService.createReportComment(reportDto);
+  @UseGuards(JwtRefreshGuard)
+  createReportComment(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportComment(user.id, reportDto);
   }
 
   // Event
@@ -46,8 +60,13 @@ export class ReportController {
   }
 
   @Post('event')
-  createReportEvent(@Body() reportDto: ReportRequestDto) {
-    return this.reportService.createReportEvent(reportDto);
+  @UseGuards(JwtRefreshGuard)
+  createReportEvent(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportEvent(user.id, reportDto);
   }
 
   //Group
@@ -62,8 +81,13 @@ export class ReportController {
   }
 
   @Post('group')
-  createReportGroup(@Body() reportDto: ReportRequestDto) {
-    return this.reportService.createReportGroup(reportDto);
+  @UseGuards(JwtRefreshGuard)
+  createReportGroup(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportGroup(user.id, reportDto);
   }
 
   // User
@@ -78,7 +102,22 @@ export class ReportController {
   }
 
   @Post('user')
-  createReportUser(@Body() reportDto: ReportRequestDto) {
-    return this.reportService.createReportUser(reportDto);
+  @UseGuards(JwtRefreshGuard)
+  createReportUser(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportUser(user.id, reportDto);
+  }
+
+  @Post('post')
+  @UseGuards(JwtRefreshGuard)
+  createReportPost(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportPost(user.id, reportDto);
   }
 }
