@@ -1,8 +1,8 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Post } from '../../../domain/entities/post.entity';
-import { Repository } from 'typeorm';
-import { GetPostTimelineQuery } from '../../query/get-post-timeline.query';
+import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Post } from "../../../domain/entities/post.entity";
+import { Repository } from "typeorm";
+import { GetPostTimelineQuery } from "../../query/get-post-timeline.query";
 
 @QueryHandler(GetPostTimelineQuery)
 export class GetPostTimelineHandler
@@ -14,7 +14,7 @@ export class GetPostTimelineHandler
   ) {}
 
   async execute(query: GetPostTimelineQuery): Promise<Post[]> {
-    return this.postRepository
+    return await this.postRepository
       .createQueryBuilder()
       .leftJoinAndSelect('Post.creator', 'User')
       .leftJoinAndSelect('Post.sharedEvent', 'Event')
@@ -24,7 +24,7 @@ export class GetPostTimelineHandler
       .leftJoin('User.friendsTwo', 'FriendshipTwo')
       .leftJoin('FriendshipTwo.friendOne', 'FriendOne')
       .leftJoinAndSelect('Post.group', 'Group')
-      .leftJoinAndSelect('Group.picture', 'OrgaProfilePicture')
+      .leftJoinAndSelect('Group.picture', 'groupPicture')
       .leftJoin('Group.followers', 'Follower')
       .leftJoin('Group.members', 'GroupMembership')
       .leftJoin('GroupMembership.user', 'Member')
@@ -33,9 +33,9 @@ export class GetPostTimelineHandler
       .orWhere('FriendOne.id=:userId', { userId: query.userId })
       .orWhere('Follower.id=:userId', { userId: query.userId })
       .orWhere('Member.id=:userId', { userId: query.userId })
-      .limit(query.limit)
-      .offset(query.offset)
       .orderBy('Post.createdAt', 'DESC')
+      .skip(query.offset)
+      .take(query.limit)
       .getMany();
   }
 }

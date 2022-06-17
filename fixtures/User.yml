@@ -19,6 +19,7 @@ items:
       - '@group2'
     blockedUsers:
       - '@user($current-100)'
+
   user{301..400}:
     username: 'User($current)'
     email: 'user($current)@gmail.com'
@@ -30,3 +31,4 @@ items:
       - '@group2'
     blockers:
       - '@user($current-100)'
+
