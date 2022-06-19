@@ -15,6 +15,7 @@ import { GetLeaderboardForUserWithExerciseIdHandler } from './cqrs/handler/query
 import { GetLeaderboardByIdHandler } from './cqrs/handler/query/get-leaderboard-by-id.handler';
 import { GetLeaderboardForExerciseHandler } from './cqrs/handler/query/get-leaderboard-for-exercise.handler';
 import { GetLeaderboardForUserHandler } from './cqrs/handler/query/get-leaderboard-for-user.handler';
+import { GetEventRankingHandler } from './cqrs/handler/query/get-event-ranking.handler';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { GetLeaderboardForUserHandler } from './cqrs/handler/query/get-leaderboa
     GetLeaderboardForExerciseHandler,
     GetLeaderboardByIdHandler,
     GetLeaderboardForUserHandler,
+    GetEventRankingHandler,
   ],
 })
 export class LeaderboardModule {}

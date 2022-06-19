@@ -10,12 +10,13 @@ import {
 import { LeaderboardService } from './leaderboard.service';
 import { CreateLeaderboardDto } from './domain/dto/create-leaderboard.dto';
 import { Leaderboard } from './domain/entities/leaderboard.entity';
+import { EventRanking } from './domain/entities/event-ranking.entity';
 
 @Controller('leaderboard')
 export class LeaderboardController {
   constructor(private leaderboardService: LeaderboardService) {}
 
-  @Get('leaderboardById/:id')
+  @Get(':id')
   async getLeaderboardById(@Param('id') id: string): Promise<Leaderboard> {
     return await this.leaderboardService.getById(id);
   }
@@ -25,6 +26,11 @@ export class LeaderboardController {
     @Param('id') id: string,
   ): Promise<Leaderboard[]> {
     return await this.leaderboardService.getLeaderboardForExercise(id);
+  }
+
+  @Get('event/ranking/:id')
+  async getEventRanking(@Param('id') id: string): Promise<EventRanking[]> {
+    return await this.leaderboardService.getEventRanking(id);
   }
 
   @Get('allLeaderboardUser/:id')
