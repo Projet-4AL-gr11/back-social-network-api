@@ -23,6 +23,7 @@ import { GiveGroupOwnershipCommand } from './cqrs/command/give-group-ownership.c
 import { AcceptGroupRequestCommand } from './cqrs/command/accept-group-request.command';
 import { CancelGroupRequestCommand } from './cqrs/command/cancel-group-request.command';
 import { SendGroupRequestCommand } from './cqrs/command/send-group-request.command';
+import { GetGroupRequestWithUserIdQuery } from './cqrs/query/get-group-request-with-user-id.query';
 
 @Injectable()
 export class GroupService {
@@ -136,5 +137,9 @@ export class GroupService {
     const group = await this.queryBus.execute(new GetGroupQuery(groupId));
     const user = await this.queryBus.execute(new GetUserQuery(userId));
     return this.commandBus.execute(new SendGroupRequestCommand(user, group));
+  }
+
+  async getGroupRequestWithUserId(id: string) {
+    return this.queryBus.execute(new GetGroupRequestWithUserIdQuery(id));
   }
 }

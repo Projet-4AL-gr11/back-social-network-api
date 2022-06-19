@@ -1,8 +1,8 @@
-import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Post } from "../../../domain/entities/post.entity";
-import { Repository } from "typeorm";
-import { GetPostTimelineQuery } from "../../query/get-post-timeline.query";
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Post } from '../../../domain/entities/post.entity';
+import { Repository } from 'typeorm';
+import { GetPostTimelineQuery } from '../../query/get-post-timeline.query';
 
 @QueryHandler(GetPostTimelineQuery)
 export class GetPostTimelineHandler

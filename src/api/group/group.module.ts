@@ -25,6 +25,8 @@ import { AcceptGroupRequestEventHandler } from './cqrs/event-handler/accept-grou
 import { CancelGroupRequestHandler } from './cqrs/handler/command/cancel-group-request.handler';
 import { GiveGroupOwnershipHandler } from './cqrs/handler/command/give-group-ownership.handler';
 import { SendGroupRequestHandler } from './cqrs/handler/command/send-group-request.handler';
+import { GetGroupRequestWithUserIdHandler } from "./cqrs/handler/query/get-group-request-with-user-id.handler";
+import { AcceptGroupRequestHandler } from "./cqrs/handler/command/accept-group-request.handler";
 
 @Module({
   imports: [
@@ -48,10 +50,11 @@ import { SendGroupRequestHandler } from './cqrs/handler/command/send-group-reque
     IsUserGroupOwnerHandler,
     GiveAdminRightHandler,
     RemoveAdminRightHandler,
-    AcceptGroupRequestEventHandler,
     CancelGroupRequestHandler,
     GiveGroupOwnershipHandler,
     SendGroupRequestHandler,
+    GetGroupRequestWithUserIdHandler,
+    AcceptGroupRequestHandler,
   ],
 })
 export class GroupModule {}

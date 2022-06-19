@@ -29,6 +29,13 @@ export class GroupController {
     return this.groupService.getById(id);
   }
 
+  @Get('groupRequest/currentUser')
+  @UseGuards(JwtRefreshGuard)
+  getGroupRequest(@Req() request: RequestUser) {
+    const { user } = request;
+    return this.groupService.getGroupRequestWithUserId(user.id);
+  }
+
   @Get('userId/:id')
   findGroupsWithUserId(@Param('id') id: string) {
     return this.groupService.getGroupWithUserId(id);
@@ -205,7 +212,7 @@ export class GroupController {
   @UseGuards(JwtRefreshGuard)
   acceptGroupRequest(
     @Req() request: RequestUser,
-    @Param('id') groupId: string,
+    @Param('groupId') groupId: string,
   ) {
     const { user } = request;
     return this.groupService.acceptGroupRequest(groupId, user.id);
@@ -215,9 +222,26 @@ export class GroupController {
   @UseGuards(JwtRefreshGuard)
   cancelGroupRequest(
     @Req() request: RequestUser,
-    @Param('id') groupId: string,
+    @Param('groupId') groupId: string,
   ) {
     const { user } = request;
     return this.groupService.cancelGroupRequest(groupId, user.id);
+  }
+
+  @Post('cancelGroupRequestAdmin/:groupId/:userId')
+  @UseGuards(JwtRefreshGuard)
+  async cancelGroupRequestAdmin(
+    @Req() request: RequestUser,
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
+  ) {
+    const { user } = request;
+    return await this.groupService.getWhereUserIsAdmin(userId).then((group) => {
+      if (group.id == groupId) {
+        return this.groupService.cancelGroupRequest(groupId, userId);
+      } else {
+        return Error('You are not admin for this group');
+      }
+    });
   }
 }
