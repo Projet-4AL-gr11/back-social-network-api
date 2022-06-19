@@ -9,6 +9,8 @@ import { ExerciseController } from './exercise.controller';
 import { GetEventExerciseHandler } from './cqrs/handler/query/get-event-exercise.handler';
 import { ExerciseService } from './exercise.service';
 import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/get-exercise-template-with-exercise-id.handler';
+import { GetExerciseTemplateQuery } from "./cqrs/query/get-exercise-template.query";
+import { GetExerciseTemplateHandler } from "./cqrs/handler/query/get-exercise-template.handler";
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/g
     GetExerciseHandler,
     GetEventExerciseHandler,
     GetExerciseTemplateWithExerciseIdHandler,
+    GetExerciseTemplateHandler
   ],
 })
 export class ExerciseModule {}

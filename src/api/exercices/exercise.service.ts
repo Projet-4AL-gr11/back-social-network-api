@@ -3,6 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetExerciseQuery } from './cqrs/query/get-exercise.query';
 import { GetEventExercisesQuery } from './cqrs/query/get-event-exercises.query';
 import { GetExerciseTemplateWithExerciseIdQuery } from './cqrs/query/get-exercise-template-with-exercise-id.query';
+import { GetExerciseTemplateQuery } from './cqrs/query/get-exercise-template.query';
 
 @Injectable()
 export class ExerciseService {
@@ -20,5 +21,13 @@ export class ExerciseService {
     return this.queryBus.execute(
       new GetExerciseTemplateWithExerciseIdQuery(id),
     );
+  }
+
+  async getAllExerciseTemplate() {
+    return this.queryBus.execute(new GetExerciseTemplateQuery());
+  }
+
+  async getExerciseTemplateById(id: string) {
+    return this.queryBus.execute(new GetExerciseTemplateQuery(id));
   }
 }

@@ -13,6 +13,18 @@ export class ExerciseController {
   }
 
   @UseGuards(JwtRefreshGuard)
+  @Get('exerciseTemplate')
+  getAllExerciseTemplate() {
+    return this.exerciseService.getAllExerciseTemplate();
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Get('exerciseTemplate/:id')
+  getExerciseTemplateById(@Param('id') id: string) {
+    return this.exerciseService.getExerciseTemplateById(id);
+  }
+
+  @UseGuards(JwtRefreshGuard)
   @Get('event/:id')
   getEventExercise(@Param('id') id: string) {
     return this.exerciseService.getEventExercise(id);
