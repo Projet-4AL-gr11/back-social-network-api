@@ -88,7 +88,7 @@ export class AuthService {
 
   async getUserFromAuthToken(authenticationToken: string) {
     const payload: TokenPayload = this.jwtService.verify(authenticationToken, {
-      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+      secret: process.env.JWT_REFRESH_TOKEN_SECRET,
     });
     if (payload.userId) {
       return this.queryBus.execute(new GetUserQuery(payload.userId));

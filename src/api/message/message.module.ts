@@ -12,6 +12,9 @@ import { SaveMessageEventHandler } from './cqrs/event-handler/save-message.event
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { config } from 'dotenv';
+import { User } from '../user/domain/entities/user.entity';
+import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../user/user.module';
 
 config();
 
@@ -24,8 +27,10 @@ config();
       },
     }),
     PassportModule,
-    TypeOrmModule.forFeature([Message]),
+    TypeOrmModule.forFeature([Message, User]),
     CqrsModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [MessageController],
   providers: [
