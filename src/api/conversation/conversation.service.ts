@@ -6,6 +6,7 @@ import { User } from '../user/domain/entities/user.entity';
 import { GetMembersFriendOneQuery } from './cqrs/query/get-members-friend-one.query';
 import { GetMembersFriendTwoQuery } from './cqrs/query/get-members-friend-two.query';
 import { GetConversationGroupMemberQuery } from './cqrs/query/get-conversation-group-member.query';
+import { GetConversationsWithUserIdQuery } from './cqrs/query/get-conversations-with-user-id.query';
 
 @Injectable()
 export class ConversationService {
@@ -49,5 +50,9 @@ export class ConversationService {
       });
     });
     return isMember;
+  }
+
+  async getConversationsWithUserId(id: string): Promise<Conversation[]> {
+    return await this.queryBus.execute(new GetConversationsWithUserIdQuery(id));
   }
 }

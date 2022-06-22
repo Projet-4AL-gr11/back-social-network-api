@@ -10,6 +10,7 @@ import { ConversationController } from './conversation.controller';
 import { Conversation } from './domain/entities/conversation.entity';
 import { Friendship } from '../friendship/domain/entities/friendship.entity';
 import { Group } from '../group/domain/entities/group.entity';
+import { GetConversationsWithUserIdHandler } from './cqrs/handler/query/get-conversations-with-user-id.handler';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { Group } from '../group/domain/entities/group.entity';
     GetConversationByIdHandler,
     GetMembersFriendOneHandler,
     GetMembersFriendTwoHandler,
+    GetConversationsWithUserIdHandler,
   ],
 })
 export class ConversationModule {}

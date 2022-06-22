@@ -72,11 +72,13 @@ export class User extends BaseEntity {
   @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,
     onDelete: 'SET NULL',
+    eager: true,
   })
   friendsOne: Friendship[];
   @OneToMany(() => Friendship, (friendship) => friendship.friendTwo, {
     cascade: true,
     onDelete: 'SET NULL',
+    eager: true,
   })
   friendsTwo: Friendship[];
 
@@ -120,6 +122,7 @@ export class User extends BaseEntity {
   @OneToMany(() => GroupMembership, (group) => group.user, {
     cascade: true,
     onDelete: 'CASCADE',
+    eager: true,
   })
   groups: GroupMembership[];
 

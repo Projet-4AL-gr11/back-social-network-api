@@ -15,6 +15,9 @@ import { config } from 'dotenv';
 import { User } from '../user/domain/entities/user.entity';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
+import { ConversationModule } from '../conversation/conversation.module';
+import { Conversation } from '../conversation/domain/entities/conversation.entity';
+import { ConversationService } from "../conversation/conversation.service";
 
 config();
 
@@ -27,7 +30,7 @@ config();
       },
     }),
     PassportModule,
-    TypeOrmModule.forFeature([Message, User]),
+    TypeOrmModule.forFeature([Message, User, Conversation]),
     CqrsModule,
     AuthModule,
     UserModule,
@@ -36,7 +39,7 @@ config();
   providers: [
     MessageGateway,
     MessageService,
-
+    ConversationService,
     AuthService,
     SaveMessageHandler,
     FindMessageHandler,

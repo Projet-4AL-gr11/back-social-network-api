@@ -11,6 +11,8 @@ import { Server, Socket } from 'socket.io';
 import { MessageService } from '../message.service';
 import { AuthService } from '../../auth/auth.service';
 import { UnauthorizedException } from '@nestjs/common';
+import { ConversationService } from '../../conversation/conversation.service';
+import { User } from '../../user/domain/entities/user.entity';
 
 @WebSocketGateway({
   cors: {
@@ -32,6 +34,7 @@ export class MessageGateway
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
+    private conversationService: ConversationService,
   ) {}
 
   async handleConnection(socket: Socket, ...args: any[]): Promise<any> {
@@ -42,13 +45,16 @@ export class MessageGateway
       } else {
         token = socket.handshake.auth.token;
       }
-      const user = await this.authService.getUserFromAuthToken(token);
+      const user: User = await this.authService.getUserFromAuthToken(token);
 
       if (!user) {
         return this.disconnect(socket);
       } else {
-        this.title.push('value' + Math.random().toString());
-        this.server.emit('message', this.title);
+        socket.data.user = user;
+
+        const conversations =
+          await this.conversationService.getConversationsWithUserId(user.id);
+        this.server.emit('conversations', conversations);
       }
     } catch {
       return this.disconnect(socket);
