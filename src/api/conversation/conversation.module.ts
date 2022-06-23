@@ -13,6 +13,7 @@ import { Group } from '../group/domain/entities/group.entity';
 import { GetConversationsWithUserIdHandler } from './cqrs/handler/query/get-conversations-with-user-id.handler';
 import { CreateConversationHandler } from './cqrs/handler/command/create-conversation.handler';
 import { JoinedConversation } from '../message/domain/entities/joined-conversation.entity';
+import { CreateConversationEventHandler } from "./cqrs/event-handler/create-conversation.event-handler";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { JoinedConversation } from '../message/domain/entities/joined-conversati
     GetMembersFriendTwoHandler,
     GetConversationsWithUserIdHandler,
     CreateConversationHandler,
+    CreateConversationEventHandler,
   ],
 })
 export class ConversationModule {}

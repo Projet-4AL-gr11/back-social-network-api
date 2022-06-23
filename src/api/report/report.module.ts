@@ -21,6 +21,12 @@ import { GetReportedGroupHandler } from './cqrs/handler/query/get-reported-group
 import { GetReportedPostHandler } from './cqrs/handler/query/get-reported-post.handler';
 import { GetReportedUserHandler } from './cqrs/handler/query/get-reported-user.handler';
 import { GetReportedEventHandler } from './cqrs/handler/query/get-reported-event.handler';
+import { CreateReportCommentEventHandler } from "./cqrs/event-handler/create-report-comment.event-handler";
+import { CreateReportEventEventHandler } from "./cqrs/event-handler/create-report-event.event-handler";
+import { CreateReportGroupEventHandler } from "./cqrs/event-handler/create-report-group.event-handler";
+import { CreateReportPostEventHandler } from "./cqrs/event-handler/create-report-post.event-handler";
+import { CreateReportUserEventHandler } from "./cqrs/event-handler/create-report-user.event-handler";
+import { DeleteReportEventHandler } from "./cqrs/event-handler/delete-report.event-handler";
 
 @Module({
   imports: [
@@ -42,6 +48,12 @@ import { GetReportedEventHandler } from './cqrs/handler/query/get-reported-event
     GetReportedGroupHandler,
     GetReportedPostHandler,
     GetReportedUserHandler,
+    CreateReportCommentEventHandler,
+    CreateReportEventEventHandler,
+    CreateReportGroupEventHandler,
+    CreateReportPostEventHandler,
+    CreateReportUserEventHandler,
+    DeleteReportEventHandler,
   ],
 })
 export class ReportModule {}

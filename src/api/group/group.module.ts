@@ -27,6 +27,17 @@ import { GiveGroupOwnershipHandler } from './cqrs/handler/command/give-group-own
 import { SendGroupRequestHandler } from './cqrs/handler/command/send-group-request.handler';
 import { GetGroupRequestWithUserIdHandler } from "./cqrs/handler/query/get-group-request-with-user-id.handler";
 import { AcceptGroupRequestHandler } from "./cqrs/handler/command/accept-group-request.handler";
+import { AddGroupFollowerEventHandler } from "./cqrs/event-handler/add-group-follower.event-handler";
+import { CancelGroupRequestEventHandler } from "./cqrs/event-handler/cancel-group-request.event-handler";
+import { CreateGroupEventHandler } from "./cqrs/event-handler/create-group.event-handler";
+import { DeleteGroupEventHandler } from "./cqrs/event-handler/delete-group.event-handler";
+import { GiveAdminRightEventHandler } from "./cqrs/event-handler/give-admin-right.event-handler";
+import { GiveGroupOwnershipEventHandler } from "./cqrs/event-handler/give-group-ownership.event-handler";
+import { RemoveAdminRightEventHandler } from "./cqrs/event-handler/remove-admin-right.event-handler";
+import { RemoveGroupFollowEventHandler } from "./cqrs/event-handler/remove-group-follow.event-handler";
+import { RemoveUserFromGroupEventHandler } from "./cqrs/event-handler/remove-user-from-group.event-handler";
+import { SendGroupRequestEventHandler } from "./cqrs/event-handler/send-group-request.event-handler";
+import { UpdateGroupEventHandler } from "./cqrs/event-handler/update-group.event-handler";
 
 @Module({
   imports: [
@@ -55,6 +66,18 @@ import { AcceptGroupRequestHandler } from "./cqrs/handler/command/accept-group-r
     SendGroupRequestHandler,
     GetGroupRequestWithUserIdHandler,
     AcceptGroupRequestHandler,
+    AcceptGroupRequestEventHandler,
+    AddGroupFollowerEventHandler,
+    CancelGroupRequestEventHandler,
+    CreateGroupEventHandler,
+    DeleteGroupEventHandler,
+    GiveAdminRightEventHandler,
+    GiveGroupOwnershipEventHandler,
+    RemoveAdminRightEventHandler,
+    RemoveGroupFollowEventHandler,
+    RemoveUserFromGroupEventHandler,
+    SendGroupRequestEventHandler,
+    UpdateGroupEventHandler,
   ],
 })
 export class GroupModule {}
