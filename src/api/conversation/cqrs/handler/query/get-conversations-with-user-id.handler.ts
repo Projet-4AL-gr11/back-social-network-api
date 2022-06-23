@@ -27,9 +27,12 @@ export class GetConversationsWithUserIdHandler
       .leftJoinAndSelect('Conversation.group', 'Group')
       .leftJoinAndSelect('Group.members', 'GroupMembership')
       .leftJoinAndSelect('GroupMembership.user', 'Member')
+      .leftJoinAndSelect('Conversation.users', 'GroupTchat')
       .where('FriendOne.id=:id', { id: query.userId })
       .orWhere('FriendTwo.id=:id', { id: query.userId })
       .orWhere('Member.id=:id', { id: query.userId })
+      .orWhere('GroupTchat.id=:id', { id: query.userId })
+      .orderBy('Conversation.updatedAt', 'DESC')
       .getMany();
   }
 }

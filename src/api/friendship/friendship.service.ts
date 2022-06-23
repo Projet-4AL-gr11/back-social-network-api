@@ -10,6 +10,7 @@ import { GetStatusFriendshipQuery } from './cqrs/query/get-status-friendship.que
 import { FriendshipDto } from './domain/dto/friendship.dto';
 import { FriendshipRequestDto } from './domain/dto/friendship-request.dto';
 import { GetUserQuery } from '../user/cqrs/query/get-user.query';
+import { ResearchFriendsQuery } from './cqrs/query/research-friends.query';
 
 @Injectable()
 export class FriendshipService {
@@ -85,5 +86,9 @@ export class FriendshipService {
     return this.commandBus.execute(
       new RemoveFriendshipCommand(commandArgs.senderId, commandArgs.userId),
     );
+  }
+
+  researchFriends(userId: string, name: string) {
+    return this.queryBus.execute(new ResearchFriendsQuery(userId, name));
   }
 }

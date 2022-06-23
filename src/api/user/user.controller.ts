@@ -34,6 +34,13 @@ export class UserController {
     return this.userService.isBlocked(request.user.id, id);
   }
 
+  @UseGuards(JwtRefreshGuard)
+  @Get('researchUsername/:name')
+  researchUsername(@Req() request: RequestUser, @Param('name') name: string) {
+    const { user } = request;
+    return this.userService.researchUsername(user.id, name);
+  }
+
   @Get('hasBlocked/:id')
   @UseGuards(JwtRefreshGuard)
   hasBlocked(@Req() request: RequestUser, @Param('id') id: string) {

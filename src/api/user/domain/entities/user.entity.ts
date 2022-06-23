@@ -27,7 +27,10 @@ import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
-import { GroupRequest } from "../../../group/domain/entities/group_request.entity";
+import { GroupRequest } from '../../../group/domain/entities/group_request.entity';
+import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
+import { ConnectedUser } from '../../../message/domain/entities/connected-user.entity';
+import { JoinedConversation } from "../../../message/domain/entities/joined-conversation.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -72,13 +75,11 @@ export class User extends BaseEntity {
   @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,
     onDelete: 'SET NULL',
-    eager: true,
   })
   friendsOne: Friendship[];
   @OneToMany(() => Friendship, (friendship) => friendship.friendTwo, {
     cascade: true,
     onDelete: 'SET NULL',
-    eager: true,
   })
   friendsTwo: Friendship[];
 
@@ -122,7 +123,6 @@ export class User extends BaseEntity {
   @OneToMany(() => GroupMembership, (group) => group.user, {
     cascade: true,
     onDelete: 'CASCADE',
-    eager: true,
   })
   groups: GroupMembership[];
 
@@ -131,6 +131,9 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   groupRequests: GroupRequest[];
+
+  @ManyToOne(() => JoinedConversation, (conversation) => conversation.user, {})
+  joinedConversations: JoinedConversation[];
 
   @BeforeInsert()
   async setPassword(password: string) {
@@ -197,4 +200,7 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   leaderboards: Leaderboard[];
+
+  @OneToMany(() => ConnectedUser, (connection) => connection.user)
+  connections: ConnectedUser[];
 }

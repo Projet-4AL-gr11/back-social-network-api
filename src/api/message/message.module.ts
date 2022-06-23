@@ -15,9 +15,21 @@ import { config } from 'dotenv';
 import { User } from '../user/domain/entities/user.entity';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
-import { ConversationModule } from '../conversation/conversation.module';
 import { Conversation } from '../conversation/domain/entities/conversation.entity';
-import { ConversationService } from "../conversation/conversation.service";
+import { ConversationService } from '../conversation/conversation.service';
+import { UserService } from '../user/user.service';
+import { GetConnectedUserHandler } from './cqrs/handler/query/get-connected-user.handler';
+import { ConnectedUser } from './domain/entities/connected-user.entity';
+import { CreateConnectedUserHandler } from './cqrs/handler/command/create-connected-user.handler';
+import { DeleteConnectedUserHandler } from './cqrs/handler/command/delete-connected-user.handler';
+import { DeleteAllConnectedUserHandler } from './cqrs/handler/command/delete-all-connected-user.handler';
+import { JoinedConversation } from './domain/entities/joined-conversation.entity';
+import { DeleteAllJoinedConversationHandler } from './cqrs/handler/command/delete-all-joined-conversation.handler';
+import { DeleteJoinedConversationBySocketIdHandler } from './cqrs/handler/command/delete-joined-conversation-by-socket-id.handler';
+import { GetJoinedConversationByConversationIdHandler } from './cqrs/handler/query/get-joined-conversation-by-conversation-id.handler';
+import { GetJoinedConversationByUserIdHandler } from './cqrs/handler/query/get-joined-conversation-by-user-id.handler';
+import { CreateJoinedConversationHandler } from './cqrs/handler/command/create-joined-conversation.handler';
+import { CreateMessageHandler } from "./cqrs/handler/command/create-message.handler";
 
 config();
 
@@ -30,7 +42,13 @@ config();
       },
     }),
     PassportModule,
-    TypeOrmModule.forFeature([Message, User, Conversation]),
+    TypeOrmModule.forFeature([
+      Message,
+      User,
+      Conversation,
+      ConnectedUser,
+      JoinedConversation,
+    ]),
     CqrsModule,
     AuthModule,
     UserModule,
@@ -39,12 +57,23 @@ config();
   providers: [
     MessageGateway,
     MessageService,
+    UserService,
     ConversationService,
     AuthService,
     SaveMessageHandler,
     FindMessageHandler,
     SaveMessageEventHandler,
+    GetConnectedUserHandler,
+    CreateConnectedUserHandler,
+    DeleteConnectedUserHandler,
+    DeleteAllConnectedUserHandler,
+    DeleteAllJoinedConversationHandler,
+    DeleteJoinedConversationBySocketIdHandler,
+    GetJoinedConversationByConversationIdHandler,
+    GetJoinedConversationByUserIdHandler,
+    CreateJoinedConversationHandler,
+    CreateMessageHandler,
   ],
-  exports: [MessageService],
+  exports: [MessageService, DeleteAllJoinedConversationHandler],
 })
 export class MessageModule {}

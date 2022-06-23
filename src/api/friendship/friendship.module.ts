@@ -17,6 +17,7 @@ import { CancelFriendshipRequestEventHandler } from './cqrs/event-handler/cancel
 import { RemoveFriendshipEventHandler } from './cqrs/event-handler/remove-friendship.event-handler';
 import { SendFriendshipRequestEventHandler } from './cqrs/event-handler/send-friendship-request.event-handler';
 import { FriendshipService } from './friendship.service';
+import { ResearchFriendsHandler } from "./cqrs/handler/query/research-friends.handler";
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { FriendshipService } from './friendship.service';
     GetStatusFriendshipHandler,
     GetReceivedFriendshipHandler,
     GetSentFriendshipRequestHandler,
+    ResearchFriendsHandler
   ],
 })
 export class FriendshipModule {}
