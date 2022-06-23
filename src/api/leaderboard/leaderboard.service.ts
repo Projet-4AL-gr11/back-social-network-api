@@ -14,6 +14,7 @@ import { GetLeaderboardForUserWithExerciseIdQuery } from './cqrs/query/get-leade
 import { Event } from '../event/domain/entities/event.entity';
 import { GetEventQuery } from '../event/cqrs/query/get-event.query';
 import { UpdateEventRankingCommand } from './cqrs/command/update-event-ranking.command';
+import { GetEventRankingQuery } from './cqrs/query/get-event-ranking.query';
 
 @Injectable()
 export class LeaderboardService {
@@ -87,5 +88,9 @@ export class LeaderboardService {
     await this.commandBus.execute(
       new UpdateEventRankingCommand(event, event.participants, allLeaderboard),
     );
+  }
+
+  async getEventRanking(id: string) {
+    return this.queryBus.execute(new GetEventRankingQuery(id));
   }
 }

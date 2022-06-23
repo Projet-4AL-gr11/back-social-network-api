@@ -67,3 +67,13 @@ items:
       - '@user10'
     text: '{{lorem.paragraph}}'
     sharedEvent: '@event($current)'
+
+  postSimpleUser{1..200}:
+    creator: '@user1'
+    likes:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+    text: '{{lorem.paragraph}}'

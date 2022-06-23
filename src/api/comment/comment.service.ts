@@ -7,6 +7,7 @@ import { GetPostQuery } from '../post/cqrs/query/get-post.query';
 import { AddCommentCommand } from './cqrs/command/add-comment.command';
 import { UpdateCommentCommand } from './cqrs/command/update-comment.command';
 import { DeleteCommentCommand } from './cqrs/command/delete-comment.command';
+import { GetCommentsWithPostIdQuery } from './cqrs/query/get-comments-with-post-id.query';
 
 @Injectable()
 export class CommentService {
@@ -32,5 +33,9 @@ export class CommentService {
 
   async delete(commentId: string): Promise<void> {
     return await this.commandBus.execute(new DeleteCommentCommand(commentId));
+  }
+
+  async getCommentWithPostId(postId: string): Promise<Comment[]> {
+    return await this.queryBus.execute(new GetCommentsWithPostIdQuery(postId));
   }
 }

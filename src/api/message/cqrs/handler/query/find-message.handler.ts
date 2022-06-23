@@ -14,7 +14,7 @@ export class FindMessageHandler implements IQueryHandler<FindMessagesQuery> {
   async execute(query: FindMessagesQuery): Promise<Message[]> {
     return this.messagesRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('Message.user', 'User')
+      .leftJoinAndSelect('Message.author', 'User')
       .leftJoinAndSelect('User.profilePicture', 'ProfPic')
       .leftJoin('Message.conversation', 'Conversation')
       .where('Conversation.id=:id', { id: query.conversationId })

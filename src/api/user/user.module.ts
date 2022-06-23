@@ -16,9 +16,19 @@ import { UnblockUserHandler } from './cqrs/handler/command/unblock-user.handler'
 import { HasBlockedUserHandler } from './cqrs/handler/query/has-blocked-user.handler';
 import { IsBlockedUserHandler } from './cqrs/handler/query/is-blocked-user.handler';
 import { GetUserFriendsHandler } from './cqrs/handler/query/get-user-friends.handler';
+import { ResearchUsernameHandler } from './cqrs/handler/query/research-username.handler';
+import { GetConnectedUserQuery } from '../message/cqrs/query/get-connected-user.query';
+import { ConnectedUser } from '../message/domain/entities/connected-user.entity';
+import { GetConnectedUserHandler } from '../message/cqrs/handler/query/get-connected-user.handler';
+import { BlockUserEventHandler } from './cqrs/event-bus/block-user.event-handler';
+import { DeleteUserEventHandler } from './cqrs/event-bus/delete-user.event-handler';
+import { RemoveRefreshTokenEventHandler } from './cqrs/event-bus/remove-refresh-token.event-handler';
+import { SetCurrentRefreshTokenEventHandler } from './cqrs/event-bus/set-current-refresh-token.event-handler';
+import { UnblockUserEventHandler } from './cqrs/event-bus/unblock-user.event-handler';
+import { UpdateUserEventHandler } from './cqrs/event-bus/update-user.event-handler';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([User, ConnectedUser]), CqrsModule],
   controllers: [UserController],
   providers: [
     UserService,
@@ -34,6 +44,13 @@ import { GetUserFriendsHandler } from './cqrs/handler/query/get-user-friends.han
     HasBlockedUserHandler,
     IsBlockedUserHandler,
     GetUserFriendsHandler,
+    ResearchUsernameHandler,
+    BlockUserEventHandler,
+    DeleteUserEventHandler,
+    RemoveRefreshTokenEventHandler,
+    SetCurrentRefreshTokenEventHandler,
+    UnblockUserEventHandler,
+    UpdateUserEventHandler,
   ],
 })
 export class UserModule {}

@@ -6,6 +6,10 @@ import { User } from '../user/domain/entities/user.entity';
 import { GetMembersFriendOneQuery } from './cqrs/query/get-members-friend-one.query';
 import { GetMembersFriendTwoQuery } from './cqrs/query/get-members-friend-two.query';
 import { GetConversationGroupMemberQuery } from './cqrs/query/get-conversation-group-member.query';
+import { GetConversationsWithUserIdQuery } from './cqrs/query/get-conversations-with-user-id.query';
+import { ConversationDto } from './domain/dto/conversation.dto';
+import { GetUserQuery } from '../user/cqrs/query/get-user.query';
+import { CreateConversationCommand } from './cqrs/command/create-conversation.command';
 
 @Injectable()
 export class ConversationService {
@@ -49,5 +53,18 @@ export class ConversationService {
       });
     });
     return isMember;
+  }
+
+  async getConversationsWithUserId(id: string): Promise<Conversation[]> {
+    return await this.queryBus.execute(new GetConversationsWithUserIdQuery(id));
+  }
+
+  async createConversation(conversationDto: ConversationDto, user: string) {
+    const userList: User[] = [];
+    conversationDto.users.push(user);
+    for (const userId of conversationDto.users) {
+      userList.push(await this.queryBus.execute(new GetUserQuery(userId)));
+    }
+    return this.commandBus.execute(new CreateConversationCommand(userList));
   }
 }

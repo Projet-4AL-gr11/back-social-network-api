@@ -10,10 +10,20 @@ import { ConversationController } from './conversation.controller';
 import { Conversation } from './domain/entities/conversation.entity';
 import { Friendship } from '../friendship/domain/entities/friendship.entity';
 import { Group } from '../group/domain/entities/group.entity';
+import { GetConversationsWithUserIdHandler } from './cqrs/handler/query/get-conversations-with-user-id.handler';
+import { CreateConversationHandler } from './cqrs/handler/command/create-conversation.handler';
+import { JoinedConversation } from '../message/domain/entities/joined-conversation.entity';
+import { CreateConversationEventHandler } from './cqrs/event-handler/create-conversation.event-handler';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Conversation, User, Group, Friendship]),
+    TypeOrmModule.forFeature([
+      Conversation,
+      User,
+      Group,
+      Friendship,
+      JoinedConversation,
+    ]),
     CqrsModule,
   ],
   controllers: [ConversationController],
@@ -22,6 +32,9 @@ import { Group } from '../group/domain/entities/group.entity';
     GetConversationByIdHandler,
     GetMembersFriendOneHandler,
     GetMembersFriendTwoHandler,
+    GetConversationsWithUserIdHandler,
+    CreateConversationHandler,
+    CreateConversationEventHandler,
   ],
 })
 export class ConversationModule {}

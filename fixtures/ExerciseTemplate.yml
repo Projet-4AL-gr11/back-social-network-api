@@ -4,6 +4,10 @@ items:
   exerciseTemplate{1..5}:
     name: 'exercise template ($current)'
     language: '@Python'
+    code: 'print("ca fonctionne")'
+    description: '{{lorem.paragraph}}'
   exerciseTemplate{6..10}:
     name: 'exercise template ($current)'
     language: '@JS'
+    code: 'console.log("ca fonctionne")'
+    description: '{{lorem.paragraph}}'

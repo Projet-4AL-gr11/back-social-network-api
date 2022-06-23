@@ -23,6 +23,11 @@ export class CommentController {
     return this.commentService.getById(id);
   }
 
+  @Get('getPostComments/:id')
+  async getCommentWithPostId(@Param('id') id: string): Promise<Comment[]> {
+    return this.commentService.getCommentWithPostId(id);
+  }
+
   @Post(':id')
   @UseGuards(JwtRefreshGuard)
   async create(

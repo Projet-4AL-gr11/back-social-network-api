@@ -12,6 +12,6 @@ export class GetCommentHandler implements IQueryHandler<GetCommentQuery> {
   ) {}
 
   async execute(query: GetCommentQuery) {
-    return await this.commentRepository.findOneOrFail(query.commentId);
+    return await this.commentRepository.findOne(query.commentId);
   }
 }

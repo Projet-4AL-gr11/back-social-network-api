@@ -96,8 +96,8 @@ export class EventService {
       .some((user) => user.id === userId);
   }
 
-  async isMember(userid: string, eventId: string): Promise<boolean> {
-    return await this.queryBus.execute(new IsEventMemberQuery(eventId, userid));
+  async isMember(eventId: string, userId: string): Promise<boolean> {
+    return await this.queryBus.execute(new IsEventMemberQuery(eventId, userId));
   }
 
   // specific research

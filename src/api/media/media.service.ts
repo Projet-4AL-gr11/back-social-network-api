@@ -105,11 +105,15 @@ export class MediaService {
     const post: Post = await this.queryBus.execute(new GetPostQuery(postId));
     const response: MediaResponseDto[] = [];
 
-    if (post.medias.length > 0) {
-      for (const media of post.medias) {
-        response.push(
-          await this.queryBus.execute(new GetPictureTemporaryLinkQuery(media)),
-        );
+    if (post.medias) {
+      if (post.medias.length > 0) {
+        for (const media of post.medias) {
+          response.push(
+            await this.queryBus.execute(
+              new GetPictureTemporaryLinkQuery(media),
+            ),
+          );
+        }
       }
     }
     return response;

@@ -13,6 +13,8 @@ import { HasBlockedUserQuery } from './cqrs/query/has-blocked-user.query';
 import { UnblockUserCommand } from './cqrs/command/unblock-user.command';
 import { User } from './domain/entities/user.entity';
 import { GetUserFriendsQuery } from './cqrs/query/get-user-friends.query';
+import { ResearchUsernameQuery } from './cqrs/query/research-username.query';
+import { GetConnectedUserQuery } from '../message/cqrs/query/get-connected-user.query';
 
 @Injectable()
 export class UserService {
@@ -80,5 +82,9 @@ export class UserService {
 
   async getFriendTwo(id: string): Promise<User[]> {
     return this.queryBus.execute(new GetUserFriendsQuery(id, false));
+  }
+
+  researchUsername(id: string, name: string) {
+    return this.queryBus.execute(new ResearchUsernameQuery(id, name));
   }
 }

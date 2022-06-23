@@ -19,9 +19,7 @@ export class Exercise {
   @Column()
   name: string;
 
-  @ManyToOne(() => Event, (event) => event.exercises, {
-    eager: true,
-  })
+  @ManyToOne(() => Event, (event) => event.exercises, {})
   event: Event;
 
   @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.exercise, {
@@ -32,8 +30,9 @@ export class Exercise {
 
   @ManyToOne(
     () => ExerciseTemplate,
-    (exerciseTemplate) => exerciseTemplate.exercise,
+    (exerciseTemplate) => exerciseTemplate.exercises,
     {
+      eager: true,
       nullable: false,
     },
   )

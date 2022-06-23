@@ -43,6 +43,13 @@ export class FriendshipController {
   }
 
   @UseGuards(JwtRefreshGuard)
+  @Get('researchFriends/:name')
+  researchFriends(@Req() request: RequestUser, @Param('name') name: string) {
+    const { user } = request;
+    return this.friendshipService.researchFriends(user.id, name);
+  }
+
+  @UseGuards(JwtRefreshGuard)
   @Post('sendFriendshipRequest/:id')
   sendFriendshipRequest(
     @Req() request: RequestUser,

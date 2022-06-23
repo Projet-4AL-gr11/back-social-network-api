@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetLeaderboardByIdQuery } from '../../query/get-leaderboard-by-id.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Leaderboard } from '../../../domain/entities/leaderboard.entity';
 import { Repository } from 'typeorm';
@@ -17,8 +16,10 @@ export class GetLeaderboardForExerciseHandler
   async execute(query: GetLeaderboardForExerciseQuery): Promise<Leaderboard[]> {
     return await this.leaderboardRepository
       .createQueryBuilder()
-      .leftJoin('exercise', 'Exercise')
+      .leftJoin('Leaderboard.exercise', 'Exercise')
+      .leftJoinAndSelect('Leaderboard.user', 'User')
       .where('Exercise.id=:id', { id: query.exerciseId })
+      .orderBy('Leaderboard.ranking', 'DESC')
       .getMany();
   }
 }

@@ -20,8 +20,7 @@ export class GetGroupWhereUserIsAdminHandler
     const groups: Group[] = [];
     const groupMemberships = await this.groupMembershipRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('GroupMembership.group', 'Group')
-      .leftJoinAndSelect('Group.user', 'User')
+      .leftJoinAndSelect('GroupMembership.user', 'User')
       .where('User.id=:userId', { userId: query.id })
       .andWhere('GroupMembership.isAdmin=true OR GroupMembership.isOwner=true')
       .getMany();
