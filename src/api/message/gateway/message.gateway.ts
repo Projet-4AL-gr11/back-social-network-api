@@ -132,6 +132,9 @@ export class MessageGateway
       await this.messageService.getJoinedConversationByConversationId(
         conversation.id,
       );
+    for (const user of joinedUsers) {
+      this.server.to(user.socketId).emit('messageAdded', createdMessage);
+    }
   }
 
   async onModuleInit() {

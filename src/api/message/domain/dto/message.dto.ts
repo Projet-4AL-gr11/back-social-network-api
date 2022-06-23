@@ -4,6 +4,6 @@ import { Conversation } from '../../../conversation/domain/entities/conversation
 export class MessageDto {
   constructor(
     public readonly content: string,
-    public readonly conversationId: string,
+    public readonly conversation: Conversation,
   ) {}
 }

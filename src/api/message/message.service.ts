@@ -106,11 +106,12 @@ export class MessageService {
   }
 
   async createMessage(messageDto: MessageDto, user: User) {
-    const conversation = await this.queryBus.execute(
-      new GetConversationByIdQuery(messageDto.conversationId),
-    );
     return this.commandBus.execute(
-      new CreateMessageCommand(messageDto.content, user, conversation),
+      new CreateMessageCommand(
+        messageDto.content,
+        user,
+        messageDto.conversation,
+      ),
     );
   }
 }

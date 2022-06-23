@@ -18,8 +18,8 @@ export class GetJoinedConversationByConversationIdHandler
   async execute(query: GetJoinedConversationByConversationIdQuery) {
     return this.joinedConversationRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('JoinedConversation.conversation', 'Conversation')
+      .leftJoin('JoinedConversation.conversation', 'Conversation')
       .where('Conversation.id=:id', { id: query.conversationId })
-      .getOne();
+      .getMany();
   }
 }

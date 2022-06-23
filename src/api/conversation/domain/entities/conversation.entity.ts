@@ -23,7 +23,6 @@ export class Conversation {
   friendship: Friendship;
 
   @OneToMany(() => Message, (message) => message.conversation, {
-    eager: true,
   })
   messages: Message[];
 
