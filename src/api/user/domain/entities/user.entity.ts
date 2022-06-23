@@ -30,7 +30,7 @@ import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking
 import { GroupRequest } from '../../../group/domain/entities/group_request.entity';
 import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
 import { ConnectedUser } from '../../../message/domain/entities/connected-user.entity';
-import { JoinedConversation } from "../../../message/domain/entities/joined-conversation.entity";
+import { JoinedConversation } from '../../../message/domain/entities/joined-conversation.entity';
 
 @Entity()
 export class User extends BaseEntity {

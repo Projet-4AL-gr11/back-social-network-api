@@ -21,10 +21,10 @@ import { CreateJoinedConversationCommand } from './cqrs/command/create-joined-co
 import { MessageDto } from './domain/dto/message.dto';
 import { CreateMessageCommand } from './cqrs/command/create-message.command';
 import { DeleteAllConnectedUserCommand } from './cqrs/command/delete-all-connected-user.command';
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Repository } from 'typeorm';
 import { ConnectedUser } from './domain/entities/connected-user.entity';
 import { JoinedConversation } from './domain/entities/joined-conversation.entity';
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class MessageService {

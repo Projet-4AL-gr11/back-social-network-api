@@ -105,7 +105,10 @@ export class EventController {
   // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
   @UseGuards(JwtRefreshGuard)
-  async delete(@Param('id') id: string, @Req() request: RequestUser,): Promise<void> {
+  async delete(
+    @Param('id') id: string,
+    @Req() request: RequestUser,
+  ): Promise<void> {
     const { user } = request;
     if (this.eventService.isOwner(user.id, id)) {
       return await this.eventService.delete(id);

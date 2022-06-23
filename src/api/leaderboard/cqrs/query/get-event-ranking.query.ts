@@ -1,4 +1,3 @@
 export class GetEventRankingQuery {
-  constructor(public readonly eventId: string) {
-  }
+  constructor(public readonly eventId: string) {}
 }

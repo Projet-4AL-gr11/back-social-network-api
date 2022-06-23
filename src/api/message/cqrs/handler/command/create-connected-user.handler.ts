@@ -7,7 +7,7 @@ import { SaveMessageEvent } from '../../event/save-message.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { CreateConnectedUserCommand } from '../../command/create-connected-user.command';
 import { ConnectedUser } from '../../../domain/entities/connected-user.entity';
-import { CreateConnectedUserEvent } from "../../event/create-connected-user.event";
+import { CreateConnectedUserEvent } from '../../event/create-connected-user.event';
 
 @CommandHandler(CreateConnectedUserCommand)
 export class CreateConnectedUserHandler

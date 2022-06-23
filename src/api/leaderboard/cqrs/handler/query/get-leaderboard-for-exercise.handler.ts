@@ -1,8 +1,8 @@
-import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Leaderboard } from "../../../domain/entities/leaderboard.entity";
-import { Repository } from "typeorm";
-import { GetLeaderboardForExerciseQuery } from "../../query/get-leaderboard-for-exercise.query";
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Leaderboard } from '../../../domain/entities/leaderboard.entity';
+import { Repository } from 'typeorm';
+import { GetLeaderboardForExerciseQuery } from '../../query/get-leaderboard-for-exercise.query';
 
 @QueryHandler(GetLeaderboardForExerciseQuery)
 export class GetLeaderboardForExerciseHandler

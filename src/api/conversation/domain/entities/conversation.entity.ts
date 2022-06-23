@@ -22,8 +22,7 @@ export class Conversation {
   @OneToOne(() => Friendship, (friendship) => friendship.conversation)
   friendship: Friendship;
 
-  @OneToMany(() => Message, (message) => message.conversation, {
-  })
+  @OneToMany(() => Message, (message) => message.conversation, {})
   messages: Message[];
 
   @OneToOne(() => Group, (group) => group.conversation)

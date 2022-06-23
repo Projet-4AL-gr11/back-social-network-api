@@ -21,13 +21,13 @@ import { AddExerciseToEventHandler } from './cqrs/handler/command/add-exercise-t
 import { RemoveExerciseToEventHandler } from './cqrs/handler/command/remove-exercise-to-event.handler';
 import { EventRanking } from '../leaderboard/domain/entities/event-ranking.entity';
 import { GetEventParticipationHandler } from './cqrs/handler/query/get-event-participation.handler';
-import { CreateEventEventHandler } from "./cqrs/event-handler/create-event.event-handler";
-import { AddExerciseToEventEventHandler } from "./cqrs/event-handler/add-exercise-to-event.event-handler";
-import { AddParticipantToEventEventHandler } from "./cqrs/event-handler/add-participant-to-event.event-handler";
-import { DeleteEventEventHandler } from "./cqrs/event-handler/delete-event.event-handler";
-import { RemoveExerciseToEventEventHandler } from "./cqrs/event-handler/remove-exercise-to-event.event-handler";
-import { RemoveParticipantToEventEventHandler } from "./cqrs/event-handler/remove-participant-to-event.event-handler";
-import { UpdateEventEventHandler } from "./cqrs/event-handler/update-event.event-handler";
+import { CreateEventEventHandler } from './cqrs/event-handler/create-event.event-handler';
+import { AddExerciseToEventEventHandler } from './cqrs/event-handler/add-exercise-to-event.event-handler';
+import { AddParticipantToEventEventHandler } from './cqrs/event-handler/add-participant-to-event.event-handler';
+import { DeleteEventEventHandler } from './cqrs/event-handler/delete-event.event-handler';
+import { RemoveExerciseToEventEventHandler } from './cqrs/event-handler/remove-exercise-to-event.event-handler';
+import { RemoveParticipantToEventEventHandler } from './cqrs/event-handler/remove-participant-to-event.event-handler';
+import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event-handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],

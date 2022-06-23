@@ -20,11 +20,11 @@ import { GetGroupPostHandler } from './cqrs/handler/query/get-group-post.handler
 import { GetGroupHandler } from '../group/cqrs/handler/query/get-group.handler';
 import { Group } from '../group/domain/entities/group.entity';
 import { GetUserPostsHandler } from './cqrs/handler/query/get-user-posts.handler';
-import { CreatePostEventHandler } from "./cqrs/event-handler/create-post.event-handler";
-import { DeletePostEventHandler } from "./cqrs/event-handler/delete-post.event-handler";
-import { DislikePostEventHandler } from "./cqrs/event-handler/dislike-post.event-handler";
-import { LikePostEventHandler } from "./cqrs/event-handler/like-post.event-handler";
-import { UpdatePostEventHandler } from "./cqrs/event-handler/update-post.event-handler";
+import { CreatePostEventHandler } from './cqrs/event-handler/create-post.event-handler';
+import { DeletePostEventHandler } from './cqrs/event-handler/delete-post.event-handler';
+import { DislikePostEventHandler } from './cqrs/event-handler/dislike-post.event-handler';
+import { LikePostEventHandler } from './cqrs/event-handler/like-post.event-handler';
+import { UpdatePostEventHandler } from './cqrs/event-handler/update-post.event-handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post, User, Group]), CqrsModule],

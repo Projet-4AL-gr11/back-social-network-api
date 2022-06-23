@@ -87,5 +87,4 @@ export class UserService {
   researchUsername(id: string, name: string) {
     return this.queryBus.execute(new ResearchUsernameQuery(id, name));
   }
-
 }

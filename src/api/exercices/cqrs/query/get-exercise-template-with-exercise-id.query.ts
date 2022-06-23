@@ -1,4 +1,3 @@
 export class GetExerciseTemplateWithExerciseIdQuery {
-  constructor(public readonly exerciseId: string) {
-  }
+  constructor(public readonly exerciseId: string) {}
 }
