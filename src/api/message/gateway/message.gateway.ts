@@ -31,7 +31,7 @@ import { JoinedConversation } from '../domain/entities/joined-conversation.entit
   },
 })
 export class MessageGateway
-  implements OnGatewayConnection, OnGatewayDisconnect, OnModuleInit
+  implements OnGatewayConnection, OnGatewayDisconnect
 {
   @WebSocketServer()
   server: Server;
@@ -43,7 +43,10 @@ export class MessageGateway
     private authService: AuthService,
     private userService: UserService,
     private conversationService: ConversationService,
-  ) {}
+  ) {
+    this.messageService.deleteAllConnectedUser().then();
+    this.messageService.deleteAllJoinedConversation().then();
+  }
 
   async handleConnection(socket: Socket, ...args: any[]): Promise<any> {
     try {
@@ -136,45 +139,4 @@ export class MessageGateway
       this.server.to(user.socketId).emit('messageAdded', createdMessage);
     }
   }
-
-  async onModuleInit() {
-    await this.messageService.deleteAllConnectedUser();
-    await this.messageService.deleteAllJoinedConversation();
-  }
-  // async handleConnection(socket: Socket): Promise<any> {
-  //   await this.messageService.getUserFromSocket(socket);
-  // }
-  // @SubscribeMessage('send_message')
-  // async listenForMessage(
-  //   @MessageBody() content: string,
-  //   @ConnectedSocket() socket: Socket,
-  // ) {
-  //   const author = await this.messageService.getUserFromSocket(socket);
-  //   const message = await this.messageService.saveMessage(
-  //     content,
-  //     author,
-  //     'c6062337-6ce5-45f6-be7c-82a01030965a',
-  //   );
-  //   this.server.sockets.emit('receive_message', {
-  //     content,
-  //     author,
-  //     conversation: 'c6062337-6ce5-45f6-be7c-82a01030965a',
-  //   });
-  //
-  //   return message;
-  // }
-  //
-  // // @SubscribeMessage('request_all_messages/:id')
-  // // async requestAllMessages(
-  // //   @ConnectedSocket() socket: Socket,
-  // //   @Param('id') conversationId: string,
-  // @SubscribeMessage('request_all_messages')
-  // async requestAllMessages(@ConnectedSocket() socket: Socket) {
-  //   await this.messageService.getUserFromSocket(socket);
-  //   const messages = await this.messageService.getAllMessages(
-  //     'c6062337-6ce5-45f6-be7c-82a01030965a',
-  //   );
-  //
-  //   socket.emit('send_all_messages', messages);
-  // }
 }

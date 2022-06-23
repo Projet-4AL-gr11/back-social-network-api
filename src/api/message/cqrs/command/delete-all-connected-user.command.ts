@@ -1,3 +1,3 @@
 export class DeleteAllConnectedUserCommand {
-  constructor() {}
+  constructor(public readonly id: string) {}
 }

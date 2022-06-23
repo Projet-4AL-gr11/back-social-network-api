@@ -29,7 +29,12 @@ import { DeleteJoinedConversationBySocketIdHandler } from './cqrs/handler/comman
 import { GetJoinedConversationByConversationIdHandler } from './cqrs/handler/query/get-joined-conversation-by-conversation-id.handler';
 import { GetJoinedConversationByUserIdHandler } from './cqrs/handler/query/get-joined-conversation-by-user-id.handler';
 import { CreateJoinedConversationHandler } from './cqrs/handler/command/create-joined-conversation.handler';
-import { CreateMessageHandler } from "./cqrs/handler/command/create-message.handler";
+import { CreateMessageHandler } from './cqrs/handler/command/create-message.handler';
+import { CreateConnectedUserEventHandler } from './cqrs/event-handler/create-connected-user.event-handler';
+import { CreateJoinedConversationEventHandler } from './cqrs/event-handler/create-joined-conversation.event-handler';
+import { DeleteAllConnectedUserEventHandler } from './cqrs/event-handler/delete-all-connected-user.event-handler';
+import { DeleteAllJoinedConversationEventHandler } from './cqrs/event-handler/delete-all-joined-conversation.event-handler';
+import { CreateMessageEventHandler } from './cqrs/event-handler/create-message.event-handler';
 
 config();
 
@@ -63,6 +68,10 @@ config();
     SaveMessageHandler,
     FindMessageHandler,
     SaveMessageEventHandler,
+    CreateConnectedUserEventHandler,
+    CreateJoinedConversationEventHandler,
+    DeleteAllConnectedUserEventHandler,
+    DeleteAllJoinedConversationEventHandler,
     GetConnectedUserHandler,
     CreateConnectedUserHandler,
     DeleteConnectedUserHandler,
@@ -73,7 +82,8 @@ config();
     GetJoinedConversationByUserIdHandler,
     CreateJoinedConversationHandler,
     CreateMessageHandler,
+    CreateMessageEventHandler,
   ],
-  exports: [MessageService, DeleteAllJoinedConversationHandler],
+  exports: [MessageService],
 })
 export class MessageModule {}
