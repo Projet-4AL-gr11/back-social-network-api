@@ -20,7 +20,6 @@ export class Comment {
   id: string;
   @ManyToOne(() => User, (user) => user.comments, {
     nullable: false,
-    eager: true,
     onDelete: 'CASCADE',
   })
   creator: User;
@@ -31,7 +30,6 @@ export class Comment {
   text: string;
   @OneToMany(() => Media, (media) => media.comments, {
     cascade: true,
-    eager: true,
     onDelete: 'SET NULL',
   })
   medias: Media[];

@@ -63,14 +63,12 @@ export class Event {
   participants: User[];
 
   @ManyToMany(() => Language, (language) => language.events, {
-    eager: true,
   })
   languages: Language[];
 
   @OneToOne(() => Media, (media) => media.eventPicture, {
     cascade: true,
     nullable: true,
-    eager: true,
     onDelete: 'SET NULL',
   })
   @JoinColumn()

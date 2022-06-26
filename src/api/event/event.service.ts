@@ -40,8 +40,14 @@ export class EventService {
     return await this.queryBus.execute(new GetEventMemberQuery(eventId));
   }
 
-  async getEventParticipation(userId: string): Promise<Event[]> {
-    return await this.queryBus.execute(new GetEventParticipationQuery(userId));
+  async getEventParticipation(
+    userId: string,
+    offset: number,
+    limit: number,
+  ): Promise<Event[]> {
+    return await this.queryBus.execute(
+      new GetEventParticipationQuery(userId, offset, limit),
+    );
   }
 
   async create(eventDto: EventDto): Promise<Event> {
