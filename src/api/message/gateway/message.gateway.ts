@@ -121,6 +121,15 @@ export class MessageGateway
     await this.messageService.deleteJoinedConversationWithSocketId(socket.id);
   }
 
+  @SubscribeMessage('getConversations')
+  async onGetConversation(socket: Socket) {
+    const conversations =
+      await this.conversationService.getConversationsWithUserId(
+        socket.data.user.id,
+      );
+    this.server.emit('conversations', conversations);
+  }
+
   @SubscribeMessage('addMessage')
   async addMessage(socket: Socket, message: MessageDto) {
     const createdMessage: Message = await this.messageService.createMessage(

@@ -12,7 +12,7 @@ export class CreateConversationEventHandler
   handle(event: CreateConversationEvent): any {
     logger.info(
       'Users with id : ( ' +
-        event.userList.toString() +
+        event.userList.values() +
         ' ) join the new conversation with id : ( ' +
         event.conversationId +
         ' )',
