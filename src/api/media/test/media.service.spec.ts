@@ -4,6 +4,8 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { MediaResponseDto } from '../domain/dto/media-response.dto';
 import { Test } from '@nestjs/testing';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { PostDto } from '../../post/domain/dto/post.dto';
+import { Post } from '../../post/domain/entities/post.entity';
 
 describe('MediaService', () => {
   let service: MediaService;
@@ -13,7 +15,6 @@ describe('MediaService', () => {
   mockMedia.id = '1';
   const mockMediaDto = new MediaDto(Buffer.alloc(10, '1'), '1', 'top');
   const mockMediaResponse = new MediaResponseDto(mockMedia, 'bonjour');
-
   beforeEach(async () => {
     commandBus = jest.fn().mockResolvedValue('');
     queryBus = jest.fn().mockResolvedValue('');
@@ -70,15 +71,6 @@ describe('MediaService', () => {
     });
     it('should return a media', async () => {
       expect(await service.getGroupPicture('1')).toEqual(mockMediaResponse);
-    });
-  });
-
-  describe('getPostPicture', () => {
-    beforeEach(async () => {
-      queryBus.mockResolvedValue(mockMediaResponse);
-    });
-    it('should return a media', async () => {
-      expect(await service.getPostPicture('1')).toEqual(mockMediaResponse);
     });
   });
 

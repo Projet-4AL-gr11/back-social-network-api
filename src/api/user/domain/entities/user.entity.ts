@@ -25,9 +25,12 @@ import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
-import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
+import { GroupRequest } from '../../../group/domain/entities/group_request.entity';
+import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
+import { ConnectedUser } from '../../../message/domain/entities/connected-user.entity';
+import { JoinedConversation } from '../../../message/domain/entities/joined-conversation.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -55,11 +58,19 @@ export class User extends BaseEntity {
   userType: UserType;
 
   @Column({
+    type: 'text',
+    nullable: true,
+  })
+  bio: string;
+
+  @Column({
     nullable: true,
     select: false,
   })
   @Exclude()
   public currentHashedRefreshToken?: string;
+  @Exclude()
+  public jwtToken?: string;
 
   @OneToMany(() => Friendship, (friendship) => friendship.friendOne, {
     cascade: true,
@@ -95,8 +106,6 @@ export class User extends BaseEntity {
     cascade: true,
     onDelete: 'SET NULL',
   })
-
-  // Media
   @JoinColumn()
   profilePicture: Media;
   @OneToOne(() => Media, (media) => media.userBanner, {
@@ -114,6 +123,15 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   groups: GroupMembership[];
+
+  @OneToMany(() => GroupRequest, (groupRequest) => groupRequest.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  groupRequests: GroupRequest[];
+
+  @ManyToOne(() => JoinedConversation, (conversation) => conversation.user, {})
+  joinedConversations: JoinedConversation[];
 
   @BeforeInsert()
   async setPassword(password: string) {
@@ -180,4 +198,7 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   leaderboards: Leaderboard[];
+
+  @OneToMany(() => ConnectedUser, (connection) => connection.user)
+  connections: ConnectedUser[];
 }

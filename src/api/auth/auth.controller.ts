@@ -43,9 +43,11 @@ export class AuthController {
       user.id,
     );
     request.res.setHeader('Set-Cookie', [
-      accessTokenCookie,
+      accessTokenCookie.auth,
       refreshTokenCookie.cookie,
     ]);
+    user.currentHashedRefreshToken = refreshTokenCookie.token;
+    user.jwtToken = accessTokenCookie.token;
     user.password = undefined;
     return response.send(user);
   }
@@ -71,7 +73,7 @@ export class AuthController {
   refresh(@Req() request: RequestUser) {
     const accessTokenCookie = this.authService.getCookieWithJwtToken(
       request.user.id,
-    );
+    )[1];
 
     request.res.setHeader('Set-Cookie', accessTokenCookie);
     return request.user;

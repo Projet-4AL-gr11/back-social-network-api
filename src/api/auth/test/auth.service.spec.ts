@@ -84,7 +84,7 @@ describe('AuthService', () => {
   describe('when creating a cookie', () => {
     it('should return a string', () => {
       const userId = '1';
-      expect(typeof service.getCookieWithJwtToken(userId)).toEqual('string');
+      expect(typeof service.getCookieWithJwtToken(userId)).toEqual('object');
     });
     it('should return a string', () => {
       const userId = '1';

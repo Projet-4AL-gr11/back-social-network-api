@@ -12,19 +12,22 @@ async function bootstrap() {
     bufferLogs: true,
   });
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors({
-    origin: [process.env.ALLOW_ORIGIN, 'http://127.0.0.1:4200'],
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
-    credentials: true,
-    allowedHeaders:
-      'Origin,X-Requested-With,Content-Type,Accept,Authorization,authorization,X-Forwarded-for,Set-Cookie',
-  });
+  // TODO: je comprends pas pourquoi ça veux pas allow-all-origin
+  // app.enableCors({
+  //   origin: ['http://127.0.0.1:4200'],
+  //   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 200,
+  //   credentials: true,
+  //   allowedHeaders:
+  //     'Origin,X-Requested-With,Content-Type,Accept,Authorization,authorization,X-Forwarded-for,Set-Cookie,Access-Control-Allow-Origin',
+  // });
+  app.enableCors();
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());
-  await app.listen(process.env.PORT);
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
   logger.log(`Application started on port ` + (await app.getUrl()));
 }
 bootstrap().then();

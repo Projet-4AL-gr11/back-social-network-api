@@ -29,22 +29,38 @@ export class UserController {
   }
 
   @Get('isBlocked/:id')
+  @UseGuards(JwtRefreshGuard)
   isBlocked(@Req() request: RequestUser, @Param('id') id: string) {
     return this.userService.isBlocked(request.user.id, id);
   }
 
+  @UseGuards(JwtRefreshGuard)
+  @Get('researchUsername/:name')
+  researchUsername(@Req() request: RequestUser, @Param('name') name: string) {
+    const { user } = request;
+    return this.userService.researchUsername(user.id, name);
+  }
+
   @Get('hasBlocked/:id')
+  @UseGuards(JwtRefreshGuard)
   hasBlocked(@Req() request: RequestUser, @Param('id') id: string) {
     return this.userService.hasBlocked(request.user.id, id);
   }
 
+  @Get('friendships/:id')
+  getFriendship(@Param('id') id: string) {
+    return this.userService.getFriendship(id);
+  }
+
   @Post('block/:id')
+  @UseGuards(JwtRefreshGuard)
   blockUser(@Req() request: RequestUser, @Param('id') id: string) {
     const { user } = request;
     return this.userService.blockUser(user.id, id);
   }
 
   @Post('unblock/:id')
+  @UseGuards(JwtRefreshGuard)
   unblockUser(@Req() request: RequestUser, @Param('id') id: string) {
     const { user } = request;
     return this.userService.unblockUser(user.id, id);

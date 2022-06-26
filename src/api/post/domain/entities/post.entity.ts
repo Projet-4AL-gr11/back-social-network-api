@@ -45,6 +45,7 @@ export class Post {
   @Length(0, 512)
   @Column({ nullable: true, length: 512 })
   text: string;
+
   @OneToMany(() => Media, (media) => media.post, {
     eager: true,
     cascade: true,

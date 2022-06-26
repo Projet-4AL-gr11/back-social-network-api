@@ -1,0 +1,18 @@
+entity: Message
+items:
+  messageGroup{1..5}:
+    content: 'Ceci est un message ($current)'
+    author: '@user($current)'
+    conversation: '@conversationGroup1'
+  messageGroup{6..10}:
+    content: 'Ceci est un message ($current)'
+    author: '@user($current)'
+    conversation: '@conversationGroup2'
+  messageFriend{1..10}:
+    content: 'Ceci est un message ($current)'
+    author: '@user($current)'
+    conversation: '@conversationFriend($current)'
+  messageFriend{11..20}:
+    content: 'Ceci est un message ($current)'
+    author: '@user($current)'
+    conversation: '@conversationFriend($current-10)'

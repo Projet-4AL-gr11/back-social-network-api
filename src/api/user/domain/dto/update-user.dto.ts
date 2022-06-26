@@ -12,4 +12,6 @@ export class UpdateUserDto extends PartialType(UserDto) {
   username: string;
 
   password?: string;
+
+  bio?: string;
 }

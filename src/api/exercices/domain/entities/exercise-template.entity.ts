@@ -16,6 +16,12 @@ export class ExerciseTemplate {
   @Column()
   name: string;
 
+  @Column()
+  code: string;
+
+  @Column({ nullable: true })
+  description: string;
+
   @ManyToOne(() => Language, (language) => language.exerciseTemplates, {
     nullable: false,
     eager: true,
@@ -26,5 +32,5 @@ export class ExerciseTemplate {
     cascade: true,
     onDelete: 'SET NULL',
   })
-  exercise: Exercise;
+  exercises: Exercise[];
 }

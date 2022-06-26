@@ -1,0 +1,8 @@
+entity: FriendshipRequest
+items:
+  friendshipRequest{1..20}:
+    sender: '@user($current)'
+    user: '@user($current+20)'
+  friendshipRequest{41..60}:
+    sender: '@user($current)'
+    user: '@user($current-40)'

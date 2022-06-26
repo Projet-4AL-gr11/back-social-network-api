@@ -15,6 +15,6 @@ export class GetConversationByIdHandler
   ) {}
 
   async execute(query: GetMembersFriendOneQuery): Promise<Conversation> {
-    return this.conversationRepository.findOneOrFail(query.conversationId);
+    return this.conversationRepository.findOne(query.conversationId);
   }
 }

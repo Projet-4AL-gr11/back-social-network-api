@@ -43,6 +43,10 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# pour charger les fixtures
+$ npm run build
+$ npm run fixtures
 ```
 
 ## Test

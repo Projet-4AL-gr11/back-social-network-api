@@ -1,0 +1,52 @@
+entity: EventRanking
+parameters: {}
+items:
+  eventRankingA{6..10}:
+    user: '@user1'
+    score: 22
+    event: '@event($current)'
+  eventRankingB{6..10}:
+    user: '@user2'
+    score: 598
+    event: '@event($current)'
+
+  eventRankingC{6..10}:
+    user: '@user3'
+    score: 102
+    event: '@event($current)'
+
+  eventRankingD{6..10}:
+    user: '@user4'
+    score: 58
+    event: '@event($current)'
+
+  eventRankingE{6..10}:
+    user: '@user5'
+    score: 102
+    event: '@event($current)'
+
+  eventRankingF{6..10}:
+    user: '@user6'
+    score: 10000
+    event: '@event($current)'
+
+  eventRankingG{6..10}:
+    user: '@user7'
+    score: 1
+    event: '@event($current)'
+
+  eventRankingH{6..10}:
+    user: '@user8'
+    score: 105
+    event: '@event($current)'
+
+  eventRankingI{6..10}:
+    user: '@user9'
+    score: 1002
+    event: '@event($current)'
+
+  eventRankingJ{6..10}:
+    user: '@user10'
+    score: 1000
+    event: '@event($current)'
+

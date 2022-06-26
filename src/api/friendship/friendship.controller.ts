@@ -43,7 +43,14 @@ export class FriendshipController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post(':id')
+  @Get('researchFriends/:name')
+  researchFriends(@Req() request: RequestUser, @Param('name') name: string) {
+    const { user } = request;
+    return this.friendshipService.researchFriends(user.id, name);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('sendFriendshipRequest/:id')
   sendFriendshipRequest(
     @Req() request: RequestUser,
     @Param('id') userId: string,
@@ -54,7 +61,7 @@ export class FriendshipController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Put(':id')
+  @Put('acceptFriendshipRequest/:id')
   acceptFriendshipRequest(
     @Req() request: RequestUser,
     @Param('id') userId: string,
@@ -71,7 +78,18 @@ export class FriendshipController {
     @Param('id') userId: string,
   ) {
     return this.friendshipService.cancelFriendshipRequest(
-      new FriendshipDto(request.user.id, userId),
+      new FriendshipDto( userId, request.user.id),
+    );
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Delete('cancel/friendship/:id')
+  cancelMyFriendshipRequest(
+    @Req() request: RequestUser,
+    @Param('id') userId: string,
+  ) {
+    return this.friendshipService.cancelFriendshipRequest(
+      new FriendshipDto( request.user.id,  userId,),
     );
   }
 

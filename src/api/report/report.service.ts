@@ -33,60 +33,65 @@ export class ReportService {
     return await this.commandBus.execute(new DeleteReportCommand(reportId));
   }
 
-  async createReportComment(reportRequest: ReportRequestDto): Promise<Report> {
-    const creator: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.creatorId),
-    );
+  async createReportComment(
+    userId: string,
+    reportRequest: ReportRequestDto,
+  ): Promise<Report> {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(userId));
     const comment: Comment = await this.queryBus.execute(
-      new GetCommentQuery(reportRequest.commentId),
+      new GetCommentQuery(reportRequest.reportedComment),
     );
     return await this.commandBus.execute(
       new CreateReportCommentCommand(creator, comment, reportRequest.text),
     );
   }
 
-  async createReportEvent(reportRequest: ReportRequestDto): Promise<Report> {
-    const creator: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.creatorId),
-    );
+  async createReportEvent(
+    userId: string,
+    reportRequest: ReportRequestDto,
+  ): Promise<Report> {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(userId));
     const event: Event = await this.queryBus.execute(
-      new GetEventQuery(reportRequest.eventId),
+      new GetEventQuery(reportRequest.reportedEvent),
     );
     return await this.commandBus.execute(
       new CreateReportEventCommand(creator, event, reportRequest.text),
     );
   }
 
-  async createReportGroup(reportRequest: ReportRequestDto): Promise<Report> {
-    const creator: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.creatorId),
-    );
+  async createReportGroup(
+    userId: string,
+    reportRequest: ReportRequestDto,
+  ): Promise<Report> {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(userId));
     const group: Group = await this.queryBus.execute(
-      new GetGroupQuery(reportRequest.groupId),
+      new GetGroupQuery(reportRequest.reportedGroup),
     );
     return await this.commandBus.execute(
       new CreateReportGroupCommand(creator, group, reportRequest.text),
     );
   }
 
-  async createReportPost(reportRequest: ReportRequestDto): Promise<Report> {
-    const creator: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.creatorId),
-    );
+  async createReportPost(
+    userId: string,
+    reportRequest: ReportRequestDto,
+  ): Promise<Report> {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(userId));
     const post: Post = await this.queryBus.execute(
-      new GetPostQuery(reportRequest.postId),
+      new GetPostQuery(reportRequest.reportedPost),
     );
     return await this.commandBus.execute(
       new CreateReportPostCommand(creator, post, reportRequest.text),
     );
   }
 
-  async createReportUser(reportRequest: ReportRequestDto): Promise<Report> {
-    const creator: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.creatorId),
-    );
+  async createReportUser(
+    userId: string,
+    reportRequest: ReportRequestDto,
+  ): Promise<Report> {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(userId));
     const user: User = await this.queryBus.execute(
-      new GetUserQuery(reportRequest.userId),
+      new GetUserQuery(reportRequest.reportedUser),
     );
     return await this.commandBus.execute(
       new CreateReportUserCommand(creator, user, reportRequest.text),

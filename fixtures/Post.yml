@@ -1,0 +1,79 @@
+entity: Post
+parameters: {}
+items:
+  postSimple{1..30}:
+    creator: '@user($current)'
+    likes:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+    text: '{{lorem.paragraph}}'
+
+  postPartagePost{1..20}:
+    creator: '@user($current)'
+    likes:
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    text: '{{lorem.paragraph}}'
+    sharesPost: '@postSimple($current)'
+
+  postPartageEvent{1..20}:
+    creator: '@user($current)'
+    likes:
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    text: '{{lorem.paragraph}}'
+    sharedEvent: '@event($current)'
+
+  postSimpleGroup{1..5}:
+    creator: '@user1'
+    group: '@group1'
+    likes:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+    text: '{{lorem.paragraph}}'
+
+  postPartagePost{1..5}:
+    creator: '@user1'
+    group: '@group1'
+    likes:
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    text: '{{lorem.paragraph}}'
+    sharesPost: '@postSimple($current)'
+
+  postPartageEvent{1..5}:
+    creator: '@user1'
+    group: '@group1'
+    likes:
+      - '@user6'
+      - '@user7'
+      - '@user8'
+      - '@user9'
+      - '@user10'
+    text: '{{lorem.paragraph}}'
+    sharedEvent: '@event($current)'
+
+  postSimpleUser{1..200}:
+    creator: '@user1'
+    likes:
+      - '@user1'
+      - '@user2'
+      - '@user3'
+      - '@user4'
+      - '@user5'
+    text: '{{lorem.paragraph}}'

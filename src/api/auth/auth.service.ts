@@ -60,7 +60,10 @@ export class AuthService {
       secret: process.env.JWT_ACCESS_TOKEN_SECRET,
       expiresIn: `${process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME}s`,
     });
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME}`;
+    return {
+      token: token,
+      auth: `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME}`,
+    };
   }
 
   public getCookieWithJwtRefreshToken(userId: string) {
@@ -85,7 +88,7 @@ export class AuthService {
 
   async getUserFromAuthToken(authenticationToken: string) {
     const payload: TokenPayload = this.jwtService.verify(authenticationToken, {
-      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+      secret: process.env.JWT_REFRESH_TOKEN_SECRET,
     });
     if (payload.userId) {
       return this.queryBus.execute(new GetUserQuery(payload.userId));

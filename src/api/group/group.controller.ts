@@ -7,10 +7,12 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { GroupDto } from './domain/dto/group.dto';
 import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('group')
 export class GroupController {
@@ -27,8 +29,15 @@ export class GroupController {
     return this.groupService.getById(id);
   }
 
+  @Get('groupRequest/currentUser')
+  @UseGuards(JwtRefreshGuard)
+  getGroupRequest(@Req() request: RequestUser) {
+    const { user } = request;
+    return this.groupService.getGroupRequestWithUserId(user.id);
+  }
+
   @Get('userId/:id')
-  findGroupWithUserId(@Param('id') id: string) {
+  findGroupsWithUserId(@Param('id') id: string) {
     return this.groupService.getGroupWithUserId(id);
   }
 
@@ -37,13 +46,20 @@ export class GroupController {
     return this.groupService.getFollowers(groupId);
   }
 
+  @Get('whereAdmin/:id')
+  getGroupsWhereUserIsAdmin(@Param('id') userId: string) {
+    return this.groupService.getWhereUserIsAdmin(userId);
+  }
+
   @Post()
+  @UseGuards(JwtRefreshGuard)
   createGroup(@Req() request: RequestUser, @Body() groupDto: GroupDto) {
     const { user } = request;
     return this.groupService.create(user.id, groupDto);
   }
 
   @Post('addFollower/:groupId')
+  @UseGuards(JwtRefreshGuard)
   addGroupFollower(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,
@@ -53,6 +69,7 @@ export class GroupController {
   }
 
   @Post('removeFollower/:groupId')
+  @UseGuards(JwtRefreshGuard)
   removeGroupFollower(
     @Req() request: RequestUser,
     @Param('groupId') groupId: string,
@@ -62,17 +79,169 @@ export class GroupController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() groupDto: GroupDto) {
-    return this.groupService.update(id, groupDto);
+  @UseGuards(JwtRefreshGuard)
+  update(
+    @Req() request: RequestUser,
+    @Param('id') id: string,
+    @Body() groupDto: GroupDto,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserAdmin(id, user.id) ||
+      this.groupService.isUserOwner(id, user.id)
+    ) {
+      return this.groupService.update(id, groupDto);
+    }
+    return new Error("you don't have permission to update this group");
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.groupService.delete(id);
+  @UseGuards(JwtRefreshGuard)
+  remove(@Req() request: RequestUser, @Param('id') id: string) {
+    const { user } = request;
+    if (this.groupService.isUserOwner(id, user.id)) {
+      return this.groupService.delete(id);
+    }
+    return new Error("you don't have permission to delete this group");
   }
 
-  @Delete('removeUser/:id')
-  removeUser(@Param('id') groupId: string, @Body() userId: string) {
-    return this.groupService.removeUser(groupId, userId);
+  @Put('removeUser/:id')
+  @UseGuards(JwtRefreshGuard)
+  removeUser(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      this.groupService.isUserAdmin(groupId, user.id) ||
+      user.id === userId
+    ) {
+      return this.groupService.removeUser(groupId, userId);
+    }
+    return new Error(
+      "you don't have permission to remove this person from this group",
+    );
+  }
+
+  @Get('isUserOwner/:groupId/:userId')
+  isUserOwner(@Param('id') groupId: string, @Param('userId') userId: string) {
+    return this.groupService.isUserOwner(groupId, userId);
+  }
+
+  @Get('isUserAdmin/:groupId/:userId')
+  isUserAdmin(@Param('id') groupId: string, @Param('userId') userId: string) {
+    return this.groupService.isUserAdmin(groupId, userId);
+  }
+
+  @Put('giveAdminRight/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  giveAdminRight(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      this.groupService.isUserAdmin(groupId, user.id)
+    ) {
+      return this.groupService.giveAdminRight(groupId, userId);
+    }
+    return new Error(
+      "you don't have permission to give admin right to this person in this group",
+    );
+  }
+
+  @Put('removeAdminRight/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  removeAdminRight(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      this.groupService.isUserAdmin(groupId, user.id)
+    ) {
+      return this.groupService.removeAdminRight(groupId, userId);
+    }
+    return new Error(
+      "you don't have permission to remove admin right to this person in this group",
+    );
+  }
+
+  @Put('giveGroupOwnership/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  giveGroupOwnership(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (this.groupService.isUserOwner(groupId, user.id)) {
+      return this.groupService.giveGroupOwnership(groupId, user.id, userId);
+    }
+    return new Error(
+      "you don't have permission to remove admin right to this person in this group",
+    );
+  }
+
+  @Post('sendGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  sendGroupRequest(
+    @Req() request: RequestUser,
+    @Param('id') groupId: string,
+    @Body() userId: string,
+  ) {
+    const { user } = request;
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      this.groupService.isUserAdmin(groupId, user.id)
+    ) {
+      return this.groupService.sendGroupRequest(groupId, userId);
+    }
+    return new Error(
+      "you don't have permission to remove admin right to this person in this group",
+    );
+  }
+
+  @Post('acceptGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  acceptGroupRequest(
+    @Req() request: RequestUser,
+    @Param('groupId') groupId: string,
+  ) {
+    const { user } = request;
+    return this.groupService.acceptGroupRequest(groupId, user.id);
+  }
+
+  @Post('cancelGroupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  cancelGroupRequest(
+    @Req() request: RequestUser,
+    @Param('groupId') groupId: string,
+  ) {
+    const { user } = request;
+    return this.groupService.cancelGroupRequest(groupId, user.id);
+  }
+
+  @Post('cancelGroupRequestAdmin/:groupId/:userId')
+  @UseGuards(JwtRefreshGuard)
+  async cancelGroupRequestAdmin(
+    @Req() request: RequestUser,
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
+  ) {
+    const { user } = request;
+    return await this.groupService.getWhereUserIsAdmin(userId).then((group) => {
+      if (group.id == groupId) {
+        return this.groupService.cancelGroupRequest(groupId, userId);
+      } else {
+        return Error('You are not admin for this group');
+      }
+    });
   }
 }

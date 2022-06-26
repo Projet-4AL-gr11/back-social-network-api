@@ -6,17 +6,21 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { Event } from './domain/entities/event.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { EventDto } from './domain/dto/event.dto';
+import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('event')
 export class EventController {
   constructor(private eventService: EventService) {}
 
-  @Get('id')
+  @Get(':id')
   async getById(@Param('id') id: string): Promise<Event> {
     return await this.eventService.getById(id);
   }
@@ -40,6 +44,19 @@ export class EventController {
     return await this.eventService.getEventParticipant(id);
   }
 
+  @Get('participation/:id/:offset/:limit')
+  async getParticipation(
+    @Param('id') id: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ): Promise<Event[]> {
+    return await this.eventService.getEventParticipation(
+      id,
+      Number(offset),
+      Number(limit),
+    );
+  }
+
   @Get('owner/:id')
   async getOwner(@Param('id') id: string): Promise<User> {
     return await this.eventService.getOwner(id);
@@ -51,67 +68,89 @@ export class EventController {
   }
 
   @Get('isOwner/:id')
+  @UseGuards(JwtRefreshGuard)
   async isOwner(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Req() request: RequestUser,
   ): Promise<boolean> {
-    return await this.eventService.isOwner(id, userId);
+    const { user } = request;
+    return await this.eventService.isOwner(id, user.id);
   }
 
   @Get('isMember/:id')
+  @UseGuards(JwtRefreshGuard)
   async isMember(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Req() request: RequestUser,
   ): Promise<boolean> {
-    return await this.eventService.isMember(id, userId);
+    const { user } = request;
+    return await this.eventService.isMember(id, user.id);
   }
 
   @Post()
-  async create(@Body() eventDto: EventDto): Promise<Event> {
+  @UseGuards(JwtRefreshGuard)
+  async create(
+    @Body() eventDto: EventDto,
+    @Req() request: RequestUser,
+  ): Promise<Event> {
+    eventDto.user = request.user;
     return this.eventService.create(eventDto);
   }
 
   @Put(':id')
+  @UseGuards(JwtRefreshGuard)
   async update(
     @Param('id') id: string,
     @Body() eventDto: EventDto,
+    @Req() request: RequestUser,
   ): Promise<Event> {
-    return this.eventService.update(id, eventDto);
+    const { user } = request;
+    if (this.eventService.isOwner(user.id, id)) {
+      return this.eventService.update(id, eventDto);
+    }
   }
 
+  // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<void> {
-    return await this.eventService.delete(id);
+  @UseGuards(JwtRefreshGuard)
+  async delete(
+    @Param('id') id: string,
+    @Req() request: RequestUser,
+  ): Promise<void> {
+    const { user } = request;
+    if (this.eventService.isOwner(user.id, id)) {
+      return await this.eventService.delete(id);
+    }
   }
 
-  @Post('participant/:id')
+  @Post('participant/:id/:userId')
   async addParticipant(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Param('userId') userId: string,
   ): Promise<void> {
     return this.eventService.addParticipant(id, userId);
   }
 
-  @Delete('participant/:id')
+  @Put('participant/:id/:userId')
   async removeParticipant(
     @Param('id') id: string,
-    @Body() userId: string,
+    @Param('userId') userId: string,
   ): Promise<void> {
     return this.eventService.removeParticipant(id, userId);
   }
 
-  @Post('exercise/:id')
+  @Post('exercise/:id/:exerciseId')
   async addExercise(
     @Param('id') id: string,
-    @Body() exerciseId: string,
+    @Param('exerciseId') exerciseId: string,
   ): Promise<void> {
     return this.eventService.addExercise(id, exerciseId);
   }
 
-  @Delete('exercise/:id')
+  @Put('exercise/:id/:exerciseId')
   async removeExercise(
     @Param('id') id: string,
-    @Body() exerciseId: string,
+    @Param('exerciseId') exerciseId: string,
   ): Promise<void> {
     return this.eventService.removeExercise(id, exerciseId);
   }

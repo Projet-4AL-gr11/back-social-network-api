@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { User } from '../user/domain/entities/user.entity';
 import { Event } from './domain/entities/event.entity';
-import { EventController } from './event.Controller';
+import { EventController } from './event.controller';
 import { EventService } from './event.service';
 import { GetEventGroupOwnerHandler } from './cqrs/handler/query/get-event-group-owner.handler';
 import { IsEventMemberHandler } from './cqrs/handler/query/is-event-member.handler';
@@ -20,6 +20,14 @@ import { UpdateEventHandler } from './cqrs/handler/command/update-event.handler'
 import { AddExerciseToEventHandler } from './cqrs/handler/command/add-exercise-to-event.handler';
 import { RemoveExerciseToEventHandler } from './cqrs/handler/command/remove-exercise-to-event.handler';
 import { EventRanking } from '../leaderboard/domain/entities/event-ranking.entity';
+import { GetEventParticipationHandler } from './cqrs/handler/query/get-event-participation.handler';
+import { CreateEventEventHandler } from './cqrs/event-handler/create-event.event-handler';
+import { AddExerciseToEventEventHandler } from './cqrs/event-handler/add-exercise-to-event.event-handler';
+import { AddParticipantToEventEventHandler } from './cqrs/event-handler/add-participant-to-event.event-handler';
+import { DeleteEventEventHandler } from './cqrs/event-handler/delete-event.event-handler';
+import { RemoveExerciseToEventEventHandler } from './cqrs/event-handler/remove-exercise-to-event.event-handler';
+import { RemoveParticipantToEventEventHandler } from './cqrs/event-handler/remove-participant-to-event.event-handler';
+import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event-handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],
@@ -32,14 +40,22 @@ import { EventRanking } from '../leaderboard/domain/entities/event-ranking.entit
     GetEventMemberHandler,
     GetEventGroupOwnerHandler,
     IsEventMemberHandler,
+    GetEventParticipationHandler,
     SearchEventWithNameHandler,
+    RemoveParticipantHandler,
+    RemoveExerciseToEventHandler,
     AddParticipantToEventHandler,
+    AddExerciseToEventHandler,
     CreateEventHandler,
     DeleteEventHandler,
-    RemoveParticipantHandler,
     UpdateEventHandler,
-    AddExerciseToEventHandler,
-    RemoveExerciseToEventHandler,
+    CreateEventEventHandler,
+    AddExerciseToEventEventHandler,
+    AddParticipantToEventEventHandler,
+    DeleteEventEventHandler,
+    RemoveExerciseToEventEventHandler,
+    RemoveParticipantToEventEventHandler,
+    UpdateEventEventHandler,
   ],
 })
 export class EventModule {}

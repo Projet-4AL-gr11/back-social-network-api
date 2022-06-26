@@ -13,7 +13,10 @@ export class GetPostHandler implements IQueryHandler<GetPostQuery> {
 
   async execute(query: GetPostQuery) {
     if (query.postId) {
-      return await this.postRepository.findOneOrFail(query.postId);
+      return await this.postRepository
+        .createQueryBuilder()
+        .where('Post.id=:id', { id: query.postId })
+        .getOne();
     }
     return this.postRepository.find();
   }

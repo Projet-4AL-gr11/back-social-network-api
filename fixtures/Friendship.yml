@@ -1,0 +1,6 @@
+entity: Friendship
+items:
+  friendship{1..10}:
+    friendOne: '@user($current)'
+    friendTwo: '@user($current+10)'
+    conversation: '@conversationFriend($current)'

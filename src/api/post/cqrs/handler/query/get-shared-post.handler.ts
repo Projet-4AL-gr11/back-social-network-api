@@ -15,7 +15,6 @@ export class GetSharedPostHandler implements IQueryHandler<GetSharedPostQuery> {
     return this.postRepository
       .createQueryBuilder()
       .leftJoinAndSelect('Post.creator', 'Creator')
-      .leftJoinAndSelect('Creator.certification', 'Certification')
       .leftJoinAndSelect('Creator.profilePicture', 'ProfPic')
       .leftJoin('Post.sharedPosts', 'Shares')
       .where('Shares.id=:postId', { postId: query.postId })
