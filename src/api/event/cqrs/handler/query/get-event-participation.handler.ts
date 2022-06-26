@@ -20,6 +20,9 @@ export class GetEventParticipationHandler
       .leftJoin('Event.user', 'Owner')
       .where('User.id=:id', { id: query.userId })
       .orWhere('Owner.id=:id', { id: query.userId })
+      .orderBy('Event.createdAt', 'DESC')
+      .skip(query.offset)
+      .take(query.limit)
       .getMany();
   }
 }

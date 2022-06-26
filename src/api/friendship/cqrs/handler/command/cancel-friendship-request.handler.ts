@@ -29,6 +29,7 @@ export class CancelFriendshipRequestHandler
       this.eventBus.publish(
         new CancelFriendshipRequestEvent(command.sender, command.userId),
       );
+
       await this.friendRequestRepository.remove(friendRequest);
     } catch (error) {
       this.eventBus.publish(

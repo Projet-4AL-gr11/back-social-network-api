@@ -1,4 +1,3 @@
-import { User } from '../../../user/domain/entities/user.entity';
 import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
 
 export class MessageDto {

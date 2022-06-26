@@ -6,7 +6,6 @@ import { Group } from './group.entity';
 export class GroupRequest {
   @ManyToOne(() => Group, (group) => group.requestSend, {
     primary: true,
-    eager: true,
     onDelete: 'CASCADE',
   })
   group: Group;

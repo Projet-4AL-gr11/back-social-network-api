@@ -25,7 +25,11 @@ export class CreateMessageHandler
       });
       await this.messageRepository.save(newMessage);
       this.eventBus.publish(
-        new CreateMessageEvent(newMessage.author.id, newMessage.id),
+        new CreateMessageEvent(
+          newMessage.author.id,
+          newMessage.conversation.id,
+          newMessage.id,
+        ),
       );
       return newMessage;
     } catch (error) {

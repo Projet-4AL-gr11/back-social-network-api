@@ -44,9 +44,17 @@ export class EventController {
     return await this.eventService.getEventParticipant(id);
   }
 
-  @Get('participation/:id')
-  async getParticipation(@Param('id') id: string): Promise<Event[]> {
-    return await this.eventService.getEventParticipation(id);
+  @Get('participation/:id/:offset/:limit')
+  async getParticipation(
+    @Param('id') id: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ): Promise<Event[]> {
+    return await this.eventService.getEventParticipation(
+      id,
+      Number(offset),
+      Number(limit),
+    );
   }
 
   @Get('owner/:id')

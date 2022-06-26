@@ -15,14 +15,18 @@ export class CreateMessageEventHandler
       'User with id : ' +
         event.userId +
         ' create message with Id : ' +
-        event.messageId,
+        event.messageId +
+        ' at conversation with Id : ' +
+        event.conversationId,
     );
 
     this.logger_console.log(
       'User with id : ' +
         event.userId +
         ' create message with Id : ' +
-        event.messageId,
+        event.messageId +
+        ' at conversation with Id : ' +
+        event.conversationId,
     );
   }
 }

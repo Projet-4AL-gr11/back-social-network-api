@@ -106,8 +106,6 @@ export class User extends BaseEntity {
     cascade: true,
     onDelete: 'SET NULL',
   })
-
-  // Media
   @JoinColumn()
   profilePicture: Media;
   @OneToOne(() => Media, (media) => media.userBanner, {
