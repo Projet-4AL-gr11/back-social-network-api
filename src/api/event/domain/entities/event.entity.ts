@@ -62,8 +62,7 @@ export class Event {
   })
   participants: User[];
 
-  @ManyToMany(() => Language, (language) => language.events, {
-  })
+  @ManyToMany(() => Language, (language) => language.events, {})
   languages: Language[];
 
   @OneToOne(() => Media, (media) => media.eventPicture, {

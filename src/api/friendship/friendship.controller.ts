@@ -78,7 +78,7 @@ export class FriendshipController {
     @Param('id') userId: string,
   ) {
     return this.friendshipService.cancelFriendshipRequest(
-      new FriendshipDto( userId, request.user.id),
+      new FriendshipDto(userId, request.user.id),
     );
   }
 
@@ -89,7 +89,7 @@ export class FriendshipController {
     @Param('id') userId: string,
   ) {
     return this.friendshipService.cancelFriendshipRequest(
-      new FriendshipDto( request.user.id,  userId,),
+      new FriendshipDto(request.user.id, userId),
     );
   }
 
