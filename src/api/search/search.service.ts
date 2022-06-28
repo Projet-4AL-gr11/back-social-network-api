@@ -4,6 +4,7 @@ import { SearchResponseDto } from './domain/dto/search-response.dto';
 import { SearchUserQuery } from './cqrs/query/search-user.query';
 import { SearchEventQuery } from './cqrs/query/search-event.query';
 import { SearchGroupQuery } from './cqrs/query/search-group.query';
+import { SearchPostQuery } from './cqrs/query/search-post.query';
 
 @Injectable()
 export class SearchService {
@@ -14,6 +15,7 @@ export class SearchService {
       await this.queryBus.execute(new SearchUserQuery(userEntry)),
       await this.queryBus.execute(new SearchEventQuery(userEntry)),
       await this.queryBus.execute(new SearchGroupQuery(userEntry)),
+      await this.queryBus.execute(new SearchPostQuery(userEntry)),
     );
   }
 }
