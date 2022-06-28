@@ -13,7 +13,7 @@ export class ExerciseController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Get('exerciseTemplate')
+  @Get('exerciseTemplate/all')
   getAllExerciseTemplate() {
     return this.exerciseService.getAllExerciseTemplate();
   }
