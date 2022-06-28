@@ -9,15 +9,18 @@ import { SearchController } from './search.controller';
 import { SearchEventHandler } from './cqrs/handler/query/search-event.handler';
 import { SearchGroupHandler } from './cqrs/handler/query/search-group.handler';
 import { SearchUserHandler } from './cqrs/handler/query/search-user.handler';
+import { Post } from '../post/domain/entities/post.entity';
+import { SearchPostHandler } from './cqrs/handler/query/search-post.handler';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Event, Group]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([User, Event, Group, Post]), CqrsModule],
   controllers: [SearchController],
   providers: [
     SearchService,
     SearchEventHandler,
     SearchGroupHandler,
     SearchUserHandler,
+    SearchPostHandler,
   ],
 })
 export class SearchModule {}
