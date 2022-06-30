@@ -15,6 +15,7 @@ export class GetUserPostsHandler implements IQueryHandler<GetUserPostsQuery> {
     return await this.postRepository
       .createQueryBuilder()
       .leftJoinAndSelect('Post.creator', 'User')
+      .leftJoinAndSelect('Post.medias', 'Media')
       .leftJoinAndSelect('Post.sharesPost', 'SharedPost')
       .leftJoinAndSelect('Post.sharedEvent', 'SharedEvent')
       .leftJoinAndSelect('User.profilePicture', 'ProfilePicture')
