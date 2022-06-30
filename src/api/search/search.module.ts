@@ -11,6 +11,7 @@ import { SearchGroupHandler } from './cqrs/handler/query/search-group.handler';
 import { SearchUserHandler } from './cqrs/handler/query/search-user.handler';
 import { Post } from '../post/domain/entities/post.entity';
 import { SearchPostHandler } from './cqrs/handler/query/search-post.handler';
+import { ErrorEventHandler } from "../../util/error/error.event-handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Event, Group, Post]), CqrsModule],
@@ -21,6 +22,7 @@ import { SearchPostHandler } from './cqrs/handler/query/search-post.handler';
     SearchGroupHandler,
     SearchUserHandler,
     SearchPostHandler,
+    ErrorEventHandler
   ],
 })
 export class SearchModule {}

@@ -17,7 +17,6 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 @Controller('group')
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
-  // TODO: Ajouter les UseGuards
 
   @Get()
   findAll() {

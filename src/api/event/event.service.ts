@@ -1,24 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { Event } from './domain/entities/event.entity';
-import { User } from '../user/domain/entities/user.entity';
-import { EventDto } from './domain/dto/event.dto';
-import { EventSearchDto } from './domain/dto/event-search.dto';
-import { GetEventMemberQuery } from './cqrs/query/get-event-member.query';
-import { GetEventNotEndQuery } from './cqrs/query/get-event-not-end.query';
-import { GetEventQuery } from './cqrs/query/get-event.query';
-import { GetEventGroupOwnerQuery } from './cqrs/query/get-event-group-owner.query';
-import { GetEventOwnerQuery } from './cqrs/query/get-event-owner.query';
-import { IsEventMemberQuery } from './cqrs/query/is-event-member.query';
-import { CreateEventCommand } from './cqrs/command/create-event.command';
-import { UpdateEventCommand } from './cqrs/command/update-event.command';
-import { AddParticipantToEventCommand } from './cqrs/command/add-participant-to-event.command';
-import { DeleteEventCommand } from './cqrs/command/delete-event.command';
-import { RemoveParticipantToEventCommand } from './cqrs/command/remove-participant-to-event.command';
-import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.query';
-import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
-import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
-import { GetEventParticipationQuery } from './cqrs/query/get-event-participation.query';
+import { Injectable } from "@nestjs/common";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { Event } from "./domain/entities/event.entity";
+import { User } from "../user/domain/entities/user.entity";
+import { EventDto } from "./domain/dto/event.dto";
+import { EventSearchDto } from "./domain/dto/event-search.dto";
+import { GetEventMemberQuery } from "./cqrs/query/get-event-member.query";
+import { GetEventNotEndQuery } from "./cqrs/query/get-event-not-end.query";
+import { GetEventQuery } from "./cqrs/query/get-event.query";
+import { GetEventGroupOwnerQuery } from "./cqrs/query/get-event-group-owner.query";
+import { GetEventOwnerQuery } from "./cqrs/query/get-event-owner.query";
+import { IsEventMemberQuery } from "./cqrs/query/is-event-member.query";
+import { CreateEventCommand } from "./cqrs/command/create-event.command";
+import { UpdateEventCommand } from "./cqrs/command/update-event.command";
+import { AddParticipantToEventCommand } from "./cqrs/command/add-participant-to-event.command";
+import { DeleteEventCommand } from "./cqrs/command/delete-event.command";
+import { RemoveParticipantToEventCommand } from "./cqrs/command/remove-participant-to-event.command";
+import { SearchEventWithNameQuery } from "./cqrs/query/search-event-with-name.query";
+import { RemoveExerciseToEventCommand } from "./cqrs/command/remove-exercise-to-event.command";
+import { AddExerciseToEventCommand } from "./cqrs/command/add-exercise-to-event.command";
+import { GetEventParticipationQuery } from "./cqrs/query/get-event-participation.query";
 
 @Injectable()
 export class EventService {

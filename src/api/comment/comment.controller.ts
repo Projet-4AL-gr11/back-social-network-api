@@ -13,6 +13,7 @@ import { CommentService } from './comment.service';
 import { Comment } from './domain/entities/comment.entity';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { CommentDto } from "./domain/dto/comment.dto";
 
 @Controller('comment')
 export class CommentController {
@@ -33,10 +34,10 @@ export class CommentController {
   async create(
     @Req() request: RequestUser,
     @Param('id') postId: string,
-    @Body() text: string,
+    @Body() commentDto: CommentDto,
   ) {
     const { user } = request;
-    return this.commentService.create(user.id, postId, text);
+    return this.commentService.create(user.id, postId, commentDto.text);
   }
 
   @Delete(':id')
@@ -49,8 +50,8 @@ export class CommentController {
   @UseGuards(JwtRefreshGuard)
   async update(
     @Param('id') commentId: string,
-    @Body() text: string,
+    @Body() commentDto: CommentDto,
   ): Promise<Comment> {
-    return this.commentService.update(commentId, text);
+    return this.commentService.update(commentId, commentDto.text);
   }
 }

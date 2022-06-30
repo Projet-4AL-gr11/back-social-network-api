@@ -11,6 +11,7 @@ import { UpdateLanguageHandler } from './cqrs/handler/command/update-language.ha
 import { CreateLanguageEventHandler } from './cqrs/event-handler/create-language.event-handler';
 import { DeleteLanguageEventHandler } from './cqrs/event-handler/delete-language.event-handler';
 import { UpdateLanguageEventHandler } from './cqrs/event-handler/update-language.event-handler';
+import { ErrorEventHandler } from "../../util/error/error.event-handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Language]), CqrsModule],
@@ -24,6 +25,7 @@ import { UpdateLanguageEventHandler } from './cqrs/event-handler/update-language
     CreateLanguageEventHandler,
     DeleteLanguageEventHandler,
     UpdateLanguageEventHandler,
+    ErrorEventHandler
   ],
 })
 export class LanguageModule {}
