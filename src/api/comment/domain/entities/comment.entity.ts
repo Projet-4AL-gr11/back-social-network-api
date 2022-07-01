@@ -30,6 +30,7 @@ export class Comment {
   text: string;
   @OneToMany(() => Media, (media) => media.comments, {
     cascade: true,
+    eager: true,
     onDelete: 'SET NULL',
   })
   medias: Media[];

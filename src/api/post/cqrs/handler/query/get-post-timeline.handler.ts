@@ -17,6 +17,7 @@ export class GetPostTimelineHandler
     return await this.postRepository
       .createQueryBuilder()
       .leftJoinAndSelect('Post.creator', 'User')
+      .leftJoinAndSelect('Post.medias', 'Media')
       .leftJoinAndSelect('Post.sharedEvent', 'Event')
       .leftJoinAndSelect('User.profilePicture', 'ProfilePicture')
       .leftJoin('User.friendsOne', 'FriendshipOne')

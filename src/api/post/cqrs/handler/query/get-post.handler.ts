@@ -15,6 +15,8 @@ export class GetPostHandler implements IQueryHandler<GetPostQuery> {
     if (query.postId) {
       return await this.postRepository
         .createQueryBuilder()
+        .leftJoinAndSelect('Post.creator', 'User')
+        .leftJoinAndSelect('Post.medias', 'Media')
         .where('Post.id=:id', { id: query.postId })
         .getOne();
     }

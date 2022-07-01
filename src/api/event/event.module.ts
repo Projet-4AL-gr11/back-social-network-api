@@ -28,6 +28,7 @@ import { DeleteEventEventHandler } from './cqrs/event-handler/delete-event.event
 import { RemoveExerciseToEventEventHandler } from './cqrs/event-handler/remove-exercise-to-event.event-handler';
 import { RemoveParticipantToEventEventHandler } from './cqrs/event-handler/remove-participant-to-event.event-handler';
 import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event-handler';
+import { ErrorEventHandler } from "../../util/error/error.event-handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],
@@ -56,6 +57,7 @@ import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event
     RemoveExerciseToEventEventHandler,
     RemoveParticipantToEventEventHandler,
     UpdateEventEventHandler,
+    ErrorEventHandler
   ],
 })
 export class EventModule {}

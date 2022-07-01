@@ -19,6 +19,7 @@ export class GetCommentsWithPostIdHandler
       .createQueryBuilder()
       .leftJoinAndSelect('Comment.creator', 'User')
       .leftJoinAndSelect('User.profilePicture', 'ProfPic')
+      .leftJoinAndSelect('Comment.medias', 'Media')
       .leftJoin('Comment.post', 'Post')
       .where('Post.id=:postId', { postId: query.postId })
       .orderBy('Comment.createdAt', 'DESC')

@@ -49,7 +49,7 @@ export class PostService {
     return await this.queryBus.execute(new GetPostQuery(postId));
   }
 
-  async getAll(): Promise<Post> {
+  async getAll(): Promise<Post[]> {
     return await this.queryBus.execute(new GetPostQuery());
   }
 

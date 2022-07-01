@@ -130,7 +130,7 @@ export class MediaController {
   }
 
   // TODO: A revoir pour plusieurs photo
-  @Post('post-picture/:id')
+  @Post('postPicture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async savePostPicture(
@@ -157,5 +157,11 @@ export class MediaController {
       dataBuffer: file.buffer,
       fileName: file.originalname,
     });
+  }
+
+  @Get('getRefreshUrl/:mediaId')
+  @UseGuards(JwtRefreshGuard)
+  async getRefreshUrl(@Param('mediaId') mediaId: string) {
+    return this.mediaService.getPicture(mediaId);
   }
 }

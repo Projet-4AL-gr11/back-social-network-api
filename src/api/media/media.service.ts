@@ -20,6 +20,7 @@ import { GetPostQuery } from '../post/cqrs/query/get-post.query';
 import { Post } from '../post/domain/entities/post.entity';
 import { Comment } from '../comment/domain/entities/comment.entity';
 import { GetCommentQuery } from '../comment/cqrs/query/get-comment.query';
+import { GetPictureWithIdQuery } from './cqrs/query/get-picture-with-id.query';
 
 @Injectable()
 export class MediaService {
@@ -131,5 +132,13 @@ export class MediaService {
       );
     }
     return response;
+  }
+
+  async getPicture(pictureId: string): Promise<MediaResponseDto> {
+    return await this.queryBus.execute(
+      new GetPictureTemporaryLinkQuery(
+        await this.queryBus.execute(new GetPictureWithIdQuery(pictureId)),
+      ),
+    );
   }
 }

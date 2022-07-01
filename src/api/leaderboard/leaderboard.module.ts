@@ -20,6 +20,7 @@ import { CreateLeaderboardEventHandler } from './cqrs/event-handler/create-leade
 import { DeleteLeaderboardEventHandler } from './cqrs/event-handler/delete-leaderboard.event-handler';
 import { UpdateEventRankingEventHandler } from './cqrs/event-handler/update-event-ranking.event-handler';
 import { UpdateLeaderboardExerciseRankingEventHandler } from './cqrs/event-handler/update-leaderboard-exercise-ranking.event-handler';
+import { ErrorEventHandler } from "../../util/error/error.event-handler";
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { UpdateLeaderboardExerciseRankingEventHandler } from './cqrs/event-handl
     DeleteLeaderboardEventHandler,
     UpdateEventRankingEventHandler,
     UpdateLeaderboardExerciseRankingEventHandler,
+    ErrorEventHandler,
   ],
 })
 export class LeaderboardModule {}

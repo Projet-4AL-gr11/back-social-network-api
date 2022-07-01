@@ -11,6 +11,7 @@ import { ExerciseService } from './exercise.service';
 import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/get-exercise-template-with-exercise-id.handler';
 import { GetExerciseTemplateQuery } from './cqrs/query/get-exercise-template.query';
 import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-template.handler';
+import { ErrorEventHandler } from "../../util/error/error.event-handler";
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-te
     GetEventExerciseHandler,
     GetExerciseTemplateWithExerciseIdHandler,
     GetExerciseTemplateHandler,
+    ErrorEventHandler,
   ],
 })
 export class ExerciseModule {}
