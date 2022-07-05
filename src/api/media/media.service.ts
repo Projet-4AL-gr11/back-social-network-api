@@ -42,6 +42,10 @@ export class MediaService {
     return this.commandBus.execute(new SaveGroupPictureCommand(mediaDto));
   }
 
+  async uploadGroupBannerPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SaveGroupPictureCommand(mediaDto));
+  }
+
   async uploadPostPicture(mediaDto: MediaDto): Promise<Media> {
     return this.commandBus.execute(new SavePostPictureCommand(mediaDto));
   }
@@ -141,4 +145,5 @@ export class MediaService {
       ),
     );
   }
+
 }
