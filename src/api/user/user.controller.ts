@@ -5,10 +5,10 @@ import {
   Get,
   Param,
   Patch,
-  Post,
+  Post, Put,
   Req,
-  UseGuards,
-} from '@nestjs/common';
+  UseGuards
+} from "@nestjs/common";
 import { UpdateUserDto } from './domain/dto/update-user.dto';
 import { UserService } from './user.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
@@ -66,10 +66,11 @@ export class UserController {
     return this.userService.unblockUser(user.id, id);
   }
 
-  @Patch(':id')
+  @Put('')
   @UseGuards(JwtRefreshGuard)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  update(@Req() request: RequestUser, @Body() updateUserDto: UpdateUserDto) {
+    const { user } = request;
+    return this.userService.update(user.id, updateUserDto);
   }
 
   @Delete(':id')

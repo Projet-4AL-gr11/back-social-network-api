@@ -29,6 +29,8 @@ export class GetPostTimelineHandler
       .leftJoin('Group.followers', 'Follower')
       .leftJoin('Group.members', 'GroupMembership')
       .leftJoin('GroupMembership.user', 'Member')
+      .leftJoinAndSelect('Post.comments', 'Comment')
+      .leftJoinAndSelect('Post.sharedPosts', 'SharedPost')
       .where('User.id=:userId', { userId: query.userId })
       .orWhere('FriendTwo.id=:userId', { userId: query.userId })
       .orWhere('FriendOne.id=:userId', { userId: query.userId })

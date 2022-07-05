@@ -73,7 +73,7 @@ export class MediaController {
     return this.mediaService.deletePicture(id);
   }
 
-  @Post('profile-picture')
+  @Post('profilePicture')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveProfilePicture(
@@ -87,7 +87,7 @@ export class MediaController {
     });
   }
 
-  @Post('banner-picture')
+  @Post('bannerPicture')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveBannerPicture(
@@ -144,7 +144,6 @@ export class MediaController {
     });
   }
 
-  // TODO: A revoir pour plusieurs photo
   @Post('comment-picture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
