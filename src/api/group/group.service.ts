@@ -24,6 +24,9 @@ import { AcceptGroupRequestCommand } from './cqrs/command/accept-group-request.c
 import { CancelGroupRequestCommand } from './cqrs/command/cancel-group-request.command';
 import { SendGroupRequestCommand } from './cqrs/command/send-group-request.command';
 import { GetGroupRequestWithUserIdQuery } from './cqrs/query/get-group-request-with-user-id.query';
+import { GetGroupRequestStatusQuery } from './cqrs/query/get-group-request-status.query';
+import { GetGroupRequestWithGroupIdQuery } from './cqrs/query/get-group-request-with-group-id.query';
+import { GroupRequest } from './domain/entities/group_request.entity';
 
 @Injectable()
 export class GroupService {
@@ -75,7 +78,7 @@ export class GroupService {
     );
   }
 
-  async getWhereUserIsAdmin(userId: string): Promise<Group> {
+  async getWhereUserIsAdmin(userId: string): Promise<Group[]> {
     return await this.queryBus.execute(
       new GetGroupWhereUserIsAdminQuery(userId),
     );
@@ -141,5 +144,24 @@ export class GroupService {
 
   async getGroupRequestWithUserId(id: string) {
     return this.queryBus.execute(new GetGroupRequestWithUserIdQuery(id));
+  }
+
+  async getGroupRequestStatus(userId: string, groupId: string) {
+    return this.queryBus.execute(
+      new GetGroupRequestStatusQuery(userId, groupId),
+    );
+  }
+
+  async getGroupRequestWhereAdmin(userId: string) {
+    const groups = await this.getWhereUserIsAdmin(userId);
+    let groupRequest: GroupRequest[] = [];
+    for (const group of groups) {
+      groupRequest = groupRequest.concat(
+        await this.queryBus.execute(
+          new GetGroupRequestWithGroupIdQuery(group.id),
+        ),
+      );
+    }
+    return groupRequest;
   }
 }

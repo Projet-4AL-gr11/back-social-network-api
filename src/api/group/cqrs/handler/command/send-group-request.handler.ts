@@ -12,7 +12,7 @@ export class SendGroupRequestHandler
   implements ICommandHandler<SendGroupRequestCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupRequest)
     private groupRequestRepository: Repository<GroupRequest>,
     private eventBus: EventBus,
   ) {}

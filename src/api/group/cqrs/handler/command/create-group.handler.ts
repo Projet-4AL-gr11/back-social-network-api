@@ -22,15 +22,10 @@ export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
     try {
       const group = this.groupRepository.create({ ...command.groupDto });
       const creatorMembership = this.groupMembershipRepository.create({
+        isOwner: true,
         user: command.user,
       });
-      group.members = [
-        this.groupMembershipRepository.create({
-          user: command.user,
-          isOwner: true,
-        }),
-      ];
-      group.members.push(creatorMembership);
+      group.members = [].concat(creatorMembership);
       const err = await validate(group);
       if (err.length > 0) {
         throw err;
