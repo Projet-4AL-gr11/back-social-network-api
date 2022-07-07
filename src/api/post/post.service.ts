@@ -18,6 +18,7 @@ import { GetSharedPostQuery } from './cqrs/query/get-shared-post.query';
 import { GetPostTimelineQuery } from './cqrs/query/get-post-timeline.query';
 import { GetGroupQuery } from '../group/cqrs/query/get-group.query';
 import { GetUserPostsQuery } from './cqrs/query/get-user-posts.query';
+import { GetGroupPostQuery } from './cqrs/query/get-group-post.query';
 
 @Injectable()
 export class PostService {
@@ -101,6 +102,12 @@ export class PostService {
   async getUserPosts(userId: string, offset: number, limit: number) {
     return await this.queryBus.execute(
       new GetUserPostsQuery(userId, offset, limit),
+    );
+  }
+
+  async getPostWithGroupId(groupId: string, offset: number, limit: number) {
+    return await this.queryBus.execute(
+      new GetGroupPostQuery(groupId, offset, limit),
     );
   }
 }

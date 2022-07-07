@@ -12,7 +12,7 @@ export class GiveAdminRightHandler
   implements ICommandHandler<GiveAdminRightCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupMembership)
     private groupMembershipRepository: Repository<GroupMembership>,
     private eventBus: EventBus,
   ) {}

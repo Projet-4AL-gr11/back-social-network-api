@@ -41,8 +41,13 @@ export class GroupController {
   }
 
   @Get('followers/:id')
-  getFollowers(@Param('id') groupId: string) {
-    return this.groupService.getFollowers(groupId);
+  async getFollowers(@Param('id') groupId: string) {
+    return await this.groupService.getFollowers(groupId);
+  }
+
+  @Get('members/:id')
+  async getMembers(@Param('id') groupId: string) {
+    return await this.groupService.getMembers(groupId);
   }
 
   @Get('whereAdmin/:id')
@@ -55,6 +60,12 @@ export class GroupController {
   getGroupRequestWhereAdmin(@Req() request: RequestUser) {
     const { user } = request;
     return this.groupService.getGroupRequestWhereAdmin(user.id);
+  }
+
+  @Get('groupRequest/:groupId')
+  @UseGuards(JwtRefreshGuard)
+  GetGroupRequestWithGroupIdQuery(@Param('groupId') groupId: string) {
+    return this.groupService.GetGroupRequestWithGroupIdQuery(groupId);
   }
 
   @Post()
@@ -111,12 +122,12 @@ export class GroupController {
     return new Error("you don't have permission to delete this group");
   }
 
-  @Put('removeUser/:id')
+  @Put('removeUser/:id/:userId')
   @UseGuards(JwtRefreshGuard)
   removeUser(
     @Req() request: RequestUser,
     @Param('id') groupId: string,
-    @Body() userId: string,
+    @Param('userId') userId: string,
   ) {
     const { user } = request;
     if (
@@ -131,13 +142,26 @@ export class GroupController {
     );
   }
 
+  @Put('leaveGroup/:id')
+  @UseGuards(JwtRefreshGuard)
+  leaveGroup(@Req() request: RequestUser, @Param('id') groupId: string) {
+    const { user } = request;
+    return this.groupService.removeUser(groupId, user.id);
+  }
+
   @Get('isUserOwner/:groupId/:userId')
-  isUserOwner(@Param('id') groupId: string, @Param('userId') userId: string) {
+  isUserOwner(
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
+  ) {
     return this.groupService.isUserOwner(groupId, userId);
   }
 
   @Get('isUserAdmin/:groupId/:userId')
-  isUserAdmin(@Param('id') groupId: string, @Param('userId') userId: string) {
+  isUserAdmin(
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
+  ) {
     return this.groupService.isUserAdmin(groupId, userId);
   }
 
@@ -149,12 +173,12 @@ export class GroupController {
     return this.groupService.getGroupRequestStatus(userId, groupId);
   }
 
-  @Put('giveAdminRight/:groupId')
+  @Put('giveAdminRight/:groupId/:userId')
   @UseGuards(JwtRefreshGuard)
   giveAdminRight(
     @Req() request: RequestUser,
-    @Param('id') groupId: string,
-    @Body() userId: string,
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
   ) {
     const { user } = request;
     if (
@@ -168,12 +192,12 @@ export class GroupController {
     );
   }
 
-  @Put('removeAdminRight/:groupId')
+  @Put('removeAdminRight/:groupId/:userId')
   @UseGuards(JwtRefreshGuard)
   removeAdminRight(
     @Req() request: RequestUser,
-    @Param('id') groupId: string,
-    @Body() userId: string,
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
   ) {
     const { user } = request;
     if (
@@ -187,12 +211,12 @@ export class GroupController {
     );
   }
 
-  @Put('giveGroupOwnership/:groupId')
+  @Put('giveGroupOwnership/:groupId/:userId')
   @UseGuards(JwtRefreshGuard)
   giveGroupOwnership(
     @Req() request: RequestUser,
-    @Param('id') groupId: string,
-    @Body() userId: string,
+    @Param('groupId') groupId: string,
+    @Param('userId') userId: string,
   ) {
     const { user } = request;
     if (this.groupService.isUserOwner(groupId, user.id)) {

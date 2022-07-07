@@ -21,10 +21,10 @@ export class AddGroupFollowerHandler
       await this.groupRepository
         .createQueryBuilder()
         .relation('followers')
-        .of(command.groupId)
-        .add(command.userId);
+        .of(command.group)
+        .add(command.user);
       this.eventBus.publish(
-        new AddGroupFollowerEvent(command.userId, command.groupId),
+        new AddGroupFollowerEvent(command.user.id, command.group.id),
       );
     } catch (error) {
       // TODO: return a vrai erreur

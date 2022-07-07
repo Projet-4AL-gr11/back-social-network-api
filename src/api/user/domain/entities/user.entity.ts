@@ -139,7 +139,6 @@ export class User extends BaseEntity {
   }
 
   @ManyToMany(() => Group, (group) => group.followers)
-  @JoinTable()
   followedGroups: Group[];
 
   // Event

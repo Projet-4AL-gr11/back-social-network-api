@@ -1,10 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
-import { EventService } from "./event.service";
-import { Event } from "./domain/entities/event.entity";
-import { User } from "../user/domain/entities/user.entity";
-import { EventDto } from "./domain/dto/event.dto";
-import { RequestUser } from "../auth/interface/request-user.interface";
-import JwtRefreshGuard from "../auth/guards/jwt-refresh-token.guard";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { EventService } from './event.service';
+import { Event } from './domain/entities/event.entity';
+import { User } from '../user/domain/entities/user.entity';
+import { EventDto } from './domain/dto/event.dto';
+import { RequestUser } from '../auth/interface/request-user.interface';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('event')
 export class EventController {
@@ -27,6 +37,15 @@ export class EventController {
   @Get('searchByName/:name')
   async getByName(@Param('name') name: string): Promise<Event[]> {
     return await this.eventService.getByName(name);
+  }
+
+  @Get('group/:groupId/:offset/:limit')
+  async getByGroupId(
+    @Param('groupId') groupId: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ): Promise<Event[]> {
+    return await this.eventService.getByGroupId(groupId, offset, limit);
   }
 
   @Get('participants/:id')

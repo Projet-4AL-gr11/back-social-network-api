@@ -13,7 +13,7 @@ export class RemoveAdminRightHandler
   implements ICommandHandler<RemoveAdminRightCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupMembership)
     private groupMembershipRepository: Repository<GroupMembership>,
     private eventBus: EventBus,
   ) {}

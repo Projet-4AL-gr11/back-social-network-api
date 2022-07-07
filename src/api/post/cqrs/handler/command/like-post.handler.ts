@@ -1,9 +1,7 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { DeletePostCommand } from '../../command/delete-post.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from '../../../domain/entities/post.entity';
 import { Repository } from 'typeorm';
-import { DeletePostEvent } from '../../event/delete-post.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { LikePostCommand } from '../../command/like-post.command';
 import { LikePostEvent } from '../../event/like-post.event';

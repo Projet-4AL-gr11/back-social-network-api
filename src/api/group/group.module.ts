@@ -41,6 +41,7 @@ import { UpdateGroupEventHandler } from './cqrs/event-handler/update-group.event
 import { ErrorEventHandler } from "../../util/error/error.event-handler";
 import { GetGroupRequestStatusHandler } from "./cqrs/handler/query/get-group-request-status.handler";
 import { GetGroupRequestWithGroupIdHandler } from "./cqrs/handler/query/get-group-request-with-group-id.handler";
+import { GetGroupMemberHandler } from "./cqrs/handler/query/get-group-member.handler";
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { GetGroupRequestWithGroupIdHandler } from "./cqrs/handler/query/get-grou
     UpdateGroupEventHandler,
     GetGroupRequestStatusHandler,
     GetGroupRequestWithGroupIdHandler,
+    GetGroupMemberHandler,
     ErrorEventHandler,
   ],
 })

@@ -26,11 +26,11 @@ export class CancelFriendshipRequestHandler
           .leftJoinAndSelect('FriendshipRequest.sender', 'Sender')
           .andWhere('Sender.id=:senderId', { senderId: command.sender })
           .getOne();
+      await this.friendRequestRepository.remove(friendRequest);
+
       this.eventBus.publish(
         new CancelFriendshipRequestEvent(command.sender, command.userId),
       );
-
-      await this.friendRequestRepository.remove(friendRequest);
     } catch (error) {
       this.eventBus.publish(
         new ErrorsEvent('CancelFriendshipRequestHandler', error),
