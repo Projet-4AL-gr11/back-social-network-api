@@ -12,7 +12,7 @@ export class GetGroupHandler implements IQueryHandler<GetGroupQuery> {
   ) {}
 
   async execute(query: GetGroupQuery): Promise<any> {
-    if (query.groupId) {
+    if (query.groupId != undefined) {
       return await this.groupRepository.findOne(query.groupId);
     }
     return await this.groupRepository.find();

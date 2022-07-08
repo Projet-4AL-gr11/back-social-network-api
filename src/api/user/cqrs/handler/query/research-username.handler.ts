@@ -1,8 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { ResearchFriendsQuery } from '../../../../friendship/cqrs/query/research-friends.query';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Friendship } from '../../../../friendship/domain/entities/friendship.entity';
-import { Brackets, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ResearchUsernameQuery } from '../../query/research-username.query';
 import { User } from '../../../domain/entities/user.entity';
 

@@ -14,7 +14,7 @@ import { GetCommentsWithPostIdHandler } from './cqrs/handler/query/get-comments-
 import { AddCommentEventHandler } from './cqrs/event-handler/add-comment.event-handler';
 import { DeleteCommentEventHandler } from './cqrs/event-handler/delete-comment.event-handler';
 import { UpdateCommentEventHandler } from './cqrs/event-handler/update-comment.event-handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Comment, Post, User]), CqrsModule],
@@ -29,7 +29,7 @@ import { ErrorEventHandler } from "../../util/error/error.event-handler";
     AddCommentEventHandler,
     DeleteCommentEventHandler,
     UpdateCommentEventHandler,
-    ErrorEventHandler
+    ErrorEventHandler,
   ],
 })
 export class CommentModule {}

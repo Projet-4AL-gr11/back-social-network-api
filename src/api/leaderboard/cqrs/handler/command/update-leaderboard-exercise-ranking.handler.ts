@@ -1,5 +1,4 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { DeleteLeaderboardCommand } from '../../command/delete-leaderboard.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Leaderboard } from '../../../domain/entities/leaderboard.entity';
 import { Repository } from 'typeorm';

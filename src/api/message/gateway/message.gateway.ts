@@ -1,6 +1,4 @@
 import {
-  ConnectedSocket,
-  MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
   SubscribeMessage,
@@ -10,7 +8,6 @@ import {
 import { Server, Socket } from 'socket.io';
 import { MessageService } from '../message.service';
 import { AuthService } from '../../auth/auth.service';
-import { OnModuleInit, UnauthorizedException } from '@nestjs/common';
 import { ConversationService } from '../../conversation/conversation.service';
 import { User } from '../../user/domain/entities/user.entity';
 import { ConversationDto } from '../../conversation/domain/dto/conversation.dto';

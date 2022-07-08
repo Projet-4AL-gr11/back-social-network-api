@@ -14,9 +14,10 @@ export class GetGroupFollowerHandler
   ) {}
 
   async execute(query: GetGroupFollowerQuery): Promise<User[]> {
-    return await this.userRepository
+    return this.userRepository
       .createQueryBuilder()
-      .leftJoin('User.followedGroups', 'Group')
+      .leftJoinAndSelect('User.followedGroups', 'Group')
+      .leftJoinAndSelect('User.profilePicture', 'Picture')
       .where('Group.id=:id', { id: query.groupId })
       .getMany();
   }

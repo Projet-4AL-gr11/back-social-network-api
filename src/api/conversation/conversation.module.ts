@@ -14,7 +14,7 @@ import { GetConversationsWithUserIdHandler } from './cqrs/handler/query/get-conv
 import { CreateConversationHandler } from './cqrs/handler/command/create-conversation.handler';
 import { JoinedConversation } from '../message/domain/entities/joined-conversation.entity';
 import { CreateConversationEventHandler } from './cqrs/event-handler/create-conversation.event-handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 @Module({
   imports: [
@@ -36,7 +36,7 @@ import { ErrorEventHandler } from "../../util/error/error.event-handler";
     GetConversationsWithUserIdHandler,
     CreateConversationHandler,
     CreateConversationEventHandler,
-    ErrorEventHandler
+    ErrorEventHandler,
   ],
 })
 export class ConversationModule {}

@@ -3,27 +3,23 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
+import { Group } from '../../../domain/entities/group.entity';
 
 @QueryHandler(GetGroupMembershipWithUserIdQuery)
 export class GetGroupWithUserIdHandler
   implements IQueryHandler<GetGroupMembershipWithUserIdQuery>
 {
   constructor(
-    @InjectRepository(GroupMembership)
-    private groupMembershipRepository: Repository<GroupMembership>,
+    @InjectRepository(Group)
+    private groupMembershipRepository: Repository<Group>,
   ) {}
 
-  async execute(
-    query: GetGroupMembershipWithUserIdQuery,
-  ): Promise<GroupMembership[]> {
+  async execute(query: GetGroupMembershipWithUserIdQuery): Promise<Group[]> {
     return await this.groupMembershipRepository
       .createQueryBuilder()
-      .leftJoinAndMapMany(
-        'GroupMembership.group',
-        'GroupMembership.group',
-        'Group',
-      )
-      .leftJoin('GroupMembership.member', 'User')
+      .leftJoinAndSelect('Group.members', 'GroupMembership')
+      .leftJoinAndSelect('Group.picture', 'Picture')
+      .leftJoinAndSelect('GroupMembership.user', 'User')
       .where('User.id=:id', { id: query.userId })
       .getMany();
   }

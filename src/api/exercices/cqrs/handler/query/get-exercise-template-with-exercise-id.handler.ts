@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetExerciseQuery } from '../../query/get-exercise.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Exercise } from '../../../domain/entities/exercise.entity';
 import { Repository } from 'typeorm';

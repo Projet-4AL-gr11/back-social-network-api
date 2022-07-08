@@ -16,7 +16,10 @@ export class GetSharedPostHandler implements IQueryHandler<GetSharedPostQuery> {
       .createQueryBuilder()
       .leftJoinAndSelect('Post.creator', 'Creator')
       .leftJoinAndSelect('Creator.profilePicture', 'ProfPic')
-      .leftJoin('Post.sharedPosts', 'Shares')
+      .leftJoinAndSelect('Post.sharesPost', 'sharesPost')
+      .leftJoinAndSelect('Post.sharedPosts', 'Shares')
+      .leftJoinAndSelect('Shares.sharedEvent', 'Event')
+      .leftJoinAndSelect('Shares.medias', 'Media')
       .where('Shares.id=:postId', { postId: query.postId })
       .getOne();
   }

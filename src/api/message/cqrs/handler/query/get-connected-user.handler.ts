@@ -1,7 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { ResearchUsernameQuery } from '../../../../user/cqrs/query/research-username.query';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { Repository } from 'typeorm';
 import { GetConnectedUserQuery } from '../../query/get-connected-user.query';
 import { ConnectedUser } from '../../../domain/entities/connected-user.entity';

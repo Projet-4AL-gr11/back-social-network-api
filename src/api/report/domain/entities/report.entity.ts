@@ -5,7 +5,6 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { Length } from 'class-validator';
 import { User } from '../../../user/domain/entities/user.entity';

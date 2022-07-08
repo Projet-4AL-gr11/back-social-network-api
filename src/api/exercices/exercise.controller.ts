@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 

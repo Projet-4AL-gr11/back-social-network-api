@@ -1,5 +1,4 @@
 import { EventBus, IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { IsBlockedUserQuery } from '../../query/is-blocked-user.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../domain/entities/user.entity';
 import { Repository } from 'typeorm';

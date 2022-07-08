@@ -6,7 +6,9 @@ import { Group } from '../../../../group/domain/entities/group.entity';
 
 @QueryHandler(SearchGroupQuery)
 export class SearchGroupHandler implements IQueryHandler<SearchGroupQuery> {
-  private levenshteinTresHold = Number(process.env.LEVENSHTEIN_SCORE_THRESHOLD);
+  private levenshteinTresHold = Number(
+    process.env.LEVENSHTEIN_SCORE_THRESHOLD_GROUP,
+  );
 
   constructor(
     @InjectRepository(Group)

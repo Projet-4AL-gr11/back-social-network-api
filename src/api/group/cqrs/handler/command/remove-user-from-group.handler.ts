@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { Group } from '../../../domain/entities/group.entity';
+import { RemoveUserFromGroupEvent } from '../../event/remove-user-from-group.event';
 
 @CommandHandler(RemoveUserFromGroupCommand)
 export class RemoveUserFromGroupHandler
@@ -37,6 +38,9 @@ export class RemoveUserFromGroupHandler
       if (membersCount <= 1) {
         await this.groupRepository.delete(command.groupId);
       }
+      this.eventBus.publish(
+        new RemoveUserFromGroupEvent(command.userId, command.groupId),
+      );
     } catch (error) {
       // TODO : return a vrai erreur
       this.eventBus.publish(

@@ -73,7 +73,7 @@ export class MediaController {
     return this.mediaService.deletePicture(id);
   }
 
-  @Post('profile-picture')
+  @Post('profilePicture')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveProfilePicture(
@@ -87,7 +87,7 @@ export class MediaController {
     });
   }
 
-  @Post('banner-picture')
+  @Post('bannerPicture')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveBannerPicture(
@@ -101,7 +101,7 @@ export class MediaController {
     });
   }
 
-  @Post('event-picture/:id')
+  @Post('eventPicture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveEventPicture(
@@ -115,7 +115,7 @@ export class MediaController {
     });
   }
 
-  @Post('group-picture/:id')
+  @Post('groupPicture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))
   async saveGroupPicture(
@@ -123,6 +123,20 @@ export class MediaController {
     @UploadedFile() file: multer.File,
   ) {
     return this.mediaService.uploadGroupPicture({
+      ownerId: id,
+      dataBuffer: file.buffer,
+      fileName: file.originalname,
+    });
+  }
+
+  @Post('groupBannerPicture/:id')
+  @UseGuards(JwtRefreshGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async saveGroupBannerPicture(
+    @Param('id') id: string,
+    @UploadedFile() file: multer.File,
+  ) {
+    return this.mediaService.uploadGroupBannerPicture({
       ownerId: id,
       dataBuffer: file.buffer,
       fileName: file.originalname,
@@ -144,7 +158,6 @@ export class MediaController {
     });
   }
 
-  // TODO: A revoir pour plusieurs photo
   @Post('comment-picture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))

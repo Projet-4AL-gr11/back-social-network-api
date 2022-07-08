@@ -38,7 +38,10 @@ import { RemoveGroupFollowEventHandler } from './cqrs/event-handler/remove-group
 import { RemoveUserFromGroupEventHandler } from './cqrs/event-handler/remove-user-from-group.event-handler';
 import { SendGroupRequestEventHandler } from './cqrs/event-handler/send-group-request.event-handler';
 import { UpdateGroupEventHandler } from './cqrs/event-handler/update-group.event-handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { GetGroupRequestStatusHandler } from './cqrs/handler/query/get-group-request-status.handler';
+import { GetGroupRequestWithGroupIdHandler } from './cqrs/handler/query/get-group-request-with-group-id.handler';
+import { GetGroupMemberHandler } from './cqrs/handler/query/get-group-member.handler';
 
 @Module({
   imports: [
@@ -79,7 +82,10 @@ import { ErrorEventHandler } from "../../util/error/error.event-handler";
     RemoveUserFromGroupEventHandler,
     SendGroupRequestEventHandler,
     UpdateGroupEventHandler,
-    ErrorEventHandler
+    GetGroupRequestStatusHandler,
+    GetGroupRequestWithGroupIdHandler,
+    GetGroupMemberHandler,
+    ErrorEventHandler,
   ],
 })
 export class GroupModule {}

@@ -13,7 +13,7 @@ import { CommentService } from './comment.service';
 import { Comment } from './domain/entities/comment.entity';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
-import { CommentDto } from "./domain/dto/comment.dto";
+import { CommentDto } from './domain/dto/comment.dto';
 
 @Controller('comment')
 export class CommentController {

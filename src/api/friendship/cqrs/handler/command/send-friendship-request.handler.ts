@@ -3,7 +3,6 @@ import { SendFriendshipRequestCommand } from '../../command/send-friendship-requ
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendshipRequest } from '../../../domain/entities/friendship-request.entity';
 import { Repository } from 'typeorm';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SendFriendshipRequestEvent } from '../../event/send-friendship-request.event';
 

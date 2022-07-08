@@ -1,7 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { GiveAdminRightCommand } from '../../command/give-admin-right.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Group } from '../../../domain/entities/group.entity';
 import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
@@ -13,7 +11,7 @@ export class RemoveAdminRightHandler
   implements ICommandHandler<RemoveAdminRightCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupMembership)
     private groupMembershipRepository: Repository<GroupMembership>,
     private eventBus: EventBus,
   ) {}

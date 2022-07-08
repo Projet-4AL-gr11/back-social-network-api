@@ -21,6 +21,7 @@ import { Post } from '../post/domain/entities/post.entity';
 import { Comment } from '../comment/domain/entities/comment.entity';
 import { GetCommentQuery } from '../comment/cqrs/query/get-comment.query';
 import { GetPictureWithIdQuery } from './cqrs/query/get-picture-with-id.query';
+import { SaveGroupBannerPictureCommand } from './cqrs/command/save-group-banner-picture.command';
 
 @Injectable()
 export class MediaService {
@@ -40,6 +41,10 @@ export class MediaService {
 
   async uploadGroupPicture(mediaDto: MediaDto): Promise<Media> {
     return this.commandBus.execute(new SaveGroupPictureCommand(mediaDto));
+  }
+
+  async uploadGroupBannerPicture(mediaDto: MediaDto): Promise<Media> {
+    return this.commandBus.execute(new SaveGroupBannerPictureCommand(mediaDto));
   }
 
   async uploadPostPicture(mediaDto: MediaDto): Promise<Media> {

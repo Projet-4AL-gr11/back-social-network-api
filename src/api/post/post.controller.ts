@@ -65,6 +65,20 @@ export class PostController {
   }
 
   @UseGuards(JwtRefreshGuard)
+  @Get('group/:groupId/:offset/:limit')
+  getGroupPost(
+    @Param('groupId') groupId: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ) {
+    return this.postService.getPostWithGroupId(
+      groupId,
+      Number(offset),
+      Number(limit),
+    );
+  }
+
+  @UseGuards(JwtRefreshGuard)
   @Get('getUserPost/:userId/:offset/:limit')
   getUserPost(
     @Param('userId') userId: string,

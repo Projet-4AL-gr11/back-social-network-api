@@ -18,11 +18,10 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
   async execute(command: CreatePostCommand): Promise<Post> {
     try {
       let post: Post;
-      if (command.group) {
+      if (command.postDto?.group) {
         post = this.postRepository.create({
           ...command.postDto,
           creator: command.user,
-          group: command.group,
         });
       } else {
         post = this.postRepository.create({
@@ -37,7 +36,7 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
       }
       const savedPost = await this.postRepository.save(post);
 
-      if (command.group) {
+      if (command.postDto?.group) {
         this.eventBus.publish(
           new CreatePostEvent(command.user.id, savedPost.id, command.group.id),
         );

@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { SaveMessageEvent } from '../event/save-message.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 import { CreateConnectedUserEvent } from '../event/create-connected-user.event';
