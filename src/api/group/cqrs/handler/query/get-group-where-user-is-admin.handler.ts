@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { GetGroupWhereUserIsAdminQuery } from '../../query/get-group-where-user-is-admin.query';
 import { Group } from '../../../domain/entities/group.entity';
 
@@ -32,7 +32,18 @@ export class GetGroupWhereUserIsAdminHandler
           .leftJoinAndSelect('Group.members', 'GroupMembership')
           .leftJoinAndSelect('GroupMembership.user', 'User')
           .where('User.id=:id', { id: query.id })
-          .getOne()) !== undefined ) {
+          .andWhere('Group.id=:groupId', {
+            groupId: groupMembership.group.id,
+          })
+          .andWhere(
+            new Brackets((qb) => {
+              qb.where('GroupMembership.isAdmin=TRUE').orWhere(
+                'GroupMembership.isOwner=TRUE',
+              );
+            }),
+          )
+          .getOne()) !== undefined
+      ) {
         groups.push(groupMembership.group);
       }
     }

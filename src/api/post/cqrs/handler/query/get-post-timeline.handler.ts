@@ -19,6 +19,7 @@ export class GetPostTimelineHandler
       .leftJoinAndSelect('Post.creator', 'User')
       .leftJoinAndSelect('Post.medias', 'Media')
       .leftJoinAndSelect('Post.sharedEvent', 'Event')
+      .leftJoinAndSelect('Post.sharesPost', 'SharePost')
       .leftJoinAndSelect('User.profilePicture', 'ProfilePicture')
       .leftJoin('User.friendsOne', 'FriendshipOne')
       .leftJoin('FriendshipOne.friendTwo', 'FriendTwo')

@@ -17,6 +17,9 @@ export class GetPostHandler implements IQueryHandler<GetPostQuery> {
         .createQueryBuilder()
         .leftJoinAndSelect('Post.creator', 'User')
         .leftJoinAndSelect('Post.medias', 'Media')
+        .leftJoinAndSelect('Post.sharedEvent', 'Event')
+        .leftJoinAndSelect('Post.sharedPosts', 'sharedPosts')
+        .leftJoinAndSelect('Post.sharesPost', 'SharesPost')
         .where('Post.id=:id', { id: query.postId })
         .getOne();
     }
