@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetCommentQuery } from '../../query/get-comment.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from '../../../domain/entities/comment.entity';
 import { Repository } from 'typeorm';

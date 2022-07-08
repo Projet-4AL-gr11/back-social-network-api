@@ -94,8 +94,4 @@ describe('GroupService', () => {
       expect(await service.getGroupWithUserId('1')).toBe(mockGroup);
     });
   });
-
-  //TODO: test addFollower
-  //TODO: test removeFollower
-  //TODO: test getFollower
 });

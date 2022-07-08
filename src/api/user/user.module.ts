@@ -17,9 +17,7 @@ import { HasBlockedUserHandler } from './cqrs/handler/query/has-blocked-user.han
 import { IsBlockedUserHandler } from './cqrs/handler/query/is-blocked-user.handler';
 import { GetUserFriendsHandler } from './cqrs/handler/query/get-user-friends.handler';
 import { ResearchUsernameHandler } from './cqrs/handler/query/research-username.handler';
-import { GetConnectedUserQuery } from '../message/cqrs/query/get-connected-user.query';
 import { ConnectedUser } from '../message/domain/entities/connected-user.entity';
-import { GetConnectedUserHandler } from '../message/cqrs/handler/query/get-connected-user.handler';
 import { BlockUserEventHandler } from './cqrs/event-bus/block-user.event-handler';
 import { DeleteUserEventHandler } from './cqrs/event-bus/delete-user.event-handler';
 import { RemoveRefreshTokenEventHandler } from './cqrs/event-bus/remove-refresh-token.event-handler';

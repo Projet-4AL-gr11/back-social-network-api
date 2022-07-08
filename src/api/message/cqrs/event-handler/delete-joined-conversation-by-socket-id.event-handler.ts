@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { DeleteConnectedUserEvent } from '../event/delete-connected-user.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 import { DeleteJoinedConversationBySocketIdEvent } from '../event/delete-joined-conversation-by-socket-id.event';

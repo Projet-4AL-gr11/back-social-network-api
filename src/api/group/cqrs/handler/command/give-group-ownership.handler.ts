@@ -1,7 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { GiveAdminRightCommand } from '../../command/give-admin-right.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Group } from '../../../domain/entities/group.entity';
 import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { GiveAdminRightEvent } from '../../event/give-admin-right.event';

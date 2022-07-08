@@ -4,8 +4,6 @@ import { MediaDto } from '../domain/dto/media.dto';
 import { MediaResponseDto } from '../domain/dto/media-response.dto';
 import { Test } from '@nestjs/testing';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { PostDto } from '../../post/domain/dto/post.dto';
-import { Post } from '../../post/domain/entities/post.entity';
 
 describe('MediaService', () => {
   let service: MediaService;

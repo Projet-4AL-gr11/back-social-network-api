@@ -27,7 +27,7 @@ import { CreateReportGroupEventHandler } from './cqrs/event-handler/create-repor
 import { CreateReportPostEventHandler } from './cqrs/event-handler/create-report-post.event-handler';
 import { CreateReportUserEventHandler } from './cqrs/event-handler/create-report-user.event-handler';
 import { DeleteReportEventHandler } from './cqrs/event-handler/delete-report.event-handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 @Module({
   imports: [
@@ -55,7 +55,7 @@ import { ErrorEventHandler } from "../../util/error/error.event-handler";
     CreateReportPostEventHandler,
     CreateReportUserEventHandler,
     DeleteReportEventHandler,
-    ErrorEventHandler
+    ErrorEventHandler,
   ],
 })
 export class ReportModule {}

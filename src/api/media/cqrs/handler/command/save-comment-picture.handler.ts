@@ -1,14 +1,11 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { SaveBannerPictureCommand } from '../../command/save-banner-picture.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Media } from '../../../domain/entities/media.entity';
 import { Repository } from 'typeorm';
 import { S3 } from 'aws-sdk';
-import { SaveBannerPictureEvent } from '../../event/save-banner-picture.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SaveCommentPictureCommand } from '../../command/save-comment-picture.command';
 import { v4 as uuid } from 'uuid';
-import { SavePostPictureEvent } from '../../event/save-post-picture.event';
 import { SaveCommentPictureEvent } from '../../event/save-comment-picture.event';
 
 @CommandHandler(SaveCommentPictureCommand)

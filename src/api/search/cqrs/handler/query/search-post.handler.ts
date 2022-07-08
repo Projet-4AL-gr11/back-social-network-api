@@ -1,12 +1,14 @@
-import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { SearchPostQuery } from "../../query/search-post.query";
-import { Post } from "../../../../post/domain/entities/post.entity";
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SearchPostQuery } from '../../query/search-post.query';
+import { Post } from '../../../../post/domain/entities/post.entity';
 
 @QueryHandler(SearchPostQuery)
 export class SearchPostHandler implements IQueryHandler<SearchPostQuery> {
-  private levenshteinTresHold = Number(process.env.LEVENSHTEIN_SCORE_THRESHOLD_POST);
+  private levenshteinTresHold = Number(
+    process.env.LEVENSHTEIN_SCORE_THRESHOLD_POST,
+  );
 
   constructor(
     @InjectRepository(Post)

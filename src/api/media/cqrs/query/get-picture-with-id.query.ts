@@ -1,4 +1,3 @@
 export class GetPictureWithIdQuery {
-  constructor(public readonly pictureId: string) {
-  }
+  constructor(public readonly pictureId: string) {}
 }

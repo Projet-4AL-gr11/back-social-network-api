@@ -14,7 +14,6 @@ import { UnblockUserCommand } from './cqrs/command/unblock-user.command';
 import { User } from './domain/entities/user.entity';
 import { GetUserFriendsQuery } from './cqrs/query/get-user-friends.query';
 import { ResearchUsernameQuery } from './cqrs/query/research-username.query';
-import { GetConnectedUserQuery } from '../message/cqrs/query/get-connected-user.query';
 
 @Injectable()
 export class UserService {

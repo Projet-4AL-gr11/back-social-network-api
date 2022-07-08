@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetJoinedConversationByConversationIdQuery } from '../../query/get-joined-conversation-by-conversation-id.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JoinedConversation } from '../../../domain/entities/joined-conversation.entity';
 import { Repository } from 'typeorm';

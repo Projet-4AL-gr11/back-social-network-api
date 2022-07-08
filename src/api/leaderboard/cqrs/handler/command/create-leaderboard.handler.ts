@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Leaderboard } from '../../../domain/entities/leaderboard.entity';
 import { Repository } from 'typeorm';
 import { validate } from 'class-validator';
-import { CreateEventEvent } from '../../../../event/cqrs/event/create-event.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { CreateLeaderboardEvent } from '../../event/create-leaderboard.event';
 

@@ -2,15 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Language } from '../../../language/domain/entities/language.entity';
-import { Event } from '../../../event/domain/entities/event.entity';
 
 @Entity()
 export class Leaderboard {

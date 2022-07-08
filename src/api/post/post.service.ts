@@ -12,7 +12,6 @@ import { GetLikeOfPostQuery } from './cqrs/query/get-like-of-post.query';
 import { IsLikedPostQuery } from './cqrs/query/is-liked-post.query';
 import { LikePostCommand } from './cqrs/command/like-post.command';
 import { DislikePostCommand } from './cqrs/command/dislike-post.command';
-import { promises } from 'dns';
 import { IsPostOwnerQuery } from './cqrs/query/is-post-owner.query';
 import { GetSharedPostQuery } from './cqrs/query/get-shared-post.query';
 import { GetPostTimelineQuery } from './cqrs/query/get-post-timeline.query';

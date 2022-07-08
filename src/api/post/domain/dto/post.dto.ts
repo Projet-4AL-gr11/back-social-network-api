@@ -1,4 +1,3 @@
-import { User } from '../../../user/domain/entities/user.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Post } from '../entities/post.entity';
 import { Event } from '../../../event/domain/entities/event.entity';

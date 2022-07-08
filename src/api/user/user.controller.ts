@@ -4,11 +4,11 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
-  Post, Put,
+  Post,
+  Put,
   Req,
-  UseGuards
-} from "@nestjs/common";
+  UseGuards,
+} from '@nestjs/common';
 import { UpdateUserDto } from './domain/dto/update-user.dto';
 import { UserService } from './user.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';

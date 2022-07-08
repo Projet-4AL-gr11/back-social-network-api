@@ -1,14 +1,10 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { UpdateLeaderboardExerciseRankingCommand } from '../../command/update-leaderboard-exercise-ranking.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Leaderboard } from '../../../domain/entities/leaderboard.entity';
 import { Repository } from 'typeorm';
-import { UpdateLeaderboardExerciseRankingEvent } from '../../event/update-leaderboard-exercise-ranking.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { UpdateEventRankingEvent } from '../../event/update-event-ranking.event';
 import { UpdateEventRankingCommand } from '../../command/update-event-ranking.command';
 import { EventRanking } from '../../../domain/entities/event-ranking.entity';
-import { User } from '../../../../user/domain/entities/user.entity';
 import { validate } from 'class-validator';
 
 @CommandHandler(UpdateEventRankingCommand)

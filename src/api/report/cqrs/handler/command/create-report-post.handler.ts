@@ -1,9 +1,7 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { CreateReportGroupCommand } from '../../command/create-report-group.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from '../../../domain/entities/report.entity';
 import { Repository } from 'typeorm';
-import { CreateReportGroupEvent } from '../../event/create-report-group.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { CreateReportPostCommand } from '../../command/create-report-post.command';
 import { CreateReportPostEvent } from '../../event/create-report-post.event';

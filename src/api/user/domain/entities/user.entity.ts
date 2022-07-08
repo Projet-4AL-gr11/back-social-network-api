@@ -28,7 +28,6 @@ import { Report } from '../../../report/domain/entities/report.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
 import { GroupRequest } from '../../../group/domain/entities/group_request.entity';
-import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
 import { ConnectedUser } from '../../../message/domain/entities/connected-user.entity';
 import { JoinedConversation } from '../../../message/domain/entities/joined-conversation.entity';
 

@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
-import { PostDto } from '../post/domain/dto/post.dto';
 import { ReportRequestDto } from './domain/dto/report-request.dto';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 

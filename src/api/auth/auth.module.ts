@@ -14,7 +14,7 @@ import { UserService } from '../user/user.service';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { GetUserLoginHandler } from '../user/cqrs/handler/query/get-user-login.handler';
 import { RegisterEventHandler } from './cqrs/event-handler/register.event-handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 config();
 

@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from '../../../domain/entities/report.entity';
 import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
-import { Comment } from '../../../../comment/domain/entities/comment.entity';
 import { CreateReportCommentEvent } from '../../event/create-report-comment.event';
 
 @CommandHandler(CreateReportCommentCommand)

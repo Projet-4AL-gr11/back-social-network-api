@@ -1,9 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetConversationByIdQuery } from '../../query/get-conversation-by-id.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Conversation } from '../../../domain/entities/conversation.entity';
 import { Repository } from 'typeorm';
-import { GetMembersFriendOneQuery } from '../../query/get-members-friend-one.query';
 import { GetConversationsWithUserIdQuery } from '../../query/get-conversations-with-user-id.query';
 
 @QueryHandler(GetConversationsWithUserIdQuery)

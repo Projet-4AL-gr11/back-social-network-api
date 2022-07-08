@@ -13,7 +13,6 @@ export class GetGroupFollowerHandler
     private userRepository: Repository<User>,
   ) {}
 
-
   async execute(query: GetGroupFollowerQuery): Promise<User[]> {
     return this.userRepository
       .createQueryBuilder()

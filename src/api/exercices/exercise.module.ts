@@ -9,9 +9,8 @@ import { ExerciseController } from './exercise.controller';
 import { GetEventExerciseHandler } from './cqrs/handler/query/get-event-exercise.handler';
 import { ExerciseService } from './exercise.service';
 import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/get-exercise-template-with-exercise-id.handler';
-import { GetExerciseTemplateQuery } from './cqrs/query/get-exercise-template.query';
 import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-template.handler';
-import { ErrorEventHandler } from "../../util/error/error.event-handler";
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 @Module({
   imports: [
