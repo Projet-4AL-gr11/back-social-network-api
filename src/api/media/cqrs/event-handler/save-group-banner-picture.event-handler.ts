@@ -19,7 +19,7 @@ export class SaveGroupBannerPictureEventHandler
     );
 
     this.logger_console.log(
-      'Event with id ( ' +
+      'Group with id ( ' +
         event.mediaDto.ownerId +
         ' ) upload new banner picture with name ' +
         event.mediaDto.fileName,

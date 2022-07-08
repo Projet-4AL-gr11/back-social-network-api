@@ -10,10 +10,10 @@ export class UpdateGroupEventHandler
   logger_console = new Logger('UpdateGroupEventHandler');
 
   handle(event: UpdateGroupEvent): any {
-    logger.info('Group with id : ( ' + event.groupId + ' ) have been deleted');
+    logger.info('Group with id : ( ' + event.groupId + ' ) have been Updated');
 
     this.logger_console.log(
-      'Group with id : ( ' + event.groupId + ' ) have been deleted',
+      'Group with id : ( ' + event.groupId + ' ) have been Updated',
     );
   }
 }

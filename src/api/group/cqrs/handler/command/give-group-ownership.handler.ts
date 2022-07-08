@@ -13,7 +13,7 @@ export class GiveGroupOwnershipHandler
   implements ICommandHandler<GiveGroupOwnershipCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupMembership)
     private groupMembershipRepository: Repository<GroupMembership>,
     private eventBus: EventBus,
   ) {}
@@ -28,6 +28,7 @@ export class GiveGroupOwnershipHandler
         .andWhere('User.id=:userId', { userId: command.ownerId })
         .getOne();
       groupMembershipOwner.isOwner = false;
+      groupMembershipOwner.isAdmin = true;
       await this.groupMembershipRepository.save(groupMembershipOwner);
 
       const groupMembershipUser = await this.groupMembershipRepository
@@ -37,7 +38,8 @@ export class GiveGroupOwnershipHandler
         .where('Group.id=:groupId', { groupId: command.groupId })
         .andWhere('User.id=:userId', { userId: command.userId })
         .getOne();
-      groupMembershipOwner.isOwner = true;
+      groupMembershipUser.isAdmin = false;
+      groupMembershipUser.isOwner = true;
       await this.groupMembershipRepository.save(groupMembershipUser);
       this.eventBus.publish(
         new GiveAdminRightEvent(command.userId, command.groupId),
