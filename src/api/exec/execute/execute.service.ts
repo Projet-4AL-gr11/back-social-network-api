@@ -1,22 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { CreateExecuteDto } from './domain/dto/create-execute.dto';
-import { UpdateExecuteDto } from './domain/dto/update-execute.dto';
+import { Injectable } from "@nestjs/common";
+import { ExecuteDto } from './domain/dto/execute.dto';
+import Axios  from "axios";
 
 @Injectable()
 export class ExecuteService {
-  create(createExecuteDto: CreateExecuteDto) {
-    return 'This action adds a new execute';
+
+  constructor() {
   }
 
-  findAll() {
-    return `This action returns all execute`;
+  async create(createExecuteDto: ExecuteDto) {
+    return '';
+  }
+
+  async findAll() {
+    let response;
+
+    try {
+      response = await Axios.get(
+        process.env.EXEC_CODE_URL + '/api/code',
+      ).then(function (response) {
+        return response.data;
+      });
+    } catch (er) {
+      console.log(er);
+    }
+    return response;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} execute`;
   }
 
-  update(id: number, updateExecuteDto: UpdateExecuteDto) {
+  update(id: number, updateExecuteDto: ExecuteDto) {
     return `This action updates a #${id} execute`;
   }
 

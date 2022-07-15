@@ -26,7 +26,7 @@ async function bootstrap() {
     allowedHeaders:
       'Origin,X-Requested-With,Content-Type,Accept,Authorization,authorization,X-Forwarded-for,Set-Cookie,Access-Control-Allow-Origin',
   });
-  app.enableCors();
+  // app.enableCors();
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());

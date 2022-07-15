@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ExecuteService } from './execute.service';
-import { CreateExecuteDto } from './domain/dto/create-execute.dto';
-import { UpdateExecuteDto } from './domain/dto/update-execute.dto';
+import { ExecuteDto } from './domain/dto/execute.dto';
 
 @Controller('execute')
 export class ExecuteController {
   constructor(private readonly executeService: ExecuteService) {}
 
   @Post()
-  create(@Body() createExecuteDto: CreateExecuteDto) {
+  create(@Body() createExecuteDto: ExecuteDto) {
+
     return this.executeService.create(createExecuteDto);
   }
 
@@ -23,7 +23,7 @@ export class ExecuteController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExecuteDto: UpdateExecuteDto) {
+  update(@Param('id') id: string, @Body() updateExecuteDto: ExecuteDto) {
     return this.executeService.update(+id, updateExecuteDto);
   }
 
