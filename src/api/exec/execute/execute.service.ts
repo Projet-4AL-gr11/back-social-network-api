@@ -1,18 +1,41 @@
-import { Injectable } from "@nestjs/common";
+import { HttpService, Injectable } from "@nestjs/common";
 import { ExecuteDto } from './domain/dto/execute.dto';
-import Axios  from "axios";
+import Axios from "axios";
+// import { Execute } from "./domain/entities/execute.entity";
 
 @Injectable()
 export class ExecuteService {
 
-  constructor() {
+  constructor(private readonly httpService: HttpService) {
   }
 
-  async create(createExecuteDto: ExecuteDto) {
-    return '';
+  async create(createExecuteDto: ExecuteDto){
+    console.log(process.env.EXEC_CODE_URL+ '/api/code/');
+    let response;
+    let result;
+    try {
+      response = await Axios.post(
+        process.env.EXEC_CODE_URL + '/api/code/', createExecuteDto
+      ).then(function (response) {
+        return response;
+      });
+    } catch (er) {
+      result = {
+        status: response.status,
+        error: er,
+        execution: null
+      }
+      return result;
+    }
+    result = {
+      status: response.status,
+      error: null,
+      execution: response.data
+    }
+    return result;
   }
 
-  async findAll() {
+   async findAll(){
     let response;
 
     try {
@@ -24,7 +47,7 @@ export class ExecuteService {
     } catch (er) {
       console.log(er);
     }
-    return response;
+    return await response;
   }
 
   findOne(id: number) {
