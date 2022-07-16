@@ -8,7 +8,7 @@ export class ExecuteController {
 
   @Post()
   create(@Body() createExecuteDto: ExecuteDto) {
-
+    console.log(createExecuteDto);
     return this.executeService.create(createExecuteDto);
   }
 

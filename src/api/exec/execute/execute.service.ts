@@ -13,25 +13,30 @@ export class ExecuteService {
     console.log(process.env.EXEC_CODE_URL+ '/api/code/');
     let response;
     let result;
+
     try {
       response = await Axios.post(
         process.env.EXEC_CODE_URL + '/api/code/', createExecuteDto
       ).then(function (response) {
         return response;
       });
+
     } catch (er) {
+      console.log(er.response);
       result = {
-        status: response.status,
+        // status: response.status,
         error: er,
         execution: null
       }
       return result;
     }
+
     result = {
-      status: response.status,
-      error: null,
+      // status: response.status,
+      // error: null,
       execution: response.data
     }
+    console.log(result);
     return result;
   }
 
