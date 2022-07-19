@@ -1,6 +1,15 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { ExerciseTemplateDto } from './domain/dto/exercise-template.dto';
 
 @Controller('exercise')
 export class ExerciseController {
@@ -29,9 +38,36 @@ export class ExerciseController {
   getEventExercise(@Param('id') id: string) {
     return this.exerciseService.getEventExercise(id);
   }
+
   @UseGuards(JwtRefreshGuard)
   @Get('exerciseTemplate/:id')
   getExerciseTemplateWithExerciseId(@Param('id') id: string) {
     return this.exerciseService.getExerciseTemplateWithExerciseId(id);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('exerciseTemplate')
+  createExerciseTemplate(
+    @Body() createExerciseTemplateDto: ExerciseTemplateDto,
+  ) {
+    return this.exerciseService.createExerciseTemplate(
+      createExerciseTemplateDto,
+    );
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('exerciseTemplate')
+  updateExerciseTemplate(
+    @Body() updateExerciseTemplateDto: ExerciseTemplateDto,
+  ) {
+    return this.exerciseService.updateExerciseTemplate(
+      updateExerciseTemplateDto,
+    );
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Delete('exerciseTemplate/:id')
+  deleteExerciseTemplate(@Param('id') id: string) {
+    return this.exerciseService.deleteExerciseTemplate(id);
   }
 }

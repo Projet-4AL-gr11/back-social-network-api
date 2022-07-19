@@ -11,10 +11,17 @@ import { ExerciseService } from './exercise.service';
 import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/get-exercise-template-with-exercise-id.handler';
 import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-template.handler';
 import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { CreateExerciseTemplateHandler } from './cqrs/handler/command/create-exercise-template.handler';
+import { CreateExerciseTemplateEventHandler } from './cqrs/event-handler/create-exercise-template.event-handler';
+import { UpdateExerciseTemplateHandler } from './cqrs/handler/command/update-exercise-template.handler';
+import { UpdateExerciseTemplateEventHandler } from './cqrs/event-handler/update-exercise-template.event-handler';
+import { RemoveExerciseTemplateHandler } from './cqrs/handler/command/remove-exercise-template.handler';
+import { RemoveExerciseTemplateEventHandler } from './cqrs/event-handler/remove-exercise-template.event-handler';
+import { Language } from '../language/domain/entities/language.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Exercise, ExerciseTemplate, Event]),
+    TypeOrmModule.forFeature([Exercise, ExerciseTemplate, Event, Language]),
     CqrsModule,
   ],
   controllers: [ExerciseController],
@@ -24,6 +31,12 @@ import { ErrorEventHandler } from '../../util/error/error.event-handler';
     GetEventExerciseHandler,
     GetExerciseTemplateWithExerciseIdHandler,
     GetExerciseTemplateHandler,
+    CreateExerciseTemplateHandler,
+    CreateExerciseTemplateEventHandler,
+    UpdateExerciseTemplateHandler,
+    UpdateExerciseTemplateEventHandler,
+    RemoveExerciseTemplateHandler,
+    RemoveExerciseTemplateEventHandler,
     ErrorEventHandler,
   ],
 })
