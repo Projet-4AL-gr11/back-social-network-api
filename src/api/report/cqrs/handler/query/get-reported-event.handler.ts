@@ -20,12 +20,14 @@ export class GetReportedEventHandler
       return this.reportRepository
         .createQueryBuilder()
         .leftJoinAndSelect('ReportedEvent', 'Event')
+        .leftJoinAndSelect('Event.owner', 'User')
         .where('Event.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
       .leftJoinAndSelect('ReportedEvent', 'Event')
+      .leftJoinAndSelect('Event.owner', 'User')
       .where('Event != null')
       .getMany();
   }

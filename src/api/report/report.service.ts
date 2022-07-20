@@ -24,6 +24,11 @@ import { GetReportedEventQuery } from './cqrs/query/get-reported-event.query';
 import { GetReportedGroupQuery } from './cqrs/query/get-reported-group.query';
 import { GetReportedPostQuery } from './cqrs/query/get-reported-post.query';
 import { GetReportedUserQuery } from './cqrs/query/get-reported-user.query';
+import { GetCountReportQuery } from './cqrs/query/get-count-report.query';
+import { Exercise } from '../exercices/domain/entities/exercise.entity';
+import { GetExerciseQuery } from '../exercices/cqrs/query/get-exercise.query';
+import { GetReportedExerciseQuery } from './cqrs/query/get-reported-exercise.query';
+import { CreateReportExerciseCommand } from './cqrs/command/create-report-exercise.command';
 
 @Injectable()
 export class ReportService {
@@ -111,7 +116,16 @@ export class ReportService {
   }
 
   async getReportedComments(): Promise<Report[]> {
-    return await this.queryBus.execute(new GetReportedCommentQuery());
+    return await this.queryBus
+      .execute(new GetReportedCommentQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
   }
 
   async getReportedEvent(id: string): Promise<Report[]> {
@@ -119,7 +133,16 @@ export class ReportService {
   }
 
   async getReportedEvents(): Promise<Report[]> {
-    return await this.queryBus.execute(new GetReportedEventQuery());
+    return await this.queryBus
+      .execute(new GetReportedEventQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
   }
 
   async getReportedGroup(id: string): Promise<Report[]> {
@@ -127,7 +150,16 @@ export class ReportService {
   }
 
   async getReportedGroups(): Promise<Report[]> {
-    return await this.queryBus.execute(new GetReportedGroupQuery());
+    return await this.queryBus
+      .execute(new GetReportedGroupQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
   }
 
   async getReportedPost(id: string): Promise<Report[]> {
@@ -135,7 +167,16 @@ export class ReportService {
   }
 
   async getReportedPosts(): Promise<Report[]> {
-    return await this.queryBus.execute(new GetReportedPostQuery());
+    return await this.queryBus
+      .execute(new GetReportedPostQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
   }
 
   async getReportedUser(id: string): Promise<Report[]> {
@@ -143,6 +184,42 @@ export class ReportService {
   }
 
   async getReportedUsers(): Promise<Report[]> {
-    return await this.queryBus.execute(new GetReportedUserQuery());
+    return await this.queryBus
+      .execute(new GetReportedUserQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
+  }
+
+  async createReportExercise(id: string, reportDto: ReportRequestDto) {
+    const creator: User = await this.queryBus.execute(new GetUserQuery(id));
+    const exercise: Exercise = await this.queryBus.execute(
+      new GetExerciseQuery(reportDto.reportedExercise),
+    );
+    return await this.commandBus.execute(
+      new CreateReportExerciseCommand(creator, exercise, reportDto.text),
+    );
+  }
+
+  async getReportedExercise(id: string) {
+    return await this.queryBus.execute(new GetReportedExerciseQuery(id));
+  }
+
+  async getReportedExercises() {
+    return await this.queryBus
+      .execute(new GetReportedExerciseQuery())
+      .then(async (reports) => {
+        for (const report of reports) {
+          await this.queryBus
+            .execute(new GetCountReportQuery(report))
+            .then((nbReport) => (report.nbReport = nbReport));
+        }
+        return reports;
+      });
   }
 }

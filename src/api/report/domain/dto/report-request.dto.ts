@@ -7,5 +7,6 @@ export class ReportRequestDto {
     public readonly reportedGroup?: string,
     public readonly reportedPost?: string,
     public readonly reportedUser?: string,
+    public readonly reportedExercise?: string,
   ) {}
 }

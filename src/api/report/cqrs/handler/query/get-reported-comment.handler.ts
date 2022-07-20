@@ -20,12 +20,16 @@ export class GetReportedCommentHandler
       return this.reportRepository
         .createQueryBuilder()
         .leftJoinAndSelect('ReportedComment', 'Comment')
+        .leftJoinAndSelect('Comment.post', 'Post')
+        .leftJoinAndSelect('Comment.creator', 'User')
         .where('Comment.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
       .leftJoinAndSelect('ReportedComment', 'Comment')
+      .leftJoinAndSelect('Comment.post', 'Post')
+      .leftJoinAndSelect('Comment.creator', 'User')
       .where('Comment != null')
       .getMany();
   }

@@ -8,6 +8,7 @@ import {
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
 import { ExerciseTemplate } from './exercise-template.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class Exercise {
@@ -35,4 +36,10 @@ export class Exercise {
     },
   )
   exerciseTemplate: ExerciseTemplate;
+
+  @OneToMany(() => Report, (report) => report.reportedExercise, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  reported: Report[];
 }
