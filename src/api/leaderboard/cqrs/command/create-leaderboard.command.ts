@@ -6,5 +6,6 @@ export class CreateLeaderboardCommand {
     public readonly user: User,
     public readonly userEntry: string,
     public readonly exercise: Exercise,
+    public readonly timerScore: number,
   ) {}
 }

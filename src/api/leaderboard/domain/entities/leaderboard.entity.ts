@@ -17,6 +17,9 @@ export class Leaderboard {
   @Column()
   userEntry: string;
 
+  @Column()
+  timerScore: number;
+
   @CreateDateColumn()
   createdDate: Date;
 

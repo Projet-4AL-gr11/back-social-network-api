@@ -25,6 +25,7 @@ export class CreateLeaderboardHandler
           user: command.user,
           exercise: command.exercise,
           userEntry: command.userEntry,
+          timerScore: command.timerScore,
         });
         const err = await validate(leaderboard, {
           validationError: { target: false },
@@ -45,7 +46,6 @@ export class CreateLeaderboardHandler
         );
         return newLeaderboard;
       } else {
-        // TODO: retourné une vrai erreur
         throw 'Exercise have finished';
       }
     } catch (error) {

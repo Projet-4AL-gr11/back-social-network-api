@@ -15,6 +15,7 @@ import { Event } from '../event/domain/entities/event.entity';
 import { GetEventQuery } from '../event/cqrs/query/get-event.query';
 import { UpdateEventRankingCommand } from './cqrs/command/update-event-ranking.command';
 import { GetEventRankingQuery } from './cqrs/query/get-event-ranking.query';
+import { GetLeaderboardWithOrderQuery } from "./cqrs/query/get-leaderboard-with-order.query";
 
 @Injectable()
 export class LeaderboardService {
@@ -34,6 +35,7 @@ export class LeaderboardService {
         user,
         createLeaderBoardDto.userEntry,
         exercise,
+        createLeaderBoardDto.timerScore,
       ),
     );
   }
@@ -64,12 +66,13 @@ export class LeaderboardService {
   }
 
   async updateLeaderBoardRanking(exerciseId: string): Promise<Leaderboard[]> {
-    const leaderboards: Leaderboard[] = await this.getLeaderboardForExercise(
-      exerciseId,
-    );
-    await this.commandBus.execute(
-      new UpdateLeaderboardExerciseRankingCommand(exerciseId, leaderboards),
-    );
+    const leaderboards: Leaderboard[] =
+      await this.getLeaderboardForExerciseWithOrder(exerciseId);
+    if (leaderboards.length > 0) {
+      await this.commandBus.execute(
+        new UpdateLeaderboardExerciseRankingCommand(exerciseId, leaderboards),
+      );
+    }
     return await this.getLeaderboardForExercise(exerciseId);
   }
 
@@ -92,5 +95,11 @@ export class LeaderboardService {
 
   async getEventRanking(id: string) {
     return this.queryBus.execute(new GetEventRankingQuery(id));
+  }
+
+  private async getLeaderboardForExerciseWithOrder(exerciseId: string) {
+    return await this.queryBus.execute(
+      new GetLeaderboardWithOrderQuery(exerciseId),
+    );
   }
 }
