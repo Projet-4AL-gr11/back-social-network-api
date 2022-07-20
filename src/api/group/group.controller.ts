@@ -13,6 +13,7 @@ import { GroupService } from './group.service';
 import { GroupDto } from './domain/dto/group.dto';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { UserType } from '../user/domain/enum/user-type.enum';
 
 @Controller('group')
 export class GroupController {
@@ -105,7 +106,8 @@ export class GroupController {
     const { user } = request;
     if (
       this.groupService.isUserAdmin(id, user.id) ||
-      this.groupService.isUserOwner(id, user.id)
+      this.groupService.isUserOwner(id, user.id) ||
+      user.userType == UserType.ADMIN
     ) {
       return this.groupService.update(id, groupDto);
     }
@@ -133,7 +135,8 @@ export class GroupController {
     if (
       this.groupService.isUserOwner(groupId, user.id) ||
       this.groupService.isUserAdmin(groupId, user.id) ||
-      user.id === userId
+      user.id === userId ||
+      user.userType == UserType.ADMIN
     ) {
       return this.groupService.removeUser(groupId, userId);
     }
@@ -183,7 +186,8 @@ export class GroupController {
     const { user } = request;
     if (
       this.groupService.isUserOwner(groupId, user.id) ||
-      this.groupService.isUserAdmin(groupId, user.id)
+      this.groupService.isUserAdmin(groupId, user.id) ||
+      user.userType == UserType.ADMIN
     ) {
       return this.groupService.giveAdminRight(groupId, userId);
     }
@@ -202,7 +206,8 @@ export class GroupController {
     const { user } = request;
     if (
       this.groupService.isUserOwner(groupId, user.id) ||
-      this.groupService.isUserAdmin(groupId, user.id)
+      this.groupService.isUserAdmin(groupId, user.id) ||
+      user.userType == UserType.ADMIN
     ) {
       return this.groupService.removeAdminRight(groupId, userId);
     }
@@ -219,7 +224,8 @@ export class GroupController {
     @Param('userId') userId: string,
   ) {
     const { user } = request;
-    if (this.groupService.isUserOwner(groupId, user.id)) {
+    if (this.groupService.isUserOwner(groupId, user.id) ||
+      user.userType == UserType.ADMIN) {
       return this.groupService.giveGroupOwnership(groupId, user.id, userId);
     }
     return new Error(

@@ -110,6 +110,17 @@ export class ReportController {
     return this.reportService.createReportUser(user.id, reportDto);
   }
 
+  // Post
+  @Get('user/:id')
+  getReportedPost(@Param('id') id: string) {
+    return this.reportService.getReportedPost(id);
+  }
+
+  @Get('users')
+  getReportedPosts() {
+    return this.reportService.getReportedPosts();
+  }
+
   @Post('post')
   @UseGuards(JwtRefreshGuard)
   createReportPost(
@@ -118,5 +129,26 @@ export class ReportController {
   ) {
     const { user } = request;
     return this.reportService.createReportPost(user.id, reportDto);
+  }
+
+  // Exercise
+  @Get('exercise/:id')
+  getReportedExercise(@Param('id') id: string) {
+    return this.reportService.getReportedExercise(id);
+  }
+
+  @Get('exercises')
+  getReportedExercises() {
+    return this.reportService.getReportedExercises();
+  }
+
+  @Post('exercise')
+  @UseGuards(JwtRefreshGuard)
+  createReportExercise(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportExercise(user.id, reportDto);
   }
 }

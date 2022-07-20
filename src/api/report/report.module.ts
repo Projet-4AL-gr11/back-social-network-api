@@ -28,10 +28,23 @@ import { CreateReportPostEventHandler } from './cqrs/event-handler/create-report
 import { CreateReportUserEventHandler } from './cqrs/event-handler/create-report-user.event-handler';
 import { DeleteReportEventHandler } from './cqrs/event-handler/delete-report.event-handler';
 import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { GetCountReportHandler } from './cqrs/handler/query/get-count-report.handler';
+import { GetReportedExerciseHandler } from './cqrs/handler/query/get-reported-exercise.handler';
+import { CreateReportExerciseHandler } from './cqrs/handler/command/create-report-exercise.handler';
+import { CreateReportExerciseEventHandler } from './cqrs/event-handler/create-report-exercise.event-handler';
+import { Exercise } from '../exercices/domain/entities/exercise.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Report, User, Comment, Event, Group, Post]),
+    TypeOrmModule.forFeature([
+      Report,
+      User,
+      Comment,
+      Event,
+      Group,
+      Post,
+      Exercise,
+    ]),
     CqrsModule,
   ],
   controllers: [ReportController],
@@ -55,6 +68,10 @@ import { ErrorEventHandler } from '../../util/error/error.event-handler';
     CreateReportPostEventHandler,
     CreateReportUserEventHandler,
     DeleteReportEventHandler,
+    GetCountReportHandler,
+    GetReportedExerciseHandler,
+    CreateReportExerciseHandler,
+    CreateReportExerciseEventHandler,
     ErrorEventHandler,
   ],
 })
