@@ -4,5 +4,6 @@ export class CreateLeaderboardDto {
     public readonly userEntry: string,
     public readonly exerciseId: string,
     public readonly timerScore: number,
+    public readonly executionId: string,
   ) {}
 }

@@ -46,6 +46,7 @@ export class LeaderboardService {
         createLeaderBoardDto.userEntry,
         exercise,
         createLeaderBoardDto.timerScore,
+        createLeaderBoardDto.executionId,
       ),
     );
   }
@@ -137,6 +138,7 @@ export class LeaderboardService {
         executeRequestDto.code,
         executeRequestDto.exerciseId,
         executeRequestDto.timerScore,
+        execDto.execution_id,
       );
       await this.createLeaderboard(createLeaderboardDto).then(async () => {
         await this.updateEventRanking(

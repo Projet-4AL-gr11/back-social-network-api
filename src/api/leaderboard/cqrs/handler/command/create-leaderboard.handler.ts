@@ -26,6 +26,7 @@ export class CreateLeaderboardHandler
           exercise: command.exercise,
           userEntry: command.userEntry,
           timerScore: command.timerScore,
+          executionId: command.executionId,
         });
         const err = await validate(leaderboard, {
           validationError: { target: false },
@@ -42,6 +43,7 @@ export class CreateLeaderboardHandler
             leaderboard.user.id,
             leaderboard.exercise.id,
             leaderboard.language.name,
+            leaderboard.executionId,
           ),
         );
         return newLeaderboard;
