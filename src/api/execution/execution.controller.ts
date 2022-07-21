@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { LeaderboardService } from './leaderboard.service';
+import { ExecutionService } from './execution.service';
 import { CreateLeaderboardDto } from './domain/dto/create-leaderboard.dto';
 import { Leaderboard } from './domain/entities/leaderboard.entity';
 import { EventRanking } from './domain/entities/event-ranking.entity';
@@ -17,30 +17,30 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { ExecuteRequestDto } from './domain/dto/execute-request.dto';
 
-@Controller('leaderboard')
-export class LeaderboardController {
-  constructor(private leaderboardService: LeaderboardService) {}
+@Controller('execution')
+export class ExecutionController {
+  constructor(private executionService: ExecutionService) {}
 
   @Get(':id')
   async getLeaderboardById(@Param('id') id: string): Promise<Leaderboard> {
-    return await this.leaderboardService.getById(id);
+    return await this.executionService.getById(id);
   }
 
   @Get('leaderboardExercise/:id')
   async getLeaderboardExercise(
     @Param('id') id: string,
   ): Promise<Leaderboard[]> {
-    return await this.leaderboardService.getLeaderboardForExercise(id);
+    return await this.executionService.getLeaderboardForExercise(id);
   }
 
   @Get('event/ranking/:id')
   async getEventRanking(@Param('id') id: string): Promise<EventRanking[]> {
-    return await this.leaderboardService.getEventRanking(id);
+    return await this.executionService.getEventRanking(id);
   }
 
   @Get('allLeaderboardUser/:id')
   async getAllLeaderboardUser(@Param('id') id: string): Promise<Leaderboard[]> {
-    return await this.leaderboardService.getLeaderboardForUser(id);
+    return await this.executionService.getLeaderboardForUser(id);
   }
 
   @Get('allLeaderboardUser/:id')
@@ -48,7 +48,7 @@ export class LeaderboardController {
     @Param('id') id: string,
     @Body() exerciseId: string,
   ): Promise<Leaderboard> {
-    return await this.leaderboardService.getLeaderboardForUserWithExerciseId(
+    return await this.executionService.getLeaderboardForUserWithExerciseId(
       id,
       exerciseId,
     );
@@ -58,22 +58,22 @@ export class LeaderboardController {
   async create(
     @Body() createLeaderboardDto: CreateLeaderboardDto,
   ): Promise<Leaderboard> {
-    return this.leaderboardService.createLeaderboard(createLeaderboardDto);
+    return this.executionService.createLeaderboard(createLeaderboardDto);
   }
 
-  @Put('leaderboard/:id')
+  @Put('execution/:id')
   async updateLeaderboard(@Param('id') id: string): Promise<Leaderboard[]> {
-    return this.leaderboardService.updateLeaderBoardRanking(id);
+    return this.executionService.updateLeaderBoardRanking(id);
   }
 
   @Put('eventRanking/:id')
   async updateEventRanking(@Param('id') id: string): Promise<void> {
-    return this.leaderboardService.updateEventRanking(id);
+    return this.executionService.updateEventRanking(id);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
-    return await this.leaderboardService.deleteLeaderboard(id);
+    return await this.executionService.deleteLeaderboard(id);
   }
 
   @Post('execute')
@@ -84,12 +84,12 @@ export class LeaderboardController {
   ) {
     const { user } = request;
     executeRequestDto.user = user;
-    return this.leaderboardService.execCode(executeRequestDto);
+    return this.executionService.execCode(executeRequestDto);
   }
 
   @UseGuards(JwtRefreshGuard)
   @Get()
   findAllExec() {
-    return this.leaderboardService.findAllExec();
+    return this.executionService.findAllExec();
   }
 }

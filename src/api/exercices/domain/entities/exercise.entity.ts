@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from '../../../event/domain/entities/event.entity';
-import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
+import { Leaderboard } from '../../../execution/domain/entities/leaderboard.entity';
 import { ExerciseTemplate } from './exercise-template.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
 

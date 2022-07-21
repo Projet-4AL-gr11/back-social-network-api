@@ -30,7 +30,7 @@ import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.com
 import { ExecutionFileDto } from './domain/dto/execution-file.dto';
 
 @Injectable()
-export class LeaderboardService {
+export class ExecutionService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
   async createLeaderboard(

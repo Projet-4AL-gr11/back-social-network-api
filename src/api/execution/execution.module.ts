@@ -5,8 +5,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Leaderboard } from './domain/entities/leaderboard.entity';
 import { EventRanking } from './domain/entities/event-ranking.entity';
 import { Event } from '../event/domain/entities/event.entity';
-import { LeaderboardController } from './leaderboard.controller';
-import { LeaderboardService } from './leaderboard.service';
+import { ExecutionService } from './execution.service';
 import { CreateLeaderboardHandler } from './cqrs/handler/command/create-leaderboard.handler';
 import { DeleteLeaderboardHandler } from './cqrs/handler/command/delete-leaderboard.handler';
 import { UpdateEventRankingHandler } from './cqrs/handler/command/update-event-ranking.handler';
@@ -28,6 +27,7 @@ import { Exercise } from '../exercices/domain/entities/exercise.entity';
 import { ExecutionFile } from "./domain/entities/execution-file.entity";
 import { SaveExecutionFileHandler } from "./cqrs/handler/command/save-execution-file.handler";
 import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-execution-file.event-handler";
+import { ExecutionController } from "./execution.controller";
 
 @Module({
   imports: [
@@ -42,9 +42,9 @@ import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-executi
     ]),
     CqrsModule,
   ],
-  controllers: [LeaderboardController],
+  controllers: [ExecutionController],
   providers: [
-    LeaderboardService,
+    ExecutionService,
     CreateLeaderboardHandler,
     DeleteLeaderboardHandler,
     UpdateEventRankingHandler,
@@ -65,4 +65,4 @@ import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-executi
     SaveExecutionFileEventHandler,
   ],
 })
-export class LeaderboardModule {}
+export class ExecutionModule {}
