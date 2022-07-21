@@ -28,6 +28,7 @@ import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.command';
 import { ExecutionFileDto } from './domain/dto/execution-file.dto';
+import { GetLeaderboardForUserWithExerciseIdHandler } from './cqrs/handler/query/get-leaderboard-for-user-with-exercise-id.handler';
 
 @Injectable()
 export class ExecutionService {
@@ -117,55 +118,68 @@ export class ExecutionService {
   }
 
   async execCode(executeRequestDto: ExecuteRequestDto) {
-    const execDto: ExecuteDto = new ExecuteDto();
-    const exerciseTemplate: ExerciseTemplate = await this.commandBus.execute(
-      new GetExerciseTemplateWithExerciseIdQuery(executeRequestDto.exerciseId),
-    );
-    execDto.execution_id = uuidv4();
-    execDto.code = exerciseTemplate.code.replace(
-      ExecPatternEnum.EXEC_CODE,
-      executeRequestDto.code,
-    );
-    execDto.language = executeRequestDto.language;
-    execDto.userId = executeRequestDto.user.id;
-
-    const execResponse: ExecuteResultDto = await this.commandBus.execute(
-      new SendCodeToExecApiCommand(execDto),
-    );
-    if (execResponse.error != null) {
-      return new ExecuteResponseDto(execResponse.error, false);
-    } else if (execResponse.result.result == 'EverythingIsGood') {
-      const createLeaderboardDto = new CreateLeaderboardDto(
-        executeRequestDto.user.id,
-        executeRequestDto.code,
-        executeRequestDto.exerciseId,
-        executeRequestDto.timerScore,
-        execDto.execution_id,
-      );
-      const newLeaderBoard: Leaderboard = await this.createLeaderboard(
-        createLeaderboardDto,
-      ).then(async (leaderboard) => {
-        await this.updateEventRanking(
-          await this.queryBus
-            .execute(new GetExerciseQuery(executeRequestDto.exerciseId))
-            .then((exercise) => {
-              return exercise.event.id;
-            }),
-        );
-        return leaderboard;
-      });
-      await this.commandBus.execute(
-        new SaveExecutionFileCommand(
-          new ExecutionFileDto(
-            new Buffer(executeRequestDto.code),
-            newLeaderBoard.id,
-            execDto.execution_id,
-          ),
+    if (
+      (await this.queryBus.execute(
+        new GetLeaderboardForUserWithExerciseIdQuery(
+          executeRequestDto.exerciseId,
+          executeRequestDto.user.id,
+        ),
+      )) != null
+    ) {
+      const execDto: ExecuteDto = new ExecuteDto();
+      const exerciseTemplate: ExerciseTemplate = await this.queryBus.execute(
+        new GetExerciseTemplateWithExerciseIdQuery(
+          executeRequestDto.exerciseId,
         ),
       );
-      return new ExecuteResponseDto(execResponse.result.result, true);
+      execDto.execution_id = Number(Date.now());
+      execDto.code = exerciseTemplate.code.replace(
+        ExecPatternEnum.EXEC_CODE,
+        executeRequestDto.code,
+      );
+      execDto.language = executeRequestDto.language;
+      execDto.userId = executeRequestDto.user.id;
+
+      const execResponse: ExecuteResultDto = await this.commandBus.execute(
+        new SendCodeToExecApiCommand(execDto),
+      );
+      if (execResponse.error != null) {
+        return new ExecuteResponseDto(execResponse.error, false);
+      } else if (execResponse.result.result == 'EverythingIsGood\n') {
+        const createLeaderboardDto = new CreateLeaderboardDto(
+          executeRequestDto.user.id,
+          executeRequestDto.code,
+          executeRequestDto.exerciseId,
+          executeRequestDto.timerScore,
+          execDto.execution_id,
+        );
+        const newLeaderBoard: Leaderboard = await this.createLeaderboard(
+          createLeaderboardDto,
+        ).then(async (leaderboard) => {
+          await this.updateEventRanking(
+            await this.queryBus
+              .execute(new GetExerciseQuery(executeRequestDto.exerciseId))
+              .then((exercise) => {
+                return exercise.event.id;
+              }),
+          );
+          return leaderboard;
+        });
+        await this.commandBus.execute(
+          new SaveExecutionFileCommand(
+            new ExecutionFileDto(
+              Buffer.from(executeRequestDto.code),
+              newLeaderBoard.id,
+              String(execDto.execution_id),
+            ),
+          ),
+        );
+        return new ExecuteResponseDto(execResponse.result.result, true);
+      } else {
+        return new ExecuteResponseDto(execResponse.result.result, false);
+      }
     } else {
-      return new ExecuteResponseDto(execResponse.result.result, false);
+      return "Error: Vous avez déjà participé a l'exercise";
     }
   }
 

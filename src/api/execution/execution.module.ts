@@ -28,6 +28,8 @@ import { ExecutionFile } from "./domain/entities/execution-file.entity";
 import { SaveExecutionFileHandler } from "./cqrs/handler/command/save-execution-file.handler";
 import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-execution-file.event-handler";
 import { ExecutionController } from "./execution.controller";
+import { GetExerciseTemplateHandler } from "../exercices/cqrs/handler/query/get-exercise-template.handler";
+import { GetLeaderboardWithOrderHandler } from "./cqrs/handler/query/get-leaderboard-with-order.handler";
 
 @Module({
   imports: [
@@ -63,6 +65,7 @@ import { ExecutionController } from "./execution.controller";
     SendCodeToExecApiEventHandler,
     SaveExecutionFileHandler,
     SaveExecutionFileEventHandler,
+    GetLeaderboardWithOrderHandler
   ],
 })
 export class ExecutionModule {}

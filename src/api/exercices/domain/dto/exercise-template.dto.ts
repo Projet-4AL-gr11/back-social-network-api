@@ -1,7 +1,7 @@
 export class ExerciseTemplateDto {
   id?: string;
   name: string;
-  languageId: string;
+  language: string;
   description: string;
   code: string;
 }

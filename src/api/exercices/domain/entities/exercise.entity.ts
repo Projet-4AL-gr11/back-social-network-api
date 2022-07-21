@@ -18,12 +18,14 @@ export class Exercise {
   @Column()
   name: string;
 
-  @ManyToOne(() => Event, (event) => event.exercises, {})
+  @ManyToOne(() => Event, (event) => event.exercises, {
+    eager: true,
+  })
   event: Event;
 
   @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.exercise, {
     cascade: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   })
   leaderboards: Leaderboard[];
 
@@ -33,13 +35,14 @@ export class Exercise {
     {
       eager: true,
       nullable: false,
+      onDelete: 'CASCADE',
+
     },
   )
   exerciseTemplate: ExerciseTemplate;
 
   @OneToMany(() => Report, (report) => report.reportedExercise, {
-    cascade: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   })
   reported: Report[];
 }
