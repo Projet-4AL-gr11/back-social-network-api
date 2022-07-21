@@ -37,8 +37,8 @@ export class ExerciseService {
   }
 
   async createExerciseTemplate(createExerciseTemplateDto: ExerciseTemplateDto) {
-    const language = await this.commandBus.execute(
-      new GetLanguageQuery(createExerciseTemplateDto.languageId),
+    const language = await this.queryBus.execute(
+      new GetLanguageQuery(createExerciseTemplateDto.language),
     );
     return this.commandBus.execute(
       new CreateExerciseTemplateCommand(
@@ -51,8 +51,8 @@ export class ExerciseService {
   }
 
   async updateExerciseTemplate(updateExerciseTemplateDto: ExerciseTemplateDto) {
-    const language = await this.commandBus.execute(
-      new GetLanguageQuery(updateExerciseTemplateDto.languageId),
+    const language = await this.queryBus.execute(
+      new GetLanguageQuery(updateExerciseTemplateDto.language),
     );
     return this.commandBus.execute(
       new UpdateExerciseTemplateCommand(

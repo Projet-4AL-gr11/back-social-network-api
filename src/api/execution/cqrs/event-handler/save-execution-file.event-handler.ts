@@ -14,14 +14,14 @@ export class SaveExecutionFileEventHandler
       'User with id ( ' +
         event.executionFileDto.ownerId +
         ' ) upload new execution file with name ' +
-        event.executionFileDto.fileName,
+        event.executionFileDto.executionId,
     );
 
     this.logger_console.log(
       'User with id ( ' +
         event.executionFileDto.ownerId +
         ' ) upload new execution file with name ' +
-        event.executionFileDto.fileName,
+        event.executionFileDto.executionId,
     );
   }
 }

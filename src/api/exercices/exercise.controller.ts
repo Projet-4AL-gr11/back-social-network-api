@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
@@ -56,7 +57,7 @@ export class ExerciseController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('exerciseTemplate')
+  @Put('exerciseTemplate')
   updateExerciseTemplate(
     @Body() updateExerciseTemplateDto: ExerciseTemplateDto,
   ) {

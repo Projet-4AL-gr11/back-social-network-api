@@ -30,7 +30,7 @@ export class SaveExecutionFileHandler
         .upload({
           Bucket: process.env.AWS_PRIVATE_BUCKET_NAME_EXERCISE,
           Body: command.executionFileDto.dataBuffer,
-          Key: `${uuid()}-${command.executionFileDto.fileName}`,
+          Key: `${uuid()}-${command.executionFileDto.executionId}`,
         })
         .promise();
 
@@ -39,9 +39,10 @@ export class SaveExecutionFileHandler
         leaderboard: {
           id: command.executionFileDto.ownerId,
         },
+        executionId: command.executionFileDto.executionId,
       });
       await this.executionFileRepository.save(newFile);
-      command.executionFileDto.fileName = newFile.key;
+      command.executionFileDto.executionId = newFile.key;
       this.eventBus.publish(
         new SaveExecutionFileEvent(command.executionFileDto),
       );

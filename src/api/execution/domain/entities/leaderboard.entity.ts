@@ -23,7 +23,7 @@ export class Leaderboard {
   timerScore: number;
 
   @Column({ nullable: true })
-  executionId: string;
+  executionId: number;
 
   @CreateDateColumn()
   createdDate: Date;

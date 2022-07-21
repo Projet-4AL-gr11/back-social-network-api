@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Leaderboard } from './leaderboard.entity';
 
 @Entity()
@@ -12,6 +12,7 @@ export class ExecutionFile {
   @Column()
   executionId: string;
 
+  @JoinColumn()
   @OneToOne(() => Leaderboard, (leaderboard) => leaderboard.userEntryFile)
   leaderboard: Leaderboard;
 }

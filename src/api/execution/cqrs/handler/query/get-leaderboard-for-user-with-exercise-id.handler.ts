@@ -18,8 +18,8 @@ export class GetLeaderboardForUserWithExerciseIdHandler
   ): Promise<Leaderboard> {
     return await this.leaderboardRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('user', 'User')
-      .leftJoinAndSelect('exercise', 'Exercise')
+      .leftJoinAndSelect('Leaderboard.user', 'User')
+      .leftJoinAndSelect('Leaderboard.exercise', 'Exercise')
       .where('User.id=:id', { id: query.userId })
       .andWhere('Exercise.id=:id', { id: query.exerciseId })
       .getOne();

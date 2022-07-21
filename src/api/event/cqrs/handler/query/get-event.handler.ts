@@ -15,6 +15,8 @@ export class GetEventHandler implements IQueryHandler<GetEventQuery> {
     if (query.eventId) {
       return this.eventRepository
         .createQueryBuilder()
+        .leftJoinAndSelect('Event.exercises', 'Exercises')
+        .leftJoinAndSelect('Event.participants', 'Users')
         .where('Event.id=:id', { id: query.eventId })
         .getOne();
     }
