@@ -23,7 +23,7 @@ import { Media } from '../../../media/domain/entities/media.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
-import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
+import { EventRanking } from '../../../execution/domain/entities/event-ranking.entity';
 
 @Entity()
 export class Event {

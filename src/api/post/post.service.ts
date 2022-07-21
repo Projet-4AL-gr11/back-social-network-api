@@ -23,11 +23,7 @@ import { GetGroupPostQuery } from './cqrs/query/get-group-post.query';
 export class PostService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  async createPost(
-    userId: string,
-    postDto: PostDto,
-    groupId?: string,
-  ): Promise<Post> {
+  async createPost(userId: string, postDto: PostDto, groupId?: string): Promise<Post> {
     let post: Post;
 
     const user = await this.queryBus.execute(new GetUserQuery(userId));

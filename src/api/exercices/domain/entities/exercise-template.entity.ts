@@ -29,8 +29,6 @@ export class ExerciseTemplate {
   language: Language;
 
   @OneToMany(() => Exercise, (exercise) => exercise.exerciseTemplate, {
-    cascade: true,
-    onDelete: 'SET NULL',
   })
   exercises: Exercise[];
 }

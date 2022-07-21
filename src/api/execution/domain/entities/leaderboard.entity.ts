@@ -3,19 +3,27 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../../user/domain/entities/user.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Language } from '../../../language/domain/entities/language.entity';
+import { ExecutionFile } from './execution-file.entity';
 
 @Entity()
 export class Leaderboard {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  userEntry: string;
+  @OneToOne(() => ExecutionFile, (executionFile) => executionFile.leaderboard)
+  userEntryFile: ExecutionFile;
+
+  @Column({ nullable: true })
+  timerScore: number;
+
+  @Column({ nullable: true })
+  executionId: number;
 
   @CreateDateColumn()
   createdDate: Date;

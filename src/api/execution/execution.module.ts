@@ -5,8 +5,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Leaderboard } from './domain/entities/leaderboard.entity';
 import { EventRanking } from './domain/entities/event-ranking.entity';
 import { Event } from '../event/domain/entities/event.entity';
-import { LeaderboardController } from './leaderboard.controller';
-import { LeaderboardService } from './leaderboard.service';
+import { ExecutionService } from './execution.service';
 import { CreateLeaderboardHandler } from './cqrs/handler/command/create-leaderboard.handler';
 import { DeleteLeaderboardHandler } from './cqrs/handler/command/delete-leaderboard.handler';
 import { UpdateEventRankingHandler } from './cqrs/handler/command/update-event-ranking.handler';
@@ -21,15 +20,33 @@ import { DeleteLeaderboardEventHandler } from './cqrs/event-handler/delete-leade
 import { UpdateEventRankingEventHandler } from './cqrs/event-handler/update-event-ranking.event-handler';
 import { UpdateLeaderboardExerciseRankingEventHandler } from './cqrs/event-handler/update-leaderboard-exercise-ranking.event-handler';
 import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { SendCodeToExecApiHandler } from './cqrs/handler/command/send-code-to-exec-api.handler';
+import { SendCodeToExecApiEventHandler } from './cqrs/event-handler/send-code-to-exec-api.event-handler';
+import { ExerciseTemplate } from '../exercices/domain/entities/exercise-template.entity';
+import { Exercise } from '../exercices/domain/entities/exercise.entity';
+import { ExecutionFile } from "./domain/entities/execution-file.entity";
+import { SaveExecutionFileHandler } from "./cqrs/handler/command/save-execution-file.handler";
+import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-execution-file.event-handler";
+import { ExecutionController } from "./execution.controller";
+import { GetExerciseTemplateHandler } from "../exercices/cqrs/handler/query/get-exercise-template.handler";
+import { GetLeaderboardWithOrderHandler } from "./cqrs/handler/query/get-leaderboard-with-order.handler";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Leaderboard, EventRanking, Event]),
+    TypeOrmModule.forFeature([
+      User,
+      Leaderboard,
+      EventRanking,
+      Event,
+      ExerciseTemplate,
+      Exercise,
+      ExecutionFile,
+    ]),
     CqrsModule,
   ],
-  controllers: [LeaderboardController],
+  controllers: [ExecutionController],
   providers: [
-    LeaderboardService,
+    ExecutionService,
     CreateLeaderboardHandler,
     DeleteLeaderboardHandler,
     UpdateEventRankingHandler,
@@ -44,6 +61,11 @@ import { ErrorEventHandler } from '../../util/error/error.event-handler';
     UpdateEventRankingEventHandler,
     UpdateLeaderboardExerciseRankingEventHandler,
     ErrorEventHandler,
+    SendCodeToExecApiHandler,
+    SendCodeToExecApiEventHandler,
+    SaveExecutionFileHandler,
+    SaveExecutionFileEventHandler,
+    GetLeaderboardWithOrderHandler
   ],
 })
-export class LeaderboardModule {}
+export class ExecutionModule {}

@@ -17,8 +17,9 @@ export class CreateLeaderboardEventHandler
         event.userId +
         ' ) for exercise with id : ( ' +
         event.exerciseId +
-        ' ) with language : ' +
-        event.language,
+        ' ) with executionId : ( ' +
+        event.executionId +
+        ' )',
     );
 
     this.logger_console.log(
@@ -28,8 +29,9 @@ export class CreateLeaderboardEventHandler
         event.userId +
         ' ) for exercise with id : ( ' +
         event.exerciseId +
-        ' ) with language : ' +
-        event.language,
+        ' ) with executionId : ( ' +
+        event.executionId +
+        ' )',
     );
   }
 }

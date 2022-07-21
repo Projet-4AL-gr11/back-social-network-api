@@ -16,7 +16,7 @@ import { EventModule } from './api/event/event.module';
 import { PostModule } from './api/post/post.module';
 import { CommentModule } from './api/comment/comment.module';
 import { ReportModule } from './api/report/report.module';
-import { LeaderboardModule } from './api/leaderboard/leaderboard.module';
+import { ExecutionModule } from './api/execution/execution.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseConfiguration } from './database.configuration';
 import { SearchModule } from './api/search/search.module';
@@ -42,7 +42,7 @@ config();
     PostModule,
     CommentModule,
     ReportModule,
-    LeaderboardModule,
+    ExecutionModule,
     SearchModule,
   ],
   controllers: [AppController],

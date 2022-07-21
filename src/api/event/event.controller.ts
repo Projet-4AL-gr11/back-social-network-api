@@ -119,7 +119,6 @@ export class EventController {
     }
   }
 
-  // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
   @UseGuards(JwtRefreshGuard)
   async delete(
@@ -140,13 +139,13 @@ export class EventController {
     return this.eventService.addParticipant(id, userId);
   }
 
-  @Put('participant/:id/:userId')
-  async removeParticipant(
-    @Param('id') id: string,
-    @Param('userId') userId: string,
-  ): Promise<void> {
-    return this.eventService.removeParticipant(id, userId);
-  }
+  // @Put('participant/:id/:userId')
+  // async removeParticipant(
+  //   @Param('id') id: string,
+  //   @Param('userId') userId: string,
+  // ): Promise<void> {
+  //   return this.eventService.removeParticipant(id, userId);
+  // }
 
   @Post('exercise/:id/:exerciseId')
   async addExercise(
