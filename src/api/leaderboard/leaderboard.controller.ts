@@ -6,11 +6,16 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { LeaderboardService } from './leaderboard.service';
 import { CreateLeaderboardDto } from './domain/dto/create-leaderboard.dto';
 import { Leaderboard } from './domain/entities/leaderboard.entity';
 import { EventRanking } from './domain/entities/event-ranking.entity';
+import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
+import { RequestUser } from '../auth/interface/request-user.interface';
+import { ExecuteRequestDto } from './domain/dto/execute-request.dto';
 
 @Controller('leaderboard')
 export class LeaderboardController {
@@ -69,5 +74,22 @@ export class LeaderboardController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
     return await this.leaderboardService.deleteLeaderboard(id);
+  }
+
+  @Post('execute')
+  @UseGuards(JwtRefreshGuard)
+  executeCode(
+    @Req() request: RequestUser,
+    @Body() executeRequestDto: ExecuteRequestDto,
+  ) {
+    const { user } = request;
+    executeRequestDto.user = user;
+    return this.leaderboardService.execCode(executeRequestDto);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Get()
+  findAllExec() {
+    return this.leaderboardService.findAllExec();
   }
 }

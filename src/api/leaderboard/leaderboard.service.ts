@@ -15,7 +15,16 @@ import { Event } from '../event/domain/entities/event.entity';
 import { GetEventQuery } from '../event/cqrs/query/get-event.query';
 import { UpdateEventRankingCommand } from './cqrs/command/update-event-ranking.command';
 import { GetEventRankingQuery } from './cqrs/query/get-event-ranking.query';
-import { GetLeaderboardWithOrderQuery } from "./cqrs/query/get-leaderboard-with-order.query";
+import { GetLeaderboardWithOrderQuery } from './cqrs/query/get-leaderboard-with-order.query';
+import { ExecuteRequestDto } from './domain/dto/execute-request.dto';
+import { ExecuteDto } from './domain/dto/execute.dto';
+import { ExerciseTemplate } from '../exercices/domain/entities/exercise-template.entity';
+import { GetExerciseTemplateWithExerciseIdQuery } from '../exercices/cqrs/query/get-exercise-template-with-exercise-id.query';
+import { ExecPatternEnum } from './domain/enum/exec-pattern.enum';
+import { ExecuteResultDto } from './domain/dto/execute-result.dto';
+import { SendCodeToExecApiCommand } from './cqrs/command/send-code-to-exec-api.command';
+import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
+import Axios from 'axios';
 
 @Injectable()
 export class LeaderboardService {
@@ -101,5 +110,59 @@ export class LeaderboardService {
     return await this.queryBus.execute(
       new GetLeaderboardWithOrderQuery(exerciseId),
     );
+  }
+
+  async execCode(executeRequestDto: ExecuteRequestDto) {
+    const execDto: ExecuteDto = new ExecuteDto();
+    const exerciseTemplate: ExerciseTemplate = await this.commandBus.execute(
+      new GetExerciseTemplateWithExerciseIdQuery(executeRequestDto.exerciseId),
+    );
+    execDto.code = exerciseTemplate.code.replace(
+      ExecPatternEnum.EXEC_CODE,
+      executeRequestDto.code,
+    );
+    execDto.language = executeRequestDto.language;
+    execDto.userId = executeRequestDto.user.id;
+
+    const execResponse: ExecuteResultDto = await this.commandBus.execute(
+      new SendCodeToExecApiCommand(execDto),
+    );
+    if (execResponse.error != null) {
+      return new ExecuteResponseDto(execResponse.error, false);
+    } else if (execResponse.result.result == 'EverythingIsGood') {
+      const createLeaderboardDto = new CreateLeaderboardDto(
+        executeRequestDto.user.id,
+        executeRequestDto.code,
+        executeRequestDto.exerciseId,
+        executeRequestDto.timerScore,
+      );
+      await this.createLeaderboard(createLeaderboardDto).then(async () => {
+        await this.updateEventRanking(
+          await this.queryBus
+            .execute(new GetExerciseQuery(executeRequestDto.exerciseId))
+            .then((exercise) => {
+              return exercise.event.id;
+            }),
+        );
+      });
+      return new ExecuteResponseDto(execResponse.result.result, true);
+    } else {
+      return new ExecuteResponseDto(execResponse.result.result, false);
+    }
+  }
+
+  async findAllExec() {
+    let response;
+
+    try {
+      response = await Axios.get(process.env.EXEC_CODE_URL + '/api/code').then(
+        function (response) {
+          return response.data;
+        },
+      );
+    } catch (er) {
+      console.log(er);
+    }
+    return await response;
   }
 }

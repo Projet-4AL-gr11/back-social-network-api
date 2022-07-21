@@ -20,7 +20,6 @@ import { LeaderboardModule } from './api/leaderboard/leaderboard.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseConfiguration } from './database.configuration';
 import { SearchModule } from './api/search/search.module';
-import { ExecuteModule } from "./api/exec/execute/execute.module";
 
 config();
 
@@ -45,7 +44,6 @@ config();
     ReportModule,
     LeaderboardModule,
     SearchModule,
-    ExecuteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

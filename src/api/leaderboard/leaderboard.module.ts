@@ -21,10 +21,21 @@ import { DeleteLeaderboardEventHandler } from './cqrs/event-handler/delete-leade
 import { UpdateEventRankingEventHandler } from './cqrs/event-handler/update-event-ranking.event-handler';
 import { UpdateLeaderboardExerciseRankingEventHandler } from './cqrs/event-handler/update-leaderboard-exercise-ranking.event-handler';
 import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { SendCodeToExecApiHandler } from './cqrs/handler/command/send-code-to-exec-api.handler';
+import { SendCodeToExecApiEventHandler } from './cqrs/event-handler/send-code-to-exec-api.event-handler';
+import { ExerciseTemplate } from '../exercices/domain/entities/exercise-template.entity';
+import { Exercise } from '../exercices/domain/entities/exercise.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Leaderboard, EventRanking, Event]),
+    TypeOrmModule.forFeature([
+      User,
+      Leaderboard,
+      EventRanking,
+      Event,
+      ExerciseTemplate,
+      Exercise,
+    ]),
     CqrsModule,
   ],
   controllers: [LeaderboardController],
@@ -44,6 +55,8 @@ import { ErrorEventHandler } from '../../util/error/error.event-handler';
     UpdateEventRankingEventHandler,
     UpdateLeaderboardExerciseRankingEventHandler,
     ErrorEventHandler,
+    SendCodeToExecApiHandler,
+    SendCodeToExecApiEventHandler,
   ],
 })
 export class LeaderboardModule {}
