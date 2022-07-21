@@ -20,7 +20,7 @@ export class GetLeaderboardForUserWithExerciseIdHandler
       .createQueryBuilder()
       .leftJoinAndSelect('Leaderboard.user', 'User')
       .leftJoinAndSelect('Leaderboard.exercise', 'Exercise')
-      .where('User.id=:id', { id: query.userId })
+      .where('User.id=:userId', { userId: query.userId })
       .andWhere('Exercise.id=:id', { id: query.exerciseId })
       .getOne();
   }

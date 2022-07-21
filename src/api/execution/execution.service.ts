@@ -121,10 +121,10 @@ export class ExecutionService {
     if (
       (await this.queryBus.execute(
         new GetLeaderboardForUserWithExerciseIdQuery(
-          executeRequestDto.exerciseId,
           executeRequestDto.user.id,
+          executeRequestDto.exerciseId,
         ),
-      )) != null
+      )) == undefined
     ) {
       const execDto: ExecuteDto = new ExecuteDto();
       const exerciseTemplate: ExerciseTemplate = await this.queryBus.execute(
