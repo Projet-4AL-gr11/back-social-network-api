@@ -26,6 +26,8 @@ import { SendCodeToExecApiCommand } from './cqrs/command/send-code-to-exec-api.c
 import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
 import Axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.command';
+import { ExecutionFileDto } from './domain/dto/execution-file.dto';
 
 @Injectable()
 export class LeaderboardService {
@@ -140,7 +142,9 @@ export class LeaderboardService {
         executeRequestDto.timerScore,
         execDto.execution_id,
       );
-      await this.createLeaderboard(createLeaderboardDto).then(async () => {
+      const newLeaderBoard: Leaderboard = await this.createLeaderboard(
+        createLeaderboardDto,
+      ).then(async (leaderboard) => {
         await this.updateEventRanking(
           await this.queryBus
             .execute(new GetExerciseQuery(executeRequestDto.exerciseId))
@@ -148,7 +152,17 @@ export class LeaderboardService {
               return exercise.event.id;
             }),
         );
+        return leaderboard;
       });
+      await this.commandBus.execute(
+        new SaveExecutionFileCommand(
+          new ExecutionFileDto(
+            new Buffer(executeRequestDto.code),
+            newLeaderBoard.id,
+            execDto.execution_id,
+          ),
+        ),
+      );
       return new ExecuteResponseDto(execResponse.result.result, true);
     } else {
       return new ExecuteResponseDto(execResponse.result.result, false);

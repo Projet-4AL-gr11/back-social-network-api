@@ -21,10 +21,9 @@ export class CreateLeaderboardHandler
     try {
       const currentDate: Date = new Date(Date.now());
       if (currentDate > command.exercise.event.endDate) {
-        const leaderboard = await this.leaderboardRepository.create({
+        const leaderboard = this.leaderboardRepository.create({
           user: command.user,
           exercise: command.exercise,
-          userEntry: command.userEntry,
           timerScore: command.timerScore,
           executionId: command.executionId,
         });
