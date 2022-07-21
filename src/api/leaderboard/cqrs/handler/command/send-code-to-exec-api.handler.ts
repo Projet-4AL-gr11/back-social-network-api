@@ -32,6 +32,7 @@ export class SendCodeToExecApiHandler
       } catch (er) {
         result = {
           error: er,
+          result: null,
         };
         this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
         return result;

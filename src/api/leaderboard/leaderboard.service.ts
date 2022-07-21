@@ -25,6 +25,7 @@ import { ExecuteResultDto } from './domain/dto/execute-result.dto';
 import { SendCodeToExecApiCommand } from './cqrs/command/send-code-to-exec-api.command';
 import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
 import Axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class LeaderboardService {
@@ -117,6 +118,7 @@ export class LeaderboardService {
     const exerciseTemplate: ExerciseTemplate = await this.commandBus.execute(
       new GetExerciseTemplateWithExerciseIdQuery(executeRequestDto.exerciseId),
     );
+    execDto.execution_id = uuidv4();
     execDto.code = exerciseTemplate.code.replace(
       ExecPatternEnum.EXEC_CODE,
       executeRequestDto.code,

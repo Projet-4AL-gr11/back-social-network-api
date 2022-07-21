@@ -20,6 +20,9 @@ export class Leaderboard {
   @Column({ nullable: true })
   timerScore: number;
 
+  @Column({ nullable: true })
+  executionId: string;
+
   @CreateDateColumn()
   createdDate: Date;
 
