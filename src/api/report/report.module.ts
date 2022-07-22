@@ -33,6 +33,7 @@ import { GetReportedExerciseHandler } from './cqrs/handler/query/get-reported-ex
 import { CreateReportExerciseHandler } from './cqrs/handler/command/create-report-exercise.handler';
 import { CreateReportExerciseEventHandler } from './cqrs/event-handler/create-report-exercise.event-handler';
 import { Exercise } from '../exercices/domain/entities/exercise.entity';
+import { GetReportedCommentHandler } from "./cqrs/handler/query/get-reported-comment.handler";
 
 @Module({
   imports: [
@@ -57,7 +58,7 @@ import { Exercise } from '../exercices/domain/entities/exercise.entity';
     CreateReportUserHandler,
     DeleteReportHandler,
     GetReportHandler,
-    GetReportedCommentQuery,
+    GetReportedCommentHandler,
     GetReportedEventHandler,
     GetReportedGroupHandler,
     GetReportedPostHandler,

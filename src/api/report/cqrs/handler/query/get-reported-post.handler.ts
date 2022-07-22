@@ -19,14 +19,18 @@ export class GetReportedPostHandler
     if (query.id) {
       return this.reportRepository
         .createQueryBuilder()
-        .leftJoinAndSelect('ReportedPost', 'Post')
+        .leftJoinAndSelect('Report.userReporter', 'Reporter')
+        .leftJoinAndSelect('Report.reportedPost', 'Post')
+        .leftJoinAndSelect('Post.creator', 'User')
         .where('Post.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedPost', 'Post')
-      .where('Post != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedPost', 'Post')
+      .leftJoinAndSelect('Post.creator', 'User')
+      .where('Report.reportedPostId IS NOT NULL')
       .getMany();
   }
 }

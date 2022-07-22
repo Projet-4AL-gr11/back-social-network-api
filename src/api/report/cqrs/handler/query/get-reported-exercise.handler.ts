@@ -17,14 +17,16 @@ export class GetReportedExerciseHandler
     if (query.exerciseId) {
       return this.reportRepository
         .createQueryBuilder()
+        .leftJoinAndSelect('Report.userReporter', 'Reporter')
         .leftJoinAndSelect('ReportedExercise', 'Exercise')
         .where('Exercise.id=:id', { id: query.exerciseId })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedExercise', 'Exercise')
-      .where('Exercise != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedExercise', 'Exercise')
+      .where('Report.reportedExerciseId IS NOT NULL')
       .getMany();
   }
 }

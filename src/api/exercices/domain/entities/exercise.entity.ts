@@ -20,6 +20,7 @@ export class Exercise {
 
   @ManyToOne(() => Event, (event) => event.exercises, {
     eager: true,
+    onDelete: 'CASCADE',
   })
   event: Event;
 
