@@ -2,13 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  JoinColumn, JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Language } from '../../../language/domain/entities/language.entity';
 import {
@@ -46,7 +46,7 @@ export class Event {
   @Column({ nullable: false })
   endDate: Date;
 
-  @Column({ nullable: false, default: -1 })
+  @Column({ nullable: true, default: -1 })
   participantsLimit: number;
 
   @ManyToOne(() => User, (user) => user.createdEvents)
@@ -61,6 +61,7 @@ export class Event {
   participants: User[];
 
   @ManyToMany(() => Language, (language) => language.events, {})
+  @JoinTable()
   languages: Language[];
 
   @OneToOne(() => Media, (media) => media.eventPicture, {

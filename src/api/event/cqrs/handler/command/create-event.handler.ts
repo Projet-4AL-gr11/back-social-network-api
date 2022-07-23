@@ -17,7 +17,15 @@ export class CreateEventHandler implements ICommandHandler<CreateEventCommand> {
 
   async execute(command: CreateEventCommand): Promise<Event> {
     try {
-      const event = await this.eventRepository.create(command.eventDto);
+      const event = await this.eventRepository.create({
+        name: command.eventDto.name,
+        endDate: new Date(command.eventDto.endDate),
+        startDate: new Date(command.eventDto.startDate),
+        user: command.eventDto.user,
+        group: command.eventDto?.group,
+        // languages: command.eventDto.languages,
+        description: command.eventDto.description,
+      });
       const err = await validate(event, { validationError: { target: false } });
       if (err.length > 0) {
         throw err;

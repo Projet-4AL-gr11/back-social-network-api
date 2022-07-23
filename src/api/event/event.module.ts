@@ -30,6 +30,8 @@ import { RemoveParticipantToEventEventHandler } from './cqrs/event-handler/remov
 import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event-handler';
 import { ErrorEventHandler } from '../../util/error/error.event-handler';
 import { GetEventWithGroupIdHandler } from './cqrs/handler/query/get-event-with-group-id.handler';
+import { AddLanguageToEventEventHandler } from "./cqrs/event-handler/add-language-to-event.event-handler";
+import { AddLanguageToEventHandler } from "./cqrs/handler/command/add-language-to-event.handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],
@@ -59,6 +61,8 @@ import { GetEventWithGroupIdHandler } from './cqrs/handler/query/get-event-with-
     RemoveParticipantToEventEventHandler,
     UpdateEventEventHandler,
     GetEventWithGroupIdHandler,
+    AddLanguageToEventEventHandler,
+    AddLanguageToEventHandler,
     ErrorEventHandler,
   ],
 })
