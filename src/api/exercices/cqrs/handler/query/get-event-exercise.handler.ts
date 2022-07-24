@@ -17,6 +17,7 @@ export class GetEventExerciseHandler
     return await this.exerciseRepository
       .createQueryBuilder()
       .leftJoinAndSelect('Exercise.event', 'Event')
+      .leftJoinAndSelect('Exercise.exerciseTemplate', 'ExerciseTemplate')
       .where('Event.id=:id', { id: query.exerciseId })
       .getMany();
   }
