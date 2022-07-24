@@ -116,6 +116,7 @@ export class ExecutionService {
   }
 
   async execCode(executeRequestDto: ExecuteRequestDto) {
+    console.log(executeRequestDto.execution_id);
     if (
       (await this.queryBus.execute(
         new GetLeaderboardForUserWithExerciseIdQuery(
@@ -130,7 +131,7 @@ export class ExecutionService {
           executeRequestDto.exerciseId,
         ),
       );
-      execDto.execution_id = Number(Date.now());
+      execDto.execution_id = executeRequestDto.execution_id;
       execDto.code = exerciseTemplate.code.replace(
         ExecPatternEnum.EXEC_CODE,
         executeRequestDto.code,

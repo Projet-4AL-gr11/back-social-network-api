@@ -85,6 +85,7 @@ export class ExecutionController {
   ) {
     const { user } = request;
     executeRequestDto.user = user;
+    console.log(executeRequestDto);
     return this.executionService.execCode(executeRequestDto);
   }
 

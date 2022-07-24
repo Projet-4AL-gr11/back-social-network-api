@@ -17,7 +17,7 @@ export class Leaderboard {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => ExecutionFile, (executionFile) => executionFile.leaderboard)
+  @OneToOne(() => ExecutionFile, (executionFile) => executionFile.leaderboard, {nullable: true})
   userEntryFile: ExecutionFile;
 
   @Column({ nullable: true })
