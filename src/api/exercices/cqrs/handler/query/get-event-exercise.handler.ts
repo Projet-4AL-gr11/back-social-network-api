@@ -18,6 +18,7 @@ export class GetEventExerciseHandler
       .createQueryBuilder()
       .leftJoinAndSelect('Exercise.event', 'Event')
       .leftJoinAndSelect('Exercise.exerciseTemplate', 'ExerciseTemplate')
+      .leftJoinAndSelect('ExerciseTemplate.language', 'Language')
       .where('Event.id=:id', { id: query.exerciseId })
       .getMany();
   }
