@@ -16,6 +16,12 @@ import { SaveCommentPictureEventHandler } from './cqrs/event-handler/save-commen
 import { SaveEventPictureEventHandler } from './cqrs/event-handler/save-event-picture.event-handler';
 import { SaveGroupPictureEventHandler } from './cqrs/event-handler/save-group-picture.event-handler';
 import { SavePostPictureEventHandler } from './cqrs/event-handler/save-post-picture.event-handler';
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { GetPictureTemporaryLinkHandler } from './cqrs/handler/query/get-picture-temporary-link.handler';
+import { GetPictureWithIdHandler } from './cqrs/handler/query/get-picture-with-id.handler';
+import { SaveGroupBannerPictureEventHandler } from './cqrs/event-handler/save-group-banner-picture.event-handler';
+import { SaveGroupBannerPictureHandler } from './cqrs/handler/command/save-group-banner-picture.handler';
+import { SaveEventPictureHandler } from "./cqrs/handler/command/save-event-picture.handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Media]), CqrsModule],
@@ -34,6 +40,12 @@ import { SavePostPictureEventHandler } from './cqrs/event-handler/save-post-pict
     SaveEventPictureEventHandler,
     SaveGroupPictureEventHandler,
     SavePostPictureEventHandler,
+    SaveEventPictureHandler,
+    ErrorEventHandler,
+    GetPictureTemporaryLinkHandler,
+    GetPictureWithIdHandler,
+    SaveGroupBannerPictureHandler,
+    SaveGroupBannerPictureEventHandler,
   ],
   exports: [MediaService],
 })

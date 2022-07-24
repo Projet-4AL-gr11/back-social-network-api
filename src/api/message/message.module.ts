@@ -36,6 +36,7 @@ import { DeleteAllConnectedUserEventHandler } from './cqrs/event-handler/delete-
 import { DeleteAllJoinedConversationEventHandler } from './cqrs/event-handler/delete-all-joined-conversation.event-handler';
 import { CreateMessageEventHandler } from './cqrs/event-handler/create-message.event-handler';
 import { DeleteJoinedConversationBySocketIdEventHandler } from './cqrs/event-handler/delete-joined-conversation-by-socket-id.event-handler';
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
 
 config();
 
@@ -85,6 +86,7 @@ config();
     DeleteAllJoinedConversationEventHandler,
     DeleteJoinedConversationBySocketIdEventHandler,
     CreateMessageEventHandler,
+    ErrorEventHandler,
   ],
   exports: [MessageService],
 })

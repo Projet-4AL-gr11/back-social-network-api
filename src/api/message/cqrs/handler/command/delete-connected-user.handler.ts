@@ -1,9 +1,7 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { CreateConnectedUserCommand } from '../../command/create-connected-user.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConnectedUser } from '../../../domain/entities/connected-user.entity';
 import { Repository } from 'typeorm';
-import { SaveMessageEvent } from '../../event/save-message.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { DeleteConnectedUserCommand } from '../../command/delete-connected-user.command';
 import { DeleteConnectedUserEvent } from '../../event/delete-connected-user.event';

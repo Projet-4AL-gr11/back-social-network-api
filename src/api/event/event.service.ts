@@ -19,6 +19,9 @@ import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.qu
 import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
 import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
 import { GetEventParticipationQuery } from './cqrs/query/get-event-participation.query';
+import { GetEventWithEventIdQuery } from './cqrs/query/get-event-with-event-id.query';
+import { Language } from '../language/domain/entities/language.entity';
+import { AddLanguageToEventCommand } from './cqrs/command/add-language-to-event.command';
 
 @Injectable()
 export class EventService {
@@ -51,7 +54,23 @@ export class EventService {
   }
 
   async create(eventDto: EventDto): Promise<Event> {
-    return await this.commandBus.execute(new CreateEventCommand(eventDto));
+    const newEvent: Event = await this.commandBus.execute(
+      new CreateEventCommand(eventDto),
+    );
+    for (const exerciseTemplate of eventDto.exerciseTemplates) {
+      await this.addExercise(newEvent.id, exerciseTemplate.id);
+    }
+    if (eventDto.exerciseTemplates) {
+      const mySet = [];
+      eventDto.languages = new Array<Language>();
+      for (const exerciseTemplate of eventDto.exerciseTemplates) {
+        if (mySet.indexOf(exerciseTemplate.language.id) === -1) {
+          mySet.push(exerciseTemplate.language.id);
+          await this.addLanguageToEvent(newEvent, exerciseTemplate.language);
+        }
+      }
+    }
+    return newEvent;
   }
 
   async update(id: string, eventDto: EventDto): Promise<Event> {
@@ -70,7 +89,6 @@ export class EventService {
   }
 
   async addExercise(eventId: string, exerciseId: string): Promise<void> {
-    // TODO: verifier que le language de l'exercise correspond au language de l'event
     return await this.commandBus.execute(
       new AddExerciseToEventCommand(exerciseId, eventId),
     );
@@ -113,5 +131,17 @@ export class EventService {
 
   async getByName(name: string): Promise<Event[]> {
     return await this.queryBus.execute(new SearchEventWithNameQuery(name));
+  }
+
+  async getByGroupId(groupId: string, offset: string, limit: string) {
+    return await this.queryBus.execute(
+      new GetEventWithEventIdQuery(groupId, offset, limit),
+    );
+  }
+
+  private async addLanguageToEvent(newEvent: Event, language: Language) {
+    await this.commandBus.execute(
+      new AddLanguageToEventCommand(newEvent.id, language.id),
+    );
   }
 }

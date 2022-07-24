@@ -13,7 +13,7 @@ export class SendGroupRequestEventHandler
     logger.info(
       'User with id : ( ' +
         event.userId +
-        ' ) have been send a request for join group with id : ( ' +
+        ' ) have send a request for join group with id : ( ' +
         event.groupId +
         ' )',
     );
@@ -21,7 +21,7 @@ export class SendGroupRequestEventHandler
     this.logger_console.log(
       'User with id : ( ' +
         event.userId +
-        ' ) have been send a request for join group with id : ( ' +
+        ' ) have send a request for join group with id : ( ' +
         event.groupId +
         ' )',
     );

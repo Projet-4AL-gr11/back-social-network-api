@@ -1,15 +1,14 @@
 import {
   Body,
-  Controller,
+  Controller, Delete,
   Get,
   Param,
   Post,
   Req,
-  UseGuards,
-} from '@nestjs/common';
+  UseGuards
+} from "@nestjs/common";
 import { ReportService } from './report.service';
 import { RequestUser } from '../auth/interface/request-user.interface';
-import { PostDto } from '../post/domain/dto/post.dto';
 import { ReportRequestDto } from './domain/dto/report-request.dto';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
@@ -17,12 +16,17 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 export class ReportController {
   constructor(private reportService: ReportService) {}
 
+  @Delete(':id')
+  deleteReport(@Param('id') id: string) {
+    return this.reportService.deleteReport(id);
+  }
+
   @Get('')
   getAllReport() {
     return this.reportService.getReports();
   }
 
-  @Get(':id')
+  @Get('/byId/:id')
   getReport(@Param('id') id: string) {
     return this.reportService.getReportWithId(id);
   }
@@ -33,7 +37,7 @@ export class ReportController {
     return this.reportService.getReportedComment(id);
   }
 
-  @Get('comments')
+  @Get('comments/')
   getReportedComments() {
     return this.reportService.getReportedComments();
   }
@@ -54,7 +58,7 @@ export class ReportController {
     return this.reportService.getReportedEvent(id);
   }
 
-  @Get('events')
+  @Get('events/')
   getReportedEvents() {
     return this.reportService.getReportedEvents();
   }
@@ -75,7 +79,7 @@ export class ReportController {
     return this.reportService.getReportedGroup(id);
   }
 
-  @Get('groups')
+  @Get('groups/')
   getReportedGroups() {
     return this.reportService.getReportedGroups();
   }
@@ -96,7 +100,7 @@ export class ReportController {
     return this.reportService.getReportedUser(id);
   }
 
-  @Get('users')
+  @Get('users/')
   getReportedUsers() {
     return this.reportService.getReportedUsers();
   }
@@ -111,6 +115,17 @@ export class ReportController {
     return this.reportService.createReportUser(user.id, reportDto);
   }
 
+  // Post
+  @Get('post/:id')
+  getReportedPost(@Param('id') id: string) {
+    return this.reportService.getReportedPost(id);
+  }
+
+  @Get('posts/')
+  getReportedPosts() {
+    return this.reportService.getReportedPosts();
+  }
+
   @Post('post')
   @UseGuards(JwtRefreshGuard)
   createReportPost(
@@ -119,5 +134,26 @@ export class ReportController {
   ) {
     const { user } = request;
     return this.reportService.createReportPost(user.id, reportDto);
+  }
+
+  // Exercise
+  @Get('exercise/:id')
+  getReportedExercise(@Param('id') id: string) {
+    return this.reportService.getReportedExercise(id);
+  }
+
+  @Get('exercises/')
+  getReportedExercises() {
+    return this.reportService.getReportedExercises();
+  }
+
+  @Post('exercise')
+  @UseGuards(JwtRefreshGuard)
+  createReportExercise(
+    @Req() request: RequestUser,
+    @Body() reportDto: ReportRequestDto,
+  ) {
+    const { user } = request;
+    return this.reportService.createReportExercise(user.id, reportDto);
   }
 }

@@ -4,7 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../domain/entities/user.entity';
 import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
+import { config } from 'dotenv';
 
+config();
 @QueryHandler(GetUserLoginQuery)
 export class GetUserLoginHandler implements IQueryHandler<GetUserLoginQuery> {
   constructor(
@@ -20,7 +22,7 @@ export class GetUserLoginHandler implements IQueryHandler<GetUserLoginQuery> {
         select: ['id', 'username', 'password'],
       });
     } catch (error) {
-      this.eventBus.publish(new ErrorsEvent('GetUserLoginHandler', error));
+      throw 'Error: no match found';
     }
   }
 }

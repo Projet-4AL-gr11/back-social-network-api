@@ -19,14 +19,20 @@ export class GetReportedCommentHandler
     if (query.id) {
       return this.reportRepository
         .createQueryBuilder()
-        .leftJoinAndSelect('ReportedComment', 'Comment')
+        .leftJoinAndSelect('Report.userReporter', 'Reporter')
+        .leftJoinAndSelect('Report.reportedComment', 'Comment')
+        .leftJoinAndSelect('Comment.post', 'Post')
+        .leftJoinAndSelect('Comment.creator', 'User')
         .where('Comment.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedComment', 'Comment')
-      .where('Comment != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedComment', 'Comment')
+      .leftJoinAndSelect('Comment.post', 'Post')
+      .leftJoinAndSelect('Comment.creator', 'User')
+      .where('Report.reportedCommentId IS NOT NULL')
       .getMany();
   }
 }

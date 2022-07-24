@@ -1,6 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Group } from '../../../domain/entities/group.entity';
 import { Repository } from 'typeorm';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SendGroupRequestCommand } from '../../command/send-group-request.command';
@@ -12,7 +11,7 @@ export class SendGroupRequestHandler
   implements ICommandHandler<SendGroupRequestCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupRequest)
     private groupRequestRepository: Repository<GroupRequest>,
     private eventBus: EventBus,
   ) {}

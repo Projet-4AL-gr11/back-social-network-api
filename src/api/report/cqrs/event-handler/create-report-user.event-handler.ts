@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { CreateReportPostEvent } from '../event/create-report-post.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 import { CreateReportUserEvent } from '../event/create-report-user.event';

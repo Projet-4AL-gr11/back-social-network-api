@@ -2,14 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  JoinTable,
+  JoinColumn, JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Language } from '../../../language/domain/entities/language.entity';
 import {
@@ -24,8 +23,7 @@ import { Media } from '../../../media/domain/entities/media.entity';
 import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
-import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
-import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
+import { EventRanking } from '../../../execution/domain/entities/event-ranking.entity';
 
 @Entity()
 export class Event {
@@ -48,7 +46,7 @@ export class Event {
   @Column({ nullable: false })
   endDate: Date;
 
-  @Column({ nullable: false, default: -1 })
+  @Column({ nullable: true, default: -1 })
   participantsLimit: number;
 
   @ManyToOne(() => User, (user) => user.createdEvents)
@@ -62,8 +60,8 @@ export class Event {
   })
   participants: User[];
 
-  @ManyToMany(() => Language, (language) => language.events, {
-  })
+  @ManyToMany(() => Language, (language) => language.events, {})
+  @JoinTable()
   languages: Language[];
 
   @OneToOne(() => Media, (media) => media.eventPicture, {

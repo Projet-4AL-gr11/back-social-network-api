@@ -12,22 +12,18 @@ import { GetLikeOfPostQuery } from './cqrs/query/get-like-of-post.query';
 import { IsLikedPostQuery } from './cqrs/query/is-liked-post.query';
 import { LikePostCommand } from './cqrs/command/like-post.command';
 import { DislikePostCommand } from './cqrs/command/dislike-post.command';
-import { promises } from 'dns';
 import { IsPostOwnerQuery } from './cqrs/query/is-post-owner.query';
 import { GetSharedPostQuery } from './cqrs/query/get-shared-post.query';
 import { GetPostTimelineQuery } from './cqrs/query/get-post-timeline.query';
 import { GetGroupQuery } from '../group/cqrs/query/get-group.query';
 import { GetUserPostsQuery } from './cqrs/query/get-user-posts.query';
+import { GetGroupPostQuery } from './cqrs/query/get-group-post.query';
 
 @Injectable()
 export class PostService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  async createPost(
-    userId: string,
-    postDto: PostDto,
-    groupId?: string,
-  ): Promise<Post> {
+  async createPost(userId: string, postDto: PostDto, groupId?: string): Promise<Post> {
     let post: Post;
 
     const user = await this.queryBus.execute(new GetUserQuery(userId));
@@ -49,7 +45,7 @@ export class PostService {
     return await this.queryBus.execute(new GetPostQuery(postId));
   }
 
-  async getAll(): Promise<Post> {
+  async getAll(): Promise<Post[]> {
     return await this.queryBus.execute(new GetPostQuery());
   }
 
@@ -101,6 +97,12 @@ export class PostService {
   async getUserPosts(userId: string, offset: number, limit: number) {
     return await this.queryBus.execute(
       new GetUserPostsQuery(userId, offset, limit),
+    );
+  }
+
+  async getPostWithGroupId(groupId: string, offset: number, limit: number) {
+    return await this.queryBus.execute(
+      new GetGroupPostQuery(groupId, offset, limit),
     );
   }
 }

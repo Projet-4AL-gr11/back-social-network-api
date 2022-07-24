@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { GetGroupWhereUserIsAdminQuery } from '../../query/get-group-where-user-is-admin.query';
 import { Group } from '../../../domain/entities/group.entity';
 
@@ -21,23 +21,28 @@ export class GetGroupWhereUserIsAdminHandler
     const groupMemberships = await this.groupMembershipRepository
       .createQueryBuilder()
       .leftJoinAndSelect('GroupMembership.user', 'User')
+      .leftJoinAndSelect('GroupMembership.group', 'Group')
       .where('User.id=:userId', { userId: query.id })
       .andWhere('GroupMembership.isAdmin=true OR GroupMembership.isOwner=true')
       .getMany();
     for (const groupMembership of groupMemberships) {
-      const groupId = groupMembership.group.id;
       if (
         (await this.groupRepository
           .createQueryBuilder()
+          .leftJoinAndSelect('Group.members', 'GroupMembership')
           .leftJoinAndSelect('GroupMembership.user', 'User')
           .where('User.id=:id', { id: query.id })
-          .getOne()) === undefined &&
-        (await this.groupRepository
-          .createQueryBuilder()
-          .leftJoinAndSelect('Group.invitedUsers', 'InvitedUser')
-          .where('InvitedUser.id=:id', { id: query.id })
-          .andWhere('Group.id=:groupId', { groupId })
-          .getOne()) === undefined
+          .andWhere('Group.id=:groupId', {
+            groupId: groupMembership.group.id,
+          })
+          .andWhere(
+            new Brackets((qb) => {
+              qb.where('GroupMembership.isAdmin=TRUE').orWhere(
+                'GroupMembership.isOwner=TRUE',
+              );
+            }),
+          )
+          .getOne()) !== undefined
       ) {
         groups.push(groupMembership.group);
       }

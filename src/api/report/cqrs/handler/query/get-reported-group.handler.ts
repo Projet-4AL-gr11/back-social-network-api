@@ -19,14 +19,16 @@ export class GetReportedGroupHandler
     if (query.id) {
       return this.reportRepository
         .createQueryBuilder()
+        .leftJoinAndSelect('Report.userReporter', 'Reporter')
         .leftJoinAndSelect('ReportedGroup', 'Group')
         .where('Group.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedGroup', 'Group')
-      .where('Group != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedGroup', 'Group')
+      .where('Report.reportedGroupId IS NOT NULL')
       .getMany();
   }
 }

@@ -25,8 +25,9 @@ export class GetReportedUserHandler
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedUser', 'User')
-      .where('User != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedUser', 'User')
+      .where('Report.reportedUserId IS NOT NULL')
       .getMany();
   }
 }

@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { validate } from 'class-validator';
 import { CreateGroupEvent } from '../../event/create-group.event';
+import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 
 @CommandHandler(CreateGroupCommand)
 export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
@@ -21,12 +22,10 @@ export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
     try {
       const group = this.groupRepository.create({ ...command.groupDto });
       const creatorMembership = this.groupMembershipRepository.create({
+        isOwner: true,
         user: command.user,
       });
-      group.members = command.groupDto.users.map((user) =>
-        this.groupMembershipRepository.create({ user }),
-      );
-      group.members.push(creatorMembership);
+      group.members = [].concat(creatorMembership);
       const err = await validate(group);
       if (err.length > 0) {
         throw err;
@@ -35,7 +34,7 @@ export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
       return await this.groupRepository.save(group);
     } catch (error) {
       //TODO: Faire une vraie erreur
-      this.eventBus.publish(new ErrorEvent('CreateGroupHandler', error));
+      this.eventBus.publish(new ErrorsEvent('CreateGroupHandler', error));
       throw error;
     }
   }

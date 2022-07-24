@@ -39,6 +39,15 @@ export class EventController {
     return await this.eventService.getByName(name);
   }
 
+  @Get('group/:groupId/:offset/:limit')
+  async getByGroupId(
+    @Param('groupId') groupId: string,
+    @Param('offset') offset: string,
+    @Param('limit') limit: string,
+  ): Promise<Event[]> {
+    return await this.eventService.getByGroupId(groupId, offset, limit);
+  }
+
   @Get('participants/:id')
   async getParticipant(@Param('id') id: string): Promise<User[]> {
     return await this.eventService.getEventParticipant(id);
@@ -110,7 +119,6 @@ export class EventController {
     }
   }
 
-  // TODO: Rajouter une vérif pour si appartient a groupOwner
   @Delete(':id')
   @UseGuards(JwtRefreshGuard)
   async delete(
@@ -131,13 +139,13 @@ export class EventController {
     return this.eventService.addParticipant(id, userId);
   }
 
-  @Put('participant/:id/:userId')
-  async removeParticipant(
-    @Param('id') id: string,
-    @Param('userId') userId: string,
-  ): Promise<void> {
-    return this.eventService.removeParticipant(id, userId);
-  }
+  // @Put('participant/:id/:userId')
+  // async removeParticipant(
+  //   @Param('id') id: string,
+  //   @Param('userId') userId: string,
+  // ): Promise<void> {
+  //   return this.eventService.removeParticipant(id, userId);
+  // }
 
   @Post('exercise/:id/:exerciseId')
   async addExercise(

@@ -5,7 +5,6 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { Length } from 'class-validator';
 import { User } from '../../../user/domain/entities/user.entity';
@@ -13,6 +12,7 @@ import { Group } from '../../../group/domain/entities/group.entity';
 import { Post } from '../../../post/domain/entities/post.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
+import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 
 @Entity()
 export class Report {
@@ -35,8 +35,16 @@ export class Report {
     onDelete: 'CASCADE',
   })
   reportedComment: Comment;
+
+  @ManyToOne(() => Exercise, (exercise) => exercise.reported, {
+    onDelete: 'CASCADE',
+  })
+  reportedExercise: Exercise;
+
   @CreateDateColumn()
   createdAt: Date;
   @DeleteDateColumn()
   deletedAt: Date;
+
+  nbReport: number;
 }

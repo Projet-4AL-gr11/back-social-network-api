@@ -19,14 +19,18 @@ export class GetReportedEventHandler
     if (query.id) {
       return this.reportRepository
         .createQueryBuilder()
+        .leftJoinAndSelect('Report.userReporter', 'Reporter')
         .leftJoinAndSelect('ReportedEvent', 'Event')
+        .leftJoinAndSelect('Event.owner', 'User')
         .where('Event.id=:id', { id: query.id })
         .getMany();
     }
     return this.reportRepository
       .createQueryBuilder()
-      .leftJoinAndSelect('ReportedEvent', 'Event')
-      .where('Event != null')
+      .leftJoinAndSelect('Report.userReporter', 'Reporter')
+      .leftJoinAndSelect('Report.reportedEvent', 'Event')
+      .leftJoinAndSelect('Event.user', 'User')
+      .where('Report.reportedEventId IS NOT NULL ')
       .getMany();
   }
 }

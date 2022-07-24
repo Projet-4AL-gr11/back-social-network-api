@@ -14,8 +14,12 @@ export class GetGroupPostHandler implements IQueryHandler<GetGroupPostQuery> {
   async execute(query: GetGroupPostQuery) {
     return await this.postRepository
       .createQueryBuilder()
-      .leftJoin('Post.group', 'Group')
+      .leftJoinAndSelect('Post.group', 'Group')
+      .leftJoinAndSelect('Group.picture', 'Media')
+      .leftJoinAndSelect('Post.creator', 'User')
       .where('Group.id=:id', { id: query.groupId })
+      .skip(query.offset)
+      .take(query.limit)
       .getMany();
   }
 }

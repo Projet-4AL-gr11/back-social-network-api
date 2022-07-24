@@ -9,12 +9,22 @@ import { ExerciseController } from './exercise.controller';
 import { GetEventExerciseHandler } from './cqrs/handler/query/get-event-exercise.handler';
 import { ExerciseService } from './exercise.service';
 import { GetExerciseTemplateWithExerciseIdHandler } from './cqrs/handler/query/get-exercise-template-with-exercise-id.handler';
-import { GetExerciseTemplateQuery } from './cqrs/query/get-exercise-template.query';
 import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-template.handler';
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { CreateExerciseTemplateHandler } from './cqrs/handler/command/create-exercise-template.handler';
+import { CreateExerciseTemplateEventHandler } from './cqrs/event-handler/create-exercise-template.event-handler';
+import { UpdateExerciseTemplateHandler } from './cqrs/handler/command/update-exercise-template.handler';
+import { UpdateExerciseTemplateEventHandler } from './cqrs/event-handler/update-exercise-template.event-handler';
+import { RemoveExerciseTemplateHandler } from './cqrs/handler/command/remove-exercise-template.handler';
+import { RemoveExerciseTemplateEventHandler } from './cqrs/event-handler/remove-exercise-template.event-handler';
+import { Language } from '../language/domain/entities/language.entity';
+import { GetLanguageQuery } from "../language/cqrs/query/get-language.query";
+import { GetLanguageHandler } from "../language/cqrs/handler/query/get-language.handler";
+import { GetLeaderboardWithOrderHandler } from "../execution/cqrs/handler/query/get-leaderboard-with-order.handler";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Exercise, ExerciseTemplate, Event]),
+    TypeOrmModule.forFeature([Exercise, ExerciseTemplate, Event, Language]),
     CqrsModule,
   ],
   controllers: [ExerciseController],
@@ -24,6 +34,13 @@ import { GetExerciseTemplateHandler } from './cqrs/handler/query/get-exercise-te
     GetEventExerciseHandler,
     GetExerciseTemplateWithExerciseIdHandler,
     GetExerciseTemplateHandler,
+    CreateExerciseTemplateHandler,
+    CreateExerciseTemplateEventHandler,
+    UpdateExerciseTemplateHandler,
+    UpdateExerciseTemplateEventHandler,
+    RemoveExerciseTemplateHandler,
+    RemoveExerciseTemplateEventHandler,
+    ErrorEventHandler,
   ],
 })
 export class ExerciseModule {}

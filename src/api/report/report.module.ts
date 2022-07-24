@@ -27,10 +27,25 @@ import { CreateReportGroupEventHandler } from './cqrs/event-handler/create-repor
 import { CreateReportPostEventHandler } from './cqrs/event-handler/create-report-post.event-handler';
 import { CreateReportUserEventHandler } from './cqrs/event-handler/create-report-user.event-handler';
 import { DeleteReportEventHandler } from './cqrs/event-handler/delete-report.event-handler';
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { GetCountReportHandler } from './cqrs/handler/query/get-count-report.handler';
+import { GetReportedExerciseHandler } from './cqrs/handler/query/get-reported-exercise.handler';
+import { CreateReportExerciseHandler } from './cqrs/handler/command/create-report-exercise.handler';
+import { CreateReportExerciseEventHandler } from './cqrs/event-handler/create-report-exercise.event-handler';
+import { Exercise } from '../exercices/domain/entities/exercise.entity';
+import { GetReportedCommentHandler } from "./cqrs/handler/query/get-reported-comment.handler";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Report, User, Comment, Event, Group, Post]),
+    TypeOrmModule.forFeature([
+      Report,
+      User,
+      Comment,
+      Event,
+      Group,
+      Post,
+      Exercise,
+    ]),
     CqrsModule,
   ],
   controllers: [ReportController],
@@ -43,7 +58,7 @@ import { DeleteReportEventHandler } from './cqrs/event-handler/delete-report.eve
     CreateReportUserHandler,
     DeleteReportHandler,
     GetReportHandler,
-    GetReportedCommentQuery,
+    GetReportedCommentHandler,
     GetReportedEventHandler,
     GetReportedGroupHandler,
     GetReportedPostHandler,
@@ -54,6 +69,11 @@ import { DeleteReportEventHandler } from './cqrs/event-handler/delete-report.eve
     CreateReportPostEventHandler,
     CreateReportUserEventHandler,
     DeleteReportEventHandler,
+    GetCountReportHandler,
+    GetReportedExerciseHandler,
+    CreateReportExerciseHandler,
+    CreateReportExerciseEventHandler,
+    ErrorEventHandler,
   ],
 })
 export class ReportModule {}

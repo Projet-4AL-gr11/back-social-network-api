@@ -25,10 +25,9 @@ import { Post } from '../../../post/domain/entities/post.entity';
 import { Group } from '../../../group/domain/entities/group.entity';
 import { Comment } from '../../../comment/domain/entities/comment.entity';
 import { Report } from '../../../report/domain/entities/report.entity';
-import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
-import { EventRanking } from '../../../leaderboard/domain/entities/event-ranking.entity';
+import { Leaderboard } from '../../../execution/domain/entities/leaderboard.entity';
+import { EventRanking } from '../../../execution/domain/entities/event-ranking.entity';
 import { GroupRequest } from '../../../group/domain/entities/group_request.entity';
-import { Conversation } from '../../../conversation/domain/entities/conversation.entity';
 import { ConnectedUser } from '../../../message/domain/entities/connected-user.entity';
 import { JoinedConversation } from '../../../message/domain/entities/joined-conversation.entity';
 
@@ -139,7 +138,6 @@ export class User extends BaseEntity {
   }
 
   @ManyToMany(() => Group, (group) => group.followers)
-  @JoinTable()
   followedGroups: Group[];
 
   // Event
@@ -201,4 +199,5 @@ export class User extends BaseEntity {
 
   @OneToMany(() => ConnectedUser, (connection) => connection.user)
   connections: ConnectedUser[];
+
 }

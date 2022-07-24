@@ -27,7 +27,6 @@ export class AddParticipantToEventHandler
         new AddParticipantToEventEvent(command.eventId, command.userId),
       );
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('AddParticipantToEventHandler', error),
       );

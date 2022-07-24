@@ -13,16 +13,21 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe());
   // TODO: je comprends pas pourquoi ça veux pas allow-all-origin
-  // app.enableCors({
-  //   origin: ['http://127.0.0.1:4200'],
-  //   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  //   preflightContinue: false,
-  //   optionsSuccessStatus: 200,
-  //   credentials: true,
-  //   allowedHeaders:
-  //     'Origin,X-Requested-With,Content-Type,Accept,Authorization,authorization,X-Forwarded-for,Set-Cookie,Access-Control-Allow-Origin',
-  // });
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://127.0.0.1:4200',
+      'http://localhost',
+      'http://localhost:4200',
+      'http://ec2-18-117-90-11.us-east-2.compute.amazonaws.com/api/code',
+    ],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+    credentials: true,
+    allowedHeaders:
+      'Origin,X-Requested-With,Content-Type,Accept,Authorization,authorization,X-Forwarded-for,Set-Cookie,Access-Control-Allow-Origin',
+  });
+  // app.enableCors();
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());

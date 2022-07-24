@@ -1,15 +1,14 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from '../../../event/domain/entities/event.entity';
-import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
+import { Leaderboard } from '../../../execution/domain/entities/leaderboard.entity';
 import { ExerciseTemplate } from './exercise-template.entity';
+import { Report } from '../../../report/domain/entities/report.entity';
 
 @Entity()
 export class Exercise {
@@ -19,12 +18,15 @@ export class Exercise {
   @Column()
   name: string;
 
-  @ManyToOne(() => Event, (event) => event.exercises, {})
+  @ManyToOne(() => Event, (event) => event.exercises, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   event: Event;
 
   @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.exercise, {
     cascade: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   })
   leaderboards: Leaderboard[];
 
@@ -34,7 +36,14 @@ export class Exercise {
     {
       eager: true,
       nullable: false,
+      onDelete: 'CASCADE',
+
     },
   )
   exerciseTemplate: ExerciseTemplate;
+
+  @OneToMany(() => Report, (report) => report.reportedExercise, {
+    onDelete: 'CASCADE',
+  })
+  reported: Report[];
 }

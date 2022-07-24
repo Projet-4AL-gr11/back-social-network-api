@@ -1,7 +1,5 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { GiveAdminRightCommand } from '../../command/give-admin-right.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Group } from '../../../domain/entities/group.entity';
 import { Repository } from 'typeorm';
 import { GroupMembership } from '../../../domain/entities/group_membership.entity';
 import { GiveAdminRightEvent } from '../../event/give-admin-right.event';
@@ -13,7 +11,7 @@ export class GiveGroupOwnershipHandler
   implements ICommandHandler<GiveGroupOwnershipCommand>
 {
   constructor(
-    @InjectRepository(Group)
+    @InjectRepository(GroupMembership)
     private groupMembershipRepository: Repository<GroupMembership>,
     private eventBus: EventBus,
   ) {}
@@ -28,6 +26,7 @@ export class GiveGroupOwnershipHandler
         .andWhere('User.id=:userId', { userId: command.ownerId })
         .getOne();
       groupMembershipOwner.isOwner = false;
+      groupMembershipOwner.isAdmin = true;
       await this.groupMembershipRepository.save(groupMembershipOwner);
 
       const groupMembershipUser = await this.groupMembershipRepository
@@ -37,7 +36,8 @@ export class GiveGroupOwnershipHandler
         .where('Group.id=:groupId', { groupId: command.groupId })
         .andWhere('User.id=:userId', { userId: command.userId })
         .getOne();
-      groupMembershipOwner.isOwner = true;
+      groupMembershipUser.isAdmin = false;
+      groupMembershipUser.isOwner = true;
       await this.groupMembershipRepository.save(groupMembershipUser);
       this.eventBus.publish(
         new GiveAdminRightEvent(command.userId, command.groupId),

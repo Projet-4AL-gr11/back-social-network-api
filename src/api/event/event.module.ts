@@ -19,7 +19,7 @@ import { RemoveParticipantHandler } from './cqrs/handler/command/remove-particip
 import { UpdateEventHandler } from './cqrs/handler/command/update-event.handler';
 import { AddExerciseToEventHandler } from './cqrs/handler/command/add-exercise-to-event.handler';
 import { RemoveExerciseToEventHandler } from './cqrs/handler/command/remove-exercise-to-event.handler';
-import { EventRanking } from '../leaderboard/domain/entities/event-ranking.entity';
+import { EventRanking } from '../execution/domain/entities/event-ranking.entity';
 import { GetEventParticipationHandler } from './cqrs/handler/query/get-event-participation.handler';
 import { CreateEventEventHandler } from './cqrs/event-handler/create-event.event-handler';
 import { AddExerciseToEventEventHandler } from './cqrs/event-handler/add-exercise-to-event.event-handler';
@@ -28,6 +28,10 @@ import { DeleteEventEventHandler } from './cqrs/event-handler/delete-event.event
 import { RemoveExerciseToEventEventHandler } from './cqrs/event-handler/remove-exercise-to-event.event-handler';
 import { RemoveParticipantToEventEventHandler } from './cqrs/event-handler/remove-participant-to-event.event-handler';
 import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event-handler';
+import { ErrorEventHandler } from '../../util/error/error.event-handler';
+import { GetEventWithGroupIdHandler } from './cqrs/handler/query/get-event-with-group-id.handler';
+import { AddLanguageToEventEventHandler } from "./cqrs/event-handler/add-language-to-event.event-handler";
+import { AddLanguageToEventHandler } from "./cqrs/handler/command/add-language-to-event.handler";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Event, User, EventRanking]), CqrsModule],
@@ -56,6 +60,10 @@ import { UpdateEventEventHandler } from './cqrs/event-handler/update-event.event
     RemoveExerciseToEventEventHandler,
     RemoveParticipantToEventEventHandler,
     UpdateEventEventHandler,
+    GetEventWithGroupIdHandler,
+    AddLanguageToEventEventHandler,
+    AddLanguageToEventHandler,
+    ErrorEventHandler,
   ],
 })
 export class EventModule {}

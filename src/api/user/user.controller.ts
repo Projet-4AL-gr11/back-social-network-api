@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -66,10 +66,11 @@ export class UserController {
     return this.userService.unblockUser(user.id, id);
   }
 
-  @Patch(':id')
+  @Put('')
   @UseGuards(JwtRefreshGuard)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  update(@Req() request: RequestUser, @Body() updateUserDto: UpdateUserDto) {
+    const { user } = request;
+    return this.userService.update(user.id, updateUserDto);
   }
 
   @Delete(':id')

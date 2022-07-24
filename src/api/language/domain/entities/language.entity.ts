@@ -5,9 +5,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exercise } from '../../../exercices/domain/entities/exercise.entity';
 import { Event } from '../../../event/domain/entities/event.entity';
-import { Leaderboard } from '../../../leaderboard/domain/entities/leaderboard.entity';
+import { Leaderboard } from '../../../execution/domain/entities/leaderboard.entity';
 import { ExerciseTemplate } from '../../../exercices/domain/entities/exercise-template.entity';
 
 @Entity()

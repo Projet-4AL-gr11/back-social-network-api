@@ -52,6 +52,15 @@ export class Group {
   @JoinColumn()
   picture: Media;
 
+  @OneToOne(() => Media, (media) => media.groupBannerPicture, {
+    cascade: true,
+    nullable: true,
+    eager: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  bannerPicture: Media;
+
   @OneToMany(() => Post, (post) => post.group)
   posts: Post[];
 

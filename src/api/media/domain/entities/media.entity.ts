@@ -33,6 +33,11 @@ export class Media {
   @OneToOne(() => Group, (group) => group.picture, { onDelete: 'CASCADE' })
   groupPicture: Group;
 
+  @OneToOne(() => Group, (group) => group.bannerPicture, {
+    onDelete: 'CASCADE',
+  })
+  groupBannerPicture: Group;
+
   @ManyToOne(() => Post, (post) => post.medias, { onDelete: 'CASCADE' })
   post: Post;
 
