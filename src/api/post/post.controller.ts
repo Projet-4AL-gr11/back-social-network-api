@@ -16,7 +16,7 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('post')
 export class PostController {
-  // TODO: Ajouter les UseGuards
+  // TODO: Ajouter les UseGpageuards
   constructor(private postService: PostService) {}
 
   @Get()

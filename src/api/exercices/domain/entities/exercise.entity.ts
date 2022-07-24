@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -22,11 +23,13 @@ export class Exercise {
     eager: true,
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'eventId', referencedColumnName: 'id' })
   event: Event;
 
   @OneToMany(() => Leaderboard, (leaderboard) => leaderboard.exercise, {
     cascade: true,
     onDelete: 'CASCADE',
+    nullable: true,
   })
   leaderboards: Leaderboard[];
 
@@ -35,11 +38,10 @@ export class Exercise {
     (exerciseTemplate) => exerciseTemplate.exercises,
     {
       eager: true,
-      nullable: false,
       onDelete: 'CASCADE',
-
     },
   )
+  @JoinColumn({ name: 'exerciseTemplateId', referencedColumnName: 'id' })
   exerciseTemplate: ExerciseTemplate;
 
   @OneToMany(() => Report, (report) => report.reportedExercise, {

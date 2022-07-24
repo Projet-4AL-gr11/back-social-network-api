@@ -28,7 +28,6 @@ export class ExerciseTemplate {
   })
   language: Language;
 
-  @OneToMany(() => Exercise, (exercise) => exercise.exerciseTemplate, {
-  })
+  @OneToMany(() => Exercise, (exercise) => exercise.exerciseTemplate, {})
   exercises: Exercise[];
 }

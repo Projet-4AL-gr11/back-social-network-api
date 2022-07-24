@@ -26,4 +26,6 @@ export class Language {
   leaderboards: Leaderboard[];
   @CreateDateColumn()
   createdAt: Date;
+  @Column({ nullable: true })
+  abbreviation: string;
 }

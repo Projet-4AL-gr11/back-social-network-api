@@ -181,12 +181,13 @@ export class ExecutionService {
     }
   }
 
-  async execSandbox(createExecuteDto: ExecuteDto){
+  async execSandbox(createExecuteDto: ExecuteDto) {
     let response;
     let result;
     try {
       response = await Axios.post(
-        process.env.EXEC_CODE_URL + '/api/code/', createExecuteDto
+        process.env.EXEC_CODE_URL + '/api/code/',
+        createExecuteDto,
       ).then(function (response) {
         return response;
       });
@@ -194,17 +195,16 @@ export class ExecutionService {
       console.log(er.response);
       result = {
         error: er,
-        execution: null
-      }
+        execution: null,
+      };
       return result;
     }
     result = {
-      execution: response.data
-    }
+      execution: response.data,
+    };
     console.log(result);
     return result;
   }
-
 
   async findAllExec() {
     let response;

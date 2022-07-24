@@ -22,6 +22,9 @@ import { GetEventParticipationQuery } from './cqrs/query/get-event-participation
 import { GetEventWithEventIdQuery } from './cqrs/query/get-event-with-event-id.query';
 import { Language } from '../language/domain/entities/language.entity';
 import { AddLanguageToEventCommand } from './cqrs/command/add-language-to-event.command';
+import { GetExerciseTemplateQuery } from '../exercices/cqrs/query/get-exercise-template.query';
+import { CreateExerciseCommand } from '../exercices/cqrs/command/create-exercise.command';
+import { ExerciseTemplate } from "../exercices/domain/entities/exercise-template.entity";
 
 @Injectable()
 export class EventService {
@@ -88,9 +91,19 @@ export class EventService {
     );
   }
 
-  async addExercise(eventId: string, exerciseId: string): Promise<void> {
+  async addExercise(
+    eventId: string,
+    exerciseTemplateId: string,
+  ): Promise<void> {
+    const exerciseTemplate: ExerciseTemplate = await this.queryBus.execute(
+      new GetExerciseTemplateQuery(exerciseTemplateId),
+    );
     return await this.commandBus.execute(
-      new AddExerciseToEventCommand(exerciseId, eventId),
+      new CreateExerciseCommand(
+        exerciseTemplateId,
+        eventId,
+        exerciseTemplate.name,
+      ),
     );
   }
 
