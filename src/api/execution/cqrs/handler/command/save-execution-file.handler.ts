@@ -1,8 +1,6 @@
 import { config } from 'dotenv';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { SaveProfilePictureCommand } from '../../../../media/cqrs/command/save-profile-picture.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Media } from '../../../../media/domain/entities/media.entity';
 import { Repository } from 'typeorm';
 import { S3 } from 'aws-sdk';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';

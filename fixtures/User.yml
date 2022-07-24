@@ -1,6 +1,21 @@
 entity: User
 parameters: {}
 items:
+
+  admin:
+    username: 'admin'
+    email: 'admin@gmail.com'
+    password: 'Admin&123456'
+    userType: 'ADMIN'
+    bio: 'Bio de admin ($current) un bg'
+
+  ahmedine:
+    username: 'ahmedine'
+    email: 'ahmedine@gmail.com'
+    password: 'Ahmedine&123'
+    userType: 'ADMIN'
+    bio: 'Bio de admin ($current) un bg'
+
   user{1..200}:
     username: 'User($current)'
     email: 'user($current)@gmail.com'

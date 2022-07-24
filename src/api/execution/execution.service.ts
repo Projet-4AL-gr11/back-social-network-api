@@ -25,10 +25,8 @@ import { ExecuteResultDto } from './domain/dto/execute-result.dto';
 import { SendCodeToExecApiCommand } from './cqrs/command/send-code-to-exec-api.command';
 import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
 import Axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.command';
 import { ExecutionFileDto } from './domain/dto/execution-file.dto';
-import { GetLeaderboardForUserWithExerciseIdHandler } from './cqrs/handler/query/get-leaderboard-for-user-with-exercise-id.handler';
 
 @Injectable()
 export class ExecutionService {
@@ -182,6 +180,31 @@ export class ExecutionService {
       return "Error: Vous avez déjà participé a l'exercise";
     }
   }
+
+  async execSandbox(createExecuteDto: ExecuteDto){
+    let response;
+    let result;
+    try {
+      response = await Axios.post(
+        process.env.EXEC_CODE_URL + '/api/code/', createExecuteDto
+      ).then(function (response) {
+        return response;
+      });
+    } catch (er) {
+      console.log(er.response);
+      result = {
+        error: er,
+        execution: null
+      }
+      return result;
+    }
+    result = {
+      execution: response.data
+    }
+    console.log(result);
+    return result;
+  }
+
 
   async findAllExec() {
     let response;
