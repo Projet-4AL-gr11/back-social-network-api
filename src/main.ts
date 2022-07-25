@@ -18,8 +18,8 @@ async function bootstrap() {
       'http://localhost',
       'http://localhost:4200',
       'http://ec2-18-117-90-11.us-east-2.compute.amazonaws.com/api/code',
-      "https://2fasthand.azurewebsites.net",
-      "https://2fasthandapi.azurewebsites.net"
+      "https://2fasthand.azurewebsites.net/*",
+      "https://2fasthandapi.azurewebsites.net/*",
     ],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     preflightContinue: false,
@@ -32,7 +32,7 @@ async function bootstrap() {
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.use(cookieParser());
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 80;
   await app.listen(port);
   logger.log(`Application started on port ` + (await app.getUrl()));
 }
