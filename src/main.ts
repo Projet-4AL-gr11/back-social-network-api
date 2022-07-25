@@ -18,6 +18,8 @@ async function bootstrap() {
       'http://localhost',
       'http://localhost:4200',
       'http://ec2-18-117-90-11.us-east-2.compute.amazonaws.com/api/code',
+      "https://2fasthand.azurewebsites.net",
+      "https://2fasthandapi.azurewebsites.net"
     ],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     preflightContinue: false,

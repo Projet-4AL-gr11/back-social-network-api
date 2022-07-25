@@ -30,12 +30,12 @@ config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '172.17.0.2',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres_test',
+      // type: 'postgres',
+      // host: '172.17.0.2',
+      // port: 5432,
+      // username: 'postgres',
+      // password: 'postgres',
+      // database: 'postgres_test',
       entities: [
         User,
         Friendship,
