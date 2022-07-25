@@ -30,6 +30,7 @@ import { SaveExecutionFileEventHandler } from './cqrs/event-handler/save-executi
 import { ExecutionController } from './execution.controller';
 import { GetLeaderboardWithOrderHandler } from './cqrs/handler/query/get-leaderboard-with-order.handler';
 import { GetEventGroupOwnerHandler } from '../event/cqrs/handler/query/get-event-group-owner.handler';
+import { SendCodeToExecApiResponseEventHandler } from './cqrs/event-handler/send-code-to-exec-api-response.event-handler';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { GetEventGroupOwnerHandler } from '../event/cqrs/handler/query/get-event
     SaveExecutionFileEventHandler,
     GetLeaderboardWithOrderHandler,
     GetEventGroupOwnerHandler,
+    SendCodeToExecApiResponseEventHandler,
   ],
 })
 export class ExecutionModule {}
