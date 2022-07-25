@@ -43,7 +43,6 @@ export class GiveGroupOwnershipHandler
         new GiveAdminRightEvent(command.userId, command.groupId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('GiveGroupOwnershipCommand', error),
       );

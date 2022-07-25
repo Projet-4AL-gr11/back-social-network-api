@@ -28,7 +28,6 @@ export class UpdateLeaderboardExerciseRankingHandler
         new UpdateLeaderboardExerciseRankingEvent(command.exerciseId),
       );
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('UpdateLeaderboardExerciseRankingHandler', error),
       );

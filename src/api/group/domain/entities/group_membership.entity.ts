@@ -9,7 +9,10 @@ export class GroupMembership {
     onDelete: 'CASCADE',
   })
   user: User;
-  @ManyToOne(() => Group, (group) => group.members, { primary: true, onDelete: 'CASCADE' })
+  @ManyToOne(() => Group, (group) => group.members, {
+    primary: true,
+    onDelete: 'CASCADE',
+  })
   group: Group;
   @Column({ default: false, nullable: false })
   isAdmin: boolean;

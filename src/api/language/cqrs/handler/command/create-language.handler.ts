@@ -29,7 +29,6 @@ export class CreateLanguageHandler
       this.eventBus.publish(new CreateLanguageEvent(command.languageDto.name));
       return this.languageRepository.save(language);
     } catch (error) {
-      // TODO: créer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('CreateLanguageHandler', error));
       throw error;
     }

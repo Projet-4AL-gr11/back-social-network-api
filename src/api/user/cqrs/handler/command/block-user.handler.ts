@@ -25,7 +25,6 @@ export class BlockUserHandler implements ICommandHandler<BlockUserCommand> {
         new BlockUserEvent(command.currentUserId, command.userId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('BlockUserHandler', error));
       throw error;
     }

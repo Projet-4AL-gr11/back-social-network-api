@@ -16,7 +16,6 @@ import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 
 @Controller('post')
 export class PostController {
-  // TODO: Ajouter les UseGuards
   constructor(private postService: PostService) {}
 
   @Get()
@@ -86,6 +85,11 @@ export class PostController {
     @Param('limit') limit: string,
   ) {
     return this.postService.getUserPosts(userId, Number(offset), Number(limit));
+  }
+
+  @Get('getAllUserPost/:userId')
+  getAllUserPost(@Param('userId') userId: string) {
+    return this.postService.getAllUserPosts(userId);
   }
 
   @UseGuards(JwtRefreshGuard)

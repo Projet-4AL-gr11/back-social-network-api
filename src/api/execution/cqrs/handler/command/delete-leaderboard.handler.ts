@@ -21,7 +21,6 @@ export class DeleteLeaderboardHandler
       await this.leaderboardRepository.delete(command.id);
       this.eventBus.publish(new DeleteLeaderboardEvent(command.id));
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(new ErrorsEvent('DeleteLeaderboardHandler', error));
       throw error;
     }

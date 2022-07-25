@@ -31,7 +31,7 @@ export class AcceptGroupRequestHandler
       this.eventBus.publish(
         new ErrorsEvent('AcceptGroupRequestCommand', error),
       );
-      //TODO: Envoyer une bonne erreur d'user
+
       throw error;
     }
   }

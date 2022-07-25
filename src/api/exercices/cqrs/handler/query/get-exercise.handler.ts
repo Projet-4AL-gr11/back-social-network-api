@@ -12,6 +12,12 @@ export class GetExerciseHandler implements IQueryHandler<GetExerciseQuery> {
   ) {}
 
   async execute(query: GetExerciseQuery): Promise<Exercise> {
-    return await this.exerciseRepository.findOne(query.id);
+    return await this.exerciseRepository
+      .createQueryBuilder()
+      .leftJoinAndSelect('Exercise.exerciseTemplate', 'ExerciseTemplate')
+      .leftJoinAndSelect('Exercise.event', 'Event')
+      .leftJoinAndSelect('ExerciseTemplate.language', 'Language')
+      .where('Exercise.id =:id', { id: query.id })
+      .getOne();
   }
 }

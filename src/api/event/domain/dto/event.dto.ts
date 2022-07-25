@@ -18,6 +18,4 @@ export class EventDto {
     this.startDate = new Date(startDate);
     this.endDate = new Date(endDate);
   }
-
-
 }

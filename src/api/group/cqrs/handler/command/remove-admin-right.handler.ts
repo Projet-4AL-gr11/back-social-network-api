@@ -31,7 +31,6 @@ export class RemoveAdminRightHandler
         new RemoveAdminRightEvent(command.userId, command.groupId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('RemoveAdminRightCommand', error));
       throw error;
     }

@@ -27,6 +27,7 @@ import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
 import Axios from 'axios';
 import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.command';
 import { ExecutionFileDto } from './domain/dto/execution-file.dto';
+import { ExecuteValidateRequestDto } from "./domain/dto/execute-validate-request.dto";
 
 @Injectable()
 export class ExecutionService {
@@ -115,6 +116,27 @@ export class ExecutionService {
     );
   }
 
+  async execCodeForValidation(
+    executeValidateRequestDto: ExecuteValidateRequestDto,
+  ) {
+    const execDto: ExecuteDto = new ExecuteDto();
+
+    execDto.exerciseId = null;
+    execDto.execution_id = Number(Date.now());
+    execDto.language = executeValidateRequestDto.language;
+    execDto.userId = executeValidateRequestDto.user.id;
+
+    const execResponse: ExecuteResultDto = await this.commandBus.execute(
+      new SendCodeToExecApiCommand(execDto),
+    );
+    if (execResponse.error != null) {
+      return new ExecuteResponseDto(execResponse.error, false);
+    } else if (execResponse.result.result == 'EverythingIsGood\n') {
+      return new ExecuteResponseDto(execResponse.result.result, true);
+    } else {
+      return new ExecuteResponseDto(execResponse.result.result, false);
+    }
+  }
   async execCode(executeRequestDto: ExecuteRequestDto) {
     if (
       (await this.queryBus.execute(
@@ -130,6 +152,7 @@ export class ExecutionService {
           executeRequestDto.exerciseId,
         ),
       );
+      execDto.exerciseId = executeRequestDto.exerciseId;
       execDto.execution_id = Number(Date.now());
       execDto.code = exerciseTemplate.code.replace(
         ExecPatternEnum.EXEC_CODE,
@@ -150,6 +173,7 @@ export class ExecutionService {
           executeRequestDto.exerciseId,
           executeRequestDto.timerScore,
           execDto.execution_id,
+          executeRequestDto.languageId,
         );
         const newLeaderBoard: Leaderboard = await this.createLeaderboard(
           createLeaderboardDto,
@@ -181,30 +205,28 @@ export class ExecutionService {
     }
   }
 
-  async execSandbox(createExecuteDto: ExecuteDto){
+  async execSandbox(createExecuteDto: ExecuteDto) {
     let response;
     let result;
     try {
       response = await Axios.post(
-        process.env.EXEC_CODE_URL + '/api/code/', createExecuteDto
+        process.env.EXEC_CODE_URL + '/api/code/',
+        createExecuteDto,
       ).then(function (response) {
         return response;
       });
     } catch (er) {
-      console.log(er.response);
       result = {
         error: er,
-        execution: null
-      }
+        execution: null,
+      };
       return result;
     }
     result = {
-      execution: response.data
-    }
-    console.log(result);
+      execution: response.data,
+    };
     return result;
   }
-
 
   async findAllExec() {
     let response;
@@ -215,9 +237,7 @@ export class ExecutionService {
           return response.data;
         },
       );
-    } catch (er) {
-      console.log(er);
-    }
+    } catch (er) {}
     return await response;
   }
 }

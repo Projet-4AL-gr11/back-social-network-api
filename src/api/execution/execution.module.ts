@@ -24,12 +24,13 @@ import { SendCodeToExecApiHandler } from './cqrs/handler/command/send-code-to-ex
 import { SendCodeToExecApiEventHandler } from './cqrs/event-handler/send-code-to-exec-api.event-handler';
 import { ExerciseTemplate } from '../exercices/domain/entities/exercise-template.entity';
 import { Exercise } from '../exercices/domain/entities/exercise.entity';
-import { ExecutionFile } from "./domain/entities/execution-file.entity";
-import { SaveExecutionFileHandler } from "./cqrs/handler/command/save-execution-file.handler";
-import { SaveExecutionFileEventHandler } from "./cqrs/event-handler/save-execution-file.event-handler";
-import { ExecutionController } from "./execution.controller";
-import { GetLeaderboardWithOrderHandler } from "./cqrs/handler/query/get-leaderboard-with-order.handler";
-import { GetEventGroupOwnerHandler } from "../event/cqrs/handler/query/get-event-group-owner.handler";
+import { ExecutionFile } from './domain/entities/execution-file.entity';
+import { SaveExecutionFileHandler } from './cqrs/handler/command/save-execution-file.handler';
+import { SaveExecutionFileEventHandler } from './cqrs/event-handler/save-execution-file.event-handler';
+import { ExecutionController } from './execution.controller';
+import { GetLeaderboardWithOrderHandler } from './cqrs/handler/query/get-leaderboard-with-order.handler';
+import { GetEventGroupOwnerHandler } from '../event/cqrs/handler/query/get-event-group-owner.handler';
+import { SendCodeToExecApiResponseEventHandler } from './cqrs/event-handler/send-code-to-exec-api-response.event-handler';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { GetEventGroupOwnerHandler } from "../event/cqrs/handler/query/get-event
     SaveExecutionFileEventHandler,
     GetLeaderboardWithOrderHandler,
     GetEventGroupOwnerHandler,
+    SendCodeToExecApiResponseEventHandler,
   ],
 })
 export class ExecutionModule {}

@@ -32,7 +32,6 @@ export class AddCommentHandler implements ICommandHandler<AddCommentCommand> {
       );
       return newComment;
     } catch (error) {
-      // TODO: créer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('AddCommentCommand', error));
       throw error;
     }

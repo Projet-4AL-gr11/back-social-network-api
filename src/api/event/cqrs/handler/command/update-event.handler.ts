@@ -21,7 +21,6 @@ export class UpdateEventHandler implements ICommandHandler<UpdateEventCommand> {
         new UpdateEventEvent(command.eventId, command.eventDto),
       );
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(new ErrorsEvent('UpdateEventHandler', error));
       throw error;
     }

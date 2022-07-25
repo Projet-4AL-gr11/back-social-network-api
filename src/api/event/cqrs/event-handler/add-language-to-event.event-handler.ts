@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { AddExerciseToEventEvent } from '../event/add-exercise-to-event.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 import { AddLanguageToEventEvent } from '../event/add-language-to-event.event';

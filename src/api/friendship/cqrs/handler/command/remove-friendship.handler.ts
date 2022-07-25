@@ -39,7 +39,6 @@ export class RemoveFriendshipHandler
       }
     } catch (error) {
       this.eventBus.publish(new ErrorsEvent('RemoveFriendshipHandler', error));
-      //TODO: Envoyer une bonne erreur d'user
       throw error;
     }
   }

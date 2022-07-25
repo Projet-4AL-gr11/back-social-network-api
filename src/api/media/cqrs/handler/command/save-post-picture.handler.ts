@@ -40,7 +40,6 @@ export class SavePostPictureHandler
       this.eventBus.publish(new SavePostPictureEvent(command.mediaDto));
       return newFile;
     } catch (error) {
-      // TODO: Trouver une vrai erreur a envoyé
       this.eventBus.publish(new ErrorsEvent('SavePostPictureHandler', error));
       throw error;
     }

@@ -24,7 +24,6 @@ export class RemoveExerciseTemplateHandler
       this.eventBus.publish(new RemoveExerciseTemplateEvent(command.id));
       return exerciseTemplate;
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('RemoveExerciseTemplateHandler', error),
       );

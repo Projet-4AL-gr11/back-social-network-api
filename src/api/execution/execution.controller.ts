@@ -16,7 +16,8 @@ import { EventRanking } from './domain/entities/event-ranking.entity';
 import JwtRefreshGuard from '../auth/guards/jwt-refresh-token.guard';
 import { RequestUser } from '../auth/interface/request-user.interface';
 import { ExecuteRequestDto } from './domain/dto/execute-request.dto';
-import { ExecuteDto } from "./domain/dto/execute.dto";
+import { ExecuteDto } from './domain/dto/execute.dto';
+import { ExecuteValidateRequestDto } from './domain/dto/execute-validate-request.dto';
 
 @Controller('execution')
 export class ExecutionController {
@@ -88,9 +89,19 @@ export class ExecutionController {
     return this.executionService.execCode(executeRequestDto);
   }
 
+  @Post('execute/validate')
+  @UseGuards(JwtRefreshGuard)
+  execCodeForValidation(
+    @Req() request: RequestUser,
+    @Body() executeRequestDto: ExecuteValidateRequestDto,
+  ) {
+    const { user } = request;
+    executeRequestDto.user = user;
+    return this.executionService.execCodeForValidation(executeRequestDto);
+  }
+
   @Post('sandbox')
   executeSandbox(@Body() createExecuteDto: ExecuteDto) {
-    console.log(createExecuteDto);
     return this.executionService.execSandbox(createExecuteDto);
   }
 

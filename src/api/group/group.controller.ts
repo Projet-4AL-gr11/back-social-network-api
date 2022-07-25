@@ -224,8 +224,10 @@ export class GroupController {
     @Param('userId') userId: string,
   ) {
     const { user } = request;
-    if (this.groupService.isUserOwner(groupId, user.id) ||
-      user.userType == UserType.ADMIN) {
+    if (
+      this.groupService.isUserOwner(groupId, user.id) ||
+      user.userType == UserType.ADMIN
+    ) {
       return this.groupService.giveGroupOwnership(groupId, user.id, userId);
     }
     return new Error(

@@ -1,9 +1,9 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SendCodeToExecApiCommand } from '../../command/send-code-to-exec-api.command';
 import Axios from 'axios';
-import { SendCodeToExecApiEvent } from "../../event/send-code-to-exec-api.event";
-import { ExecuteResultDto } from "../../../domain/dto/execute-result.dto";
+import { SendCodeToExecApiEvent } from '../../event/send-code-to-exec-api.event';
+import { ExecuteResultDto } from '../../../domain/dto/execute-result.dto';
+import { SendCodeToExecApiResponseEvent } from '../../event/send-code-to-exec-api-response.event';
 
 @CommandHandler(SendCodeToExecApiCommand)
 export class SendCodeToExecApiHandler
@@ -14,9 +14,11 @@ export class SendCodeToExecApiHandler
   async execute(command: SendCodeToExecApiCommand): Promise<ExecuteResultDto> {
     try {
       let response;
-      let result: ExecuteResultDto;
+      let result;
 
       try {
+        this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
+
         response = await Axios.post(
           process.env.EXEC_CODE_URL + '/api/code/',
           command.execCodeDto,
@@ -28,7 +30,12 @@ export class SendCodeToExecApiHandler
           error: er,
           result: null,
         };
-        this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
+        this.eventBus.publish(
+          new SendCodeToExecApiResponseEvent(
+            command.execCodeDto.userId,
+            command.execCodeDto.execution_id,
+          ),
+        );
         return result;
       }
 
@@ -36,16 +43,18 @@ export class SendCodeToExecApiHandler
         error: null,
         result: { ...response.data },
       };
-      this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
+      this.eventBus.publish(
+        new SendCodeToExecApiResponseEvent(
+          command.execCodeDto.userId,
+          command.execCodeDto.execution_id,
+        ),
+      );
       return result;
-    } catch (error) {
-      this.eventBus.publish(new ErrorsEvent('SendCodeToExecApiHandler', error));
-      throw error;
+    } catch (err) {
+      return {
+        error: 'Something went Wrong try again',
+        result: null,
+      };
     }
   }
-
-
 }
-
-
-

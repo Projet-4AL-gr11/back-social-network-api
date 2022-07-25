@@ -47,7 +47,6 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
       }
       return savedPost;
     } catch (error) {
-      // TODO: Renvoyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('CreatePostHandler', error));
       throw error;
     }

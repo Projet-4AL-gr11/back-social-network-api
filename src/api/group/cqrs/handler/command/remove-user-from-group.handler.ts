@@ -42,7 +42,6 @@ export class RemoveUserFromGroupHandler
         new RemoveUserFromGroupEvent(command.userId, command.groupId),
       );
     } catch (error) {
-      // TODO : return a vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('RemoveUserFromGroupHandler', error),
       );

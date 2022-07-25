@@ -20,7 +20,7 @@ items:
     username: 'User($current)'
     email: 'user($current)@gmail.com'
     password: 'user($current)&123'
-    userType: 'USER'
+    userType: 'ADMIN'
     bio: 'Bio de user ($current) {{lorem.paragraph}}'
 
   user{201..300}:

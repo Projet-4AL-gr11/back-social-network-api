@@ -27,7 +27,6 @@ export class AddGroupFollowerHandler
         new AddGroupFollowerEvent(command.user.id, command.group.id),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('AddGroupFollowerHandler', error));
       throw error;
     }

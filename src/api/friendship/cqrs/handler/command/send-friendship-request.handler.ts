@@ -34,7 +34,6 @@ export class SendFriendshipRequestHandler
       this.eventBus.publish(
         new ErrorsEvent('SendFriendshipRequestHandler', error),
       );
-      //TODO: Envoyer une bonne erreur d'user
       throw error;
     }
   }

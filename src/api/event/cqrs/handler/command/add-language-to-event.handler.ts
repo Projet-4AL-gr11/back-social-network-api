@@ -2,10 +2,9 @@ import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from '../../../domain/entities/event.entity';
 import { Repository } from 'typeorm';
-import { AddExerciseToEventEvent } from '../../event/add-exercise-to-event.event';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { AddLanguageToEventCommand } from '../../command/add-language-to-event.command';
-import { AddLanguageToEventEvent } from "../../event/add-language-to-event.event";
+import { AddLanguageToEventEvent } from '../../event/add-language-to-event.event';
 
 @CommandHandler(AddLanguageToEventCommand)
 export class AddLanguageToEventHandler
@@ -28,7 +27,6 @@ export class AddLanguageToEventHandler
         new AddLanguageToEventEvent(command.eventId, command.languageId),
       );
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('AddLanguageToEventHandler', error),
       );

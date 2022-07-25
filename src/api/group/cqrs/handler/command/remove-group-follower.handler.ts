@@ -27,7 +27,6 @@ export class RemoveGroupFollowerHandler
         new RemoveGroupFollowerEvent(command.userId, command.groupId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('RemoveGroupFollowerHandler', error),
       );

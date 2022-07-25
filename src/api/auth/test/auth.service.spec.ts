@@ -174,9 +174,6 @@ describe('AuthService', () => {
       });
     });
   });
-
-  // TODO : Login
-  // TODO : get-user-login
 });
 
 // Erreur inconnue

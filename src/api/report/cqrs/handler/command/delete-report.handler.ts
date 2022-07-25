@@ -21,7 +21,6 @@ export class DeleteReportHandler
       await this.reportRepository.delete(command.reportId);
       this.eventBus.publish(new DeleteReportEvent(command.reportId));
     } catch (error) {
-      // TODO: Renvouyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('DeleteReportHandler', error));
       throw error;
     }

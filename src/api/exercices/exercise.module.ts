@@ -18,9 +18,8 @@ import { UpdateExerciseTemplateEventHandler } from './cqrs/event-handler/update-
 import { RemoveExerciseTemplateHandler } from './cqrs/handler/command/remove-exercise-template.handler';
 import { RemoveExerciseTemplateEventHandler } from './cqrs/event-handler/remove-exercise-template.event-handler';
 import { Language } from '../language/domain/entities/language.entity';
-import { GetLanguageQuery } from "../language/cqrs/query/get-language.query";
-import { GetLanguageHandler } from "../language/cqrs/handler/query/get-language.handler";
-import { GetLeaderboardWithOrderHandler } from "../execution/cqrs/handler/query/get-leaderboard-with-order.handler";
+import { CreateExerciseHandler } from './cqrs/handler/command/create-exercise.handler';
+import { CreateExerciseEventHandler } from './cqrs/event-handler/create-exercise.event-handler';
 
 @Module({
   imports: [
@@ -40,9 +39,9 @@ import { GetLeaderboardWithOrderHandler } from "../execution/cqrs/handler/query/
     UpdateExerciseTemplateEventHandler,
     RemoveExerciseTemplateHandler,
     RemoveExerciseTemplateEventHandler,
+    CreateExerciseHandler,
+    CreateExerciseEventHandler,
     ErrorEventHandler,
   ],
 })
 export class ExerciseModule {}
-
-// TODO: Vérifier que pour get un exercice la date de l'event a bien commencé et qu'il n'est pas finit

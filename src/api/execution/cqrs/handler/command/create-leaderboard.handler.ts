@@ -24,6 +24,7 @@ export class CreateLeaderboardHandler
         exercise: command.exercise,
         timerScore: command.timerScore,
         executionId: command.executionId,
+        language: command.exercise.exerciseTemplate.language,
       });
       const err = await validate(leaderboard, {
         validationError: { target: false },
@@ -42,7 +43,6 @@ export class CreateLeaderboardHandler
       );
       return newLeaderboard;
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(new ErrorsEvent('CreateLeaderboardHandler', error));
       throw error;
     }

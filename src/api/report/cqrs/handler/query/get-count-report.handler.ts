@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetReportQuery } from '../../query/get-report.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from '../../../domain/entities/report.entity';
 import { Repository } from 'typeorm';

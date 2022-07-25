@@ -19,7 +19,6 @@ export class UpdateGroupHandler implements ICommandHandler<UpdateGroupCommand> {
       await this.groupRepository.update(command.groupId, command.groupDto);
       this.eventBus.publish(new UpdateGroupEvent(command.groupId));
     } catch (error) {
-      // TODO: Retourner une vraie erreur
       this.eventBus.publish(new ErrorsEvent('UpdateGroupHandler', error));
       throw error;
     }

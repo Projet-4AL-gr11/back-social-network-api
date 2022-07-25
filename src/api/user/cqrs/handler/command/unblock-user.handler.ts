@@ -25,7 +25,6 @@ export class UnblockUserHandler implements ICommandHandler<UnblockUserCommand> {
         new UnblockUserEvent(command.currentUserId, command.userId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('UnblockUserCommand', error));
       throw error;
     }

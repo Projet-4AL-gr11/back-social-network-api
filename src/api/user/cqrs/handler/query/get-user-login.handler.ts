@@ -3,7 +3,6 @@ import { GetUserLoginQuery } from '../../query/get-user-login.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../domain/entities/user.entity';
 import { Repository } from 'typeorm';
-import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { config } from 'dotenv';
 
 config();

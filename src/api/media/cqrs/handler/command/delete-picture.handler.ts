@@ -32,7 +32,6 @@ export class DeletePictureHandler
       await this.mediaRepository.delete(command.fileId);
       await this.eventBus.publish(new DeletePictureEvent(command.fileId));
     } catch (error) {
-      // TODO: Trouver une vrai erreur a envoyé
       await this.eventBus.publish(
         new ErrorsEvent('DeletePictureHandler', error),
       );

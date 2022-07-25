@@ -43,7 +43,6 @@ export class SaveGroupBannerPictureHandler
       this.eventBus.publish(new SaveGroupBannerPictureEvent(command.mediaDto));
       return newFile;
     } catch (error) {
-      // TODO: Trouver une vrai erreur a envoyé
       this.eventBus.publish(
         new ErrorsEvent('SaveGroupBannerPictureHandler', error),
       );

@@ -199,5 +199,4 @@ export class User extends BaseEntity {
 
   @OneToMany(() => ConnectedUser, (connection) => connection.user)
   connections: ConnectedUser[];
-
 }

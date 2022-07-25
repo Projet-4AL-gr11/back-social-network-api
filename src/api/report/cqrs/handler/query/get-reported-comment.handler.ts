@@ -1,5 +1,3 @@
-//TODO: get-reported-comment.handler.ts
-
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from '../../../domain/entities/report.entity';

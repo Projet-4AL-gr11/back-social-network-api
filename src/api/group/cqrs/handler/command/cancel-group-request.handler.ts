@@ -34,7 +34,6 @@ export class CancelGroupRequestHandler
         new ErrorsEvent('CancelGroupRequestHandler', error),
       );
 
-      //TODO: Envoyer une bonne erreur d'user
       throw error;
     }
   }

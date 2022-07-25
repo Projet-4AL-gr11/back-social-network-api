@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -29,14 +30,17 @@ export class Leaderboard {
   createdDate: Date;
 
   @ManyToOne(() => User, (user) => user.leaderboards, { onDelete: 'CASCADE' })
+  @JoinColumn()
   user: User;
 
   @ManyToOne(() => Exercise, (exercise) => exercise.leaderboards, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'exerciseId', referencedColumnName: 'id' })
   exercise: Exercise;
 
   @ManyToOne(() => Language, (language) => language.leaderboards)
+  @JoinColumn()
   language: Language;
 
   @Column({ default: 0 })

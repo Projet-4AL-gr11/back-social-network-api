@@ -1,9 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetEventOwnerQuery } from '../../query/get-event-owner.query';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../../../user/domain/entities/user.entity';
-import { GetEventGroupOwnerQuery } from "../../query/get-event-group-owner.query";
+import { GetEventGroupOwnerQuery } from '../../query/get-event-group-owner.query';
 
 @QueryHandler(GetEventGroupOwnerQuery)
 export class GetEventGroupOwnerHandler
