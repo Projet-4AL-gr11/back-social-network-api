@@ -131,7 +131,8 @@ export class ExecutionService {
           executeRequestDto.exerciseId,
         ),
       );
-      execDto.execution_id = executeRequestDto.execution_id;
+      execDto.exerciseId = executeRequestDto.exerciseId;
+      execDto.execution_id = Number(Date.now());
       execDto.code = exerciseTemplate.code.replace(
         ExecPatternEnum.EXEC_CODE,
         executeRequestDto.code,
@@ -151,6 +152,7 @@ export class ExecutionService {
           executeRequestDto.exerciseId,
           executeRequestDto.timerScore,
           execDto.execution_id,
+          executeRequestDto.languageId,
         );
         const newLeaderBoard: Leaderboard = await this.createLeaderboard(
           createLeaderboardDto,

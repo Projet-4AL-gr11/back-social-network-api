@@ -5,6 +5,7 @@ export class ExecuteRequestDto {
   execution_id?: number;
   @IsNotEmpty()
   language: string;
+  languageId: string;
   @IsNotEmpty()
   code: string;
   exerciseId: string;

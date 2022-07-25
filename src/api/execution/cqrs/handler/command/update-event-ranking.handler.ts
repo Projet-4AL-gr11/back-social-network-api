@@ -19,6 +19,17 @@ export class UpdateEventRankingHandler
 
   async execute(command: UpdateEventRankingCommand): Promise<void> {
     try {
+      const eventRankingTest = await this.eventRankingRepository
+        .createQueryBuilder()
+        .leftJoinAndSelect('EventRanking.event', 'Event')
+        .leftJoinAndSelect('EventRanking.user', 'User')
+        .where('Event.id=:eventId', { eventId: command.event.id })
+        .getMany();
+      if (eventRankingTest != undefined) {
+        for (const eventRankingToDelete of eventRankingTest) {
+          await this.eventRankingRepository.delete(eventRankingToDelete.id);
+        }
+      }
       for (let a = 0; a < command.participants.length; a++) {
         let score = 0;
 
@@ -47,6 +58,8 @@ export class UpdateEventRankingHandler
         if (err.length > 0) {
           throw err;
         }
+
+
         await this.eventRankingRepository.save(eventRanking);
       }
       this.eventBus.publish(new UpdateEventRankingEvent(command.event.id));
