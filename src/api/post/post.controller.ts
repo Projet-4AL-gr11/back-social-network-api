@@ -88,6 +88,13 @@ export class PostController {
     return this.postService.getUserPosts(userId, Number(offset), Number(limit));
   }
 
+  @Get('getAllUserPost/:userId')
+  getAllUserPost(
+    @Param('userId') userId: string,
+  ) {
+    return this.postService.getAllUserPosts(userId);
+  }
+
   @UseGuards(JwtRefreshGuard)
   @Post('/')
   createPost(@Req() request: RequestUser, @Body() postDto: PostDto) {
