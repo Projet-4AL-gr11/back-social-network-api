@@ -19,7 +19,6 @@ export class DeletePostHandler implements ICommandHandler<DeletePostCommand> {
       await this.postRepository.delete(command.postId);
       this.eventBus.publish(new DeletePostEvent(command.postId));
     } catch (error) {
-      // TODO: Renvoyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('DeletePostHandler', error));
       throw error;
     }

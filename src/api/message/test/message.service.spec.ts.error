@@ -64,7 +64,6 @@
 //   });
 // });
 
-// TODO: test saveMessage
 // describe('SaveMessage', () => {
 //   beforeEach(async () => {
 //     queryBus.mockResolvedValue(message);
@@ -74,7 +73,6 @@
 //   });
 // });
 
-// TODO: test getUserFromSocket
 // describe('getUserFromSocket', () => {
 //   beforeEach(async () => {
 //     queryBus.mockResolvedValue(mockUser1);

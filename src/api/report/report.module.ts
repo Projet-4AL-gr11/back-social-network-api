@@ -16,7 +16,6 @@ import { CreateReportPostHandler } from './cqrs/handler/command/create-report-po
 import { CreateReportUserHandler } from './cqrs/handler/command/create-report-user.handler';
 import { DeleteReportHandler } from './cqrs/handler/command/delete-report.handler';
 import { GetReportHandler } from './cqrs/handler/query/get-report.handler';
-import { GetReportedCommentQuery } from './cqrs/query/get-reported-comment.query';
 import { GetReportedGroupHandler } from './cqrs/handler/query/get-reported-group.handler';
 import { GetReportedPostHandler } from './cqrs/handler/query/get-reported-post.handler';
 import { GetReportedUserHandler } from './cqrs/handler/query/get-reported-user.handler';
@@ -33,7 +32,7 @@ import { GetReportedExerciseHandler } from './cqrs/handler/query/get-reported-ex
 import { CreateReportExerciseHandler } from './cqrs/handler/command/create-report-exercise.handler';
 import { CreateReportExerciseEventHandler } from './cqrs/event-handler/create-report-exercise.event-handler';
 import { Exercise } from '../exercices/domain/entities/exercise.entity';
-import { GetReportedCommentHandler } from "./cqrs/handler/query/get-reported-comment.handler";
+import { GetReportedCommentHandler } from './cqrs/handler/query/get-reported-comment.handler';
 
 @Module({
   imports: [

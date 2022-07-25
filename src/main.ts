@@ -12,7 +12,6 @@ async function bootstrap() {
     bufferLogs: true,
   });
   app.useGlobalPipes(new ValidationPipe());
-  // TODO: je comprends pas pourquoi ça veux pas allow-all-origin
   app.enableCors({
     origin: [
       'http://127.0.0.1:4200',

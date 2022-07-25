@@ -19,7 +19,6 @@ export class DeleteEventHandler implements ICommandHandler<DeleteEventCommand> {
       await this.eventRepository.delete(command.id);
       this.eventBus.publish(new DeleteEventEvent(command.id));
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(new ErrorsEvent('DeleteEventHandler', error));
       throw error;
     }

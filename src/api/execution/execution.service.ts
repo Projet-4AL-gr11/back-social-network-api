@@ -116,7 +116,6 @@ export class ExecutionService {
   }
 
   async execCode(executeRequestDto: ExecuteRequestDto) {
-    console.log(executeRequestDto.execution_id);
     if (
       (await this.queryBus.execute(
         new GetLeaderboardForUserWithExerciseIdQuery(
@@ -195,7 +194,6 @@ export class ExecutionService {
         return response;
       });
     } catch (er) {
-      console.log(er.response);
       result = {
         error: er,
         execution: null,
@@ -205,7 +203,6 @@ export class ExecutionService {
     result = {
       execution: response.data,
     };
-    console.log(result);
     return result;
   }
 
@@ -218,9 +215,7 @@ export class ExecutionService {
           return response.data;
         },
       );
-    } catch (er) {
-      console.log(er);
-    }
+    } catch (er) {}
     return await response;
   }
 }

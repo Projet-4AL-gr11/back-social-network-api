@@ -23,7 +23,6 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
         .add(command.userId);
       this.eventBus.publish(new LikePostEvent(command.userId, command.postId));
     } catch (error) {
-      // TODO: Renvoyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('LikePostHandler', error));
       throw error;
     }

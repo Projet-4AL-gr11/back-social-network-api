@@ -19,7 +19,6 @@ export class UpdatePostHandler implements ICommandHandler<UpdatePostCommand> {
       await this.postRepository.update(command.postId, command.postDto);
       this.eventBus.publish(new UpdatePostEvent(command.postId));
     } catch (error) {
-      // TODO: Renvoyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('UpdatePostHandler', error));
       throw error;
     }

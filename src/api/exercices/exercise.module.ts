@@ -45,5 +45,3 @@ import { CreateExerciseEventHandler } from './cqrs/event-handler/create-exercise
   ],
 })
 export class ExerciseModule {}
-
-// TODO: Vérifier que pour get un exercice la date de l'event a bien commencé et qu'il n'est pas finit

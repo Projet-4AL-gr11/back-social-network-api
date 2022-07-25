@@ -1,5 +1,4 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SendCodeToExecApiCommand } from '../../command/send-code-to-exec-api.command';
 import Axios from 'axios';
 import { SendCodeToExecApiEvent } from '../../event/send-code-to-exec-api.event';
@@ -29,7 +28,6 @@ export class SendCodeToExecApiHandler
           result: null,
         };
         this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
-        console.log(result);
         return result;
       }
 

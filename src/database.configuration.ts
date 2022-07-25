@@ -24,7 +24,6 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
   }
 }
 
-
 /*
 "ssl": true,
   "extra": {

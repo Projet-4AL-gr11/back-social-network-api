@@ -16,14 +16,18 @@ import { IsPostOwnerQuery } from './cqrs/query/is-post-owner.query';
 import { GetSharedPostQuery } from './cqrs/query/get-shared-post.query';
 import { GetPostTimelineQuery } from './cqrs/query/get-post-timeline.query';
 import { GetGroupQuery } from '../group/cqrs/query/get-group.query';
-import { GetUserPostsQuery } from "./cqrs/query/get-user-posts.query";
+import { GetUserPostsQuery } from './cqrs/query/get-user-posts.query';
 import { GetGroupPostQuery } from './cqrs/query/get-group-post.query';
 
 @Injectable()
 export class PostService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
-  async createPost(userId: string, postDto: PostDto, groupId?: string): Promise<Post> {
+  async createPost(
+    userId: string,
+    postDto: PostDto,
+    groupId?: string,
+  ): Promise<Post> {
     let post: Post;
 
     const user = await this.queryBus.execute(new GetUserQuery(userId));
@@ -101,9 +105,7 @@ export class PostService {
   }
 
   async getAllUserPosts(userId: string) {
-    return await this.queryBus.execute(
-      new GetUserPostsQuery(userId),
-    );
+    return await this.queryBus.execute(new GetUserPostsQuery(userId));
   }
 
   async getPostWithGroupId(groupId: string, offset: number, limit: number) {

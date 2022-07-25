@@ -33,7 +33,6 @@ export class CreateReportPostHandler
       );
       return newReport;
     } catch (error) {
-      // TODO: Renvouyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('CreateReportPostHandler', error));
       throw error;
     }

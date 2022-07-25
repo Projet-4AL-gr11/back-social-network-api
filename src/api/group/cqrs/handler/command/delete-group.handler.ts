@@ -19,7 +19,6 @@ export class DeleteGroupHandler implements ICommandHandler<DeleteGroupCommand> {
       await this.groupRepository.delete(command.groupId);
       this.eventBus.publish(new DeleteGroupEvent(command.groupId));
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('DeleteGroupHandler', error));
       throw error;
     }

@@ -43,7 +43,6 @@ export class SaveProfilePictureHandler
       this.eventBus.publish(new SaveProfilePictureEvent(command.mediaDto));
       return newFile;
     } catch (error) {
-      // TODO: Trouver une vrai erreur a envoyé
       await this.eventBus.publish(
         new ErrorsEvent('SaveProfilePictureHandler', error),
       );

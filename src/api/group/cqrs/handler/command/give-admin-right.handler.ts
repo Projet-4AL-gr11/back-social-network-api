@@ -31,7 +31,6 @@ export class GiveAdminRightHandler
         new GiveAdminRightEvent(command.userId, command.groupId),
       );
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('GiveAdminRightCommand', error));
       throw error;
     }

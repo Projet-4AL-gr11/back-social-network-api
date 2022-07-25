@@ -27,7 +27,6 @@ export class SendGroupRequestHandler
       );
       return this.groupRequestRepository.save(groupRequest);
     } catch (error) {
-      // TODO: return a vrai erreur
       this.eventBus.publish(new ErrorsEvent('SendGroupRequestCommand', error));
       throw error;
     }

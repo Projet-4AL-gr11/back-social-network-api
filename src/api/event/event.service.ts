@@ -3,7 +3,6 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Event } from './domain/entities/event.entity';
 import { User } from '../user/domain/entities/user.entity';
 import { EventDto } from './domain/dto/event.dto';
-import { EventSearchDto } from './domain/dto/event-search.dto';
 import { GetEventMemberQuery } from './cqrs/query/get-event-member.query';
 import { GetEventNotEndQuery } from './cqrs/query/get-event-not-end.query';
 import { GetEventQuery } from './cqrs/query/get-event.query';
@@ -17,14 +16,13 @@ import { DeleteEventCommand } from './cqrs/command/delete-event.command';
 import { RemoveParticipantToEventCommand } from './cqrs/command/remove-participant-to-event.command';
 import { SearchEventWithNameQuery } from './cqrs/query/search-event-with-name.query';
 import { RemoveExerciseToEventCommand } from './cqrs/command/remove-exercise-to-event.command';
-import { AddExerciseToEventCommand } from './cqrs/command/add-exercise-to-event.command';
 import { GetEventParticipationQuery } from './cqrs/query/get-event-participation.query';
 import { GetEventWithEventIdQuery } from './cqrs/query/get-event-with-event-id.query';
 import { Language } from '../language/domain/entities/language.entity';
 import { AddLanguageToEventCommand } from './cqrs/command/add-language-to-event.command';
 import { GetExerciseTemplateQuery } from '../exercices/cqrs/query/get-exercise-template.query';
 import { CreateExerciseCommand } from '../exercices/cqrs/command/create-exercise.command';
-import { ExerciseTemplate } from "../exercices/domain/entities/exercise-template.entity";
+import { ExerciseTemplate } from '../exercices/domain/entities/exercise-template.entity';
 
 @Injectable()
 export class EventService {
@@ -135,11 +133,6 @@ export class EventService {
 
   async isMember(eventId: string, userId: string): Promise<boolean> {
     return await this.queryBus.execute(new IsEventMemberQuery(eventId, userId));
-  }
-
-  // specific research
-  async getEventSearch(eventSearchDto: EventSearchDto): Promise<Event[]> {
-    throw 'not implemented'; //TODO
   }
 
   async getByName(name: string): Promise<Event[]> {

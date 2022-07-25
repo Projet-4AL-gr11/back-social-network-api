@@ -25,7 +25,6 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
         new DislikePostEvent(command.userId, command.postId),
       );
     } catch (error) {
-      // TODO: Renvoyer une vrai erreur
       this.eventBus.publish(new ErrorsEvent('DislikePostHandler', error));
       throw error;
     }

@@ -33,7 +33,6 @@ export class CreateReportExerciseHandler
       );
       return newReport;
     } catch (error) {
-      // TODO: Renvouyer une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('CreateReportExerciseHandler', error),
       );

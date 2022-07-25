@@ -143,7 +143,6 @@ export class MediaController {
     });
   }
 
-  // TODO: A revoir pour plusieurs photo
   @Post('postPicture/:id')
   @UseGuards(JwtRefreshGuard)
   @UseInterceptors(FileInterceptor('file'))

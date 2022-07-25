@@ -36,7 +36,6 @@ export class CancelFriendshipRequestHandler
         new ErrorsEvent('CancelFriendshipRequestHandler', error),
       );
 
-      //TODO: Envoyer une bonne erreur d'user
       throw error;
     }
   }

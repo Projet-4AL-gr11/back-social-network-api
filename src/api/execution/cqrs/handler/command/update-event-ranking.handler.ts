@@ -59,12 +59,10 @@ export class UpdateEventRankingHandler
           throw err;
         }
 
-
         await this.eventRankingRepository.save(eventRanking);
       }
       this.eventBus.publish(new UpdateEventRankingEvent(command.event.id));
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('UpdateEventRankingHandler', error),
       );

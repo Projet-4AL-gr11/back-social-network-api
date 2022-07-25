@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { RemoveExerciseTemplateEvent } from '../event/remove-exercise-template.event';
 import { Logger } from '@nestjs/common';
 import { logger } from '../../../../util/config/winston-logger.config';
 import { UpdateExerciseTemplateEvent } from '../event/update-exercise-template.event';

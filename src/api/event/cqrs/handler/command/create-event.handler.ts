@@ -33,7 +33,6 @@ export class CreateEventHandler implements ICommandHandler<CreateEventCommand> {
       this.eventBus.publish(new CreateEventEvent(newEvent.id));
       return newEvent;
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(new ErrorsEvent('CreateEventHandler', error));
       throw error;
     }

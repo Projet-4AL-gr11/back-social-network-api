@@ -27,7 +27,6 @@ export class RemoveExerciseToEventHandler
         new RemoveExerciseToEventEvent(command.exerciseId, command.eventId),
       );
     } catch (error) {
-      // TODO: retourné une vrai erreur
       this.eventBus.publish(
         new ErrorsEvent('RemoveExerciseToEventCommand', error),
       );

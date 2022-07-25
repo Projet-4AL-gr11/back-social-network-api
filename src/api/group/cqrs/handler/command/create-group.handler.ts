@@ -33,7 +33,6 @@ export class CreateGroupHandler implements ICommandHandler<CreateGroupCommand> {
       this.eventBus.publish(new CreateGroupEvent(command.user.id, group.name));
       return await this.groupRepository.save(group);
     } catch (error) {
-      //TODO: Faire une vraie erreur
       this.eventBus.publish(new ErrorsEvent('CreateGroupHandler', error));
       throw error;
     }
