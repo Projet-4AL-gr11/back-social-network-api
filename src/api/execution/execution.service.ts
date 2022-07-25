@@ -27,6 +27,7 @@ import { ExecuteResponseDto } from './domain/dto/execute-response.dto';
 import Axios from 'axios';
 import { SaveExecutionFileCommand } from './cqrs/command/save-execution-file.command';
 import { ExecutionFileDto } from './domain/dto/execution-file.dto';
+import { ExecuteValidateRequestDto } from "./domain/dto/execute-validate-request.dto";
 
 @Injectable()
 export class ExecutionService {
@@ -115,6 +116,27 @@ export class ExecutionService {
     );
   }
 
+  async execCodeForValidation(
+    executeValidateRequestDto: ExecuteValidateRequestDto,
+  ) {
+    const execDto: ExecuteDto = new ExecuteDto();
+
+    execDto.exerciseId = null;
+    execDto.execution_id = Number(Date.now());
+    execDto.language = executeValidateRequestDto.language;
+    execDto.userId = executeValidateRequestDto.user.id;
+
+    const execResponse: ExecuteResultDto = await this.commandBus.execute(
+      new SendCodeToExecApiCommand(execDto),
+    );
+    if (execResponse.error != null) {
+      return new ExecuteResponseDto(execResponse.error, false);
+    } else if (execResponse.result.result == 'EverythingIsGood\n') {
+      return new ExecuteResponseDto(execResponse.result.result, true);
+    } else {
+      return new ExecuteResponseDto(execResponse.result.result, false);
+    }
+  }
   async execCode(executeRequestDto: ExecuteRequestDto) {
     if (
       (await this.queryBus.execute(
