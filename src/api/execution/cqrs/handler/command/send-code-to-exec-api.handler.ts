@@ -2,8 +2,8 @@ import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { ErrorsEvent } from '../../../../../util/error/errorsEvent';
 import { SendCodeToExecApiCommand } from '../../command/send-code-to-exec-api.command';
 import Axios from 'axios';
-import { SendCodeToExecApiEvent } from "../../event/send-code-to-exec-api.event";
-import { ExecuteResultDto } from "../../../domain/dto/execute-result.dto";
+import { SendCodeToExecApiEvent } from '../../event/send-code-to-exec-api.event';
+import { ExecuteResultDto } from '../../../domain/dto/execute-result.dto';
 
 @CommandHandler(SendCodeToExecApiCommand)
 export class SendCodeToExecApiHandler
@@ -14,7 +14,7 @@ export class SendCodeToExecApiHandler
   async execute(command: SendCodeToExecApiCommand): Promise<ExecuteResultDto> {
     try {
       let response;
-      let result: ExecuteResultDto;
+      let result;
 
       try {
         response = await Axios.post(
@@ -29,6 +29,7 @@ export class SendCodeToExecApiHandler
           result: null,
         };
         this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
+        console.log(result);
         return result;
       }
 
@@ -38,14 +39,11 @@ export class SendCodeToExecApiHandler
       };
       this.eventBus.publish(new SendCodeToExecApiEvent(command.execCodeDto));
       return result;
-    } catch (error) {
-      this.eventBus.publish(new ErrorsEvent('SendCodeToExecApiHandler', error));
-      throw error;
+    } catch (err) {
+      return {
+        error: 'Something went Wrong try again',
+        result: null,
+      };
     }
   }
-
-
 }
-
-
-

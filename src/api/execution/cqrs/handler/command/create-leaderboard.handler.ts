@@ -24,6 +24,7 @@ export class CreateLeaderboardHandler
         exercise: command.exercise,
         timerScore: command.timerScore,
         executionId: command.executionId,
+        language: command.exercise.exerciseTemplate.language,
       });
       const err = await validate(leaderboard, {
         validationError: { target: false },
