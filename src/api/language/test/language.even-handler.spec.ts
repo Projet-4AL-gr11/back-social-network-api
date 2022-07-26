@@ -6,7 +6,7 @@ import { CreateLanguageEventHandler } from '../cqrs/event-handler/create-languag
 import { UpdateLanguageEventHandler } from '../cqrs/event-handler/update-language.event-handler';
 
 describe('LanguageEventHandler', () => {
-  const mockLanguageDto = new LanguageDto('test');
+  const mockLanguageDto = new LanguageDto('test', 'test');
   afterEach(() => {
     jest.clearAllMocks();
   });

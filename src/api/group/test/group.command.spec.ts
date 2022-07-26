@@ -7,6 +7,7 @@ import { RemoveUserFromGroupCommand } from '../cqrs/command/remove-user-from-gro
 import { UpdateGroupCommand } from '../cqrs/command/update-group.command';
 import { AddGroupFollowerCommand } from '../cqrs/command/add-group-follower.command';
 import { RemoveGroupFollowerCommand } from '../cqrs/command/remove-group-follower.command';
+import { RemoveOptions, SaveOptions } from 'typeorm';
 
 describe('GroupCommand', () => {
   const mockUser1: User = new User();
@@ -54,9 +55,78 @@ describe('GroupCommand', () => {
 
   describe('AddGroupFollowerCommand', () => {
     it('should create a AddGroupFollowerCommand instance', () => {
-      const command = new AddGroupFollowerCommand('1', '2');
-      expect(command.userId).toBe('1');
-      expect(command.groupId).toBe('2');
+      const command = new AddGroupFollowerCommand(
+        {
+          groups: [],
+          recover(options: SaveOptions | undefined): Promise<User> {
+            return Promise.resolve(undefined);
+          },
+          remove(options: RemoveOptions | undefined): Promise<User> {
+            return Promise.resolve(undefined);
+          },
+          reported: [],
+          reports: [],
+          requestedFriends: [],
+          save(options: SaveOptions | undefined): Promise<User> {
+            return Promise.resolve(undefined);
+          },
+          softRemove(options: SaveOptions | undefined): Promise<User> {
+            return Promise.resolve(undefined);
+          },
+          hasId(): boolean {
+            return false;
+          },
+          reload(): Promise<void> {
+            return Promise.resolve(undefined);
+          },
+          async setPassword(password: string): Promise<void> {
+            return Promise.resolve(undefined);
+          },
+          bannerPicture: undefined,
+          bio: '',
+          blockedUsers: [],
+          blockers: [],
+          comments: [],
+          connections: [],
+          createdEvents: [],
+          createdPosts: [],
+          email: '',
+          eventRanking: [],
+          eventsParticipation: [],
+          followedGroups: [],
+          friendRequests: [],
+          friendsOne: [],
+          friendsTwo: [],
+          groupRequests: [],
+          joinedConversations: [],
+          leaderboards: [],
+          likedPosts: [],
+          messages: [],
+          password: '',
+          profilePicture: undefined,
+          userType: undefined,
+          username: '',
+          id: '1',
+        },
+        {
+          bannerPicture: undefined,
+          conversation: undefined,
+          events: [],
+          followers: [],
+          members: [],
+          name: '',
+          picture: undefined,
+          posts: [],
+          reported: [],
+          requestSend: [],
+          async setConversation(): Promise<void> {
+            return Promise.resolve(undefined);
+          },
+          id: '2',
+        },
+      );
+      expect(command.user.id).toBe('1');
+      expect(command.group.id).toBe('2');
       expect(command instanceof AddGroupFollowerCommand).toBe(true);
     });
   });
