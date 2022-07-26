@@ -4,7 +4,7 @@ import { DeleteLanguageCommand } from '../cqrs/command/delete-language.command';
 import { UpdateLanguageCommand } from '../cqrs/command/update-language.command';
 
 describe('LanguageCommand', () => {
-  const mockLanguageDto = new LanguageDto('test');
+  const mockLanguageDto = new LanguageDto('test', 'test');
   describe('CreateLanguageCommand', () => {
     it('should create a CreateLanguageCommand instance', () => {
       const command = new CreateLanguageCommand(mockLanguageDto);
