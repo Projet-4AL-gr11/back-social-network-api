@@ -12,9 +12,9 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
       database: process.env.TYPEORM_DATABASE,
       ssl: true,
       extra: {
-        "ssl": {
-          "rejectUnauthorized": false
-        }
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
 
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
